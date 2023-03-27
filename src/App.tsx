@@ -1,10 +1,10 @@
 import './App.css'
+import FilmList from './components/UserFilmsList/FilmList'
 
 function App() {
 
   return (
-
-    <h1>Hellow World</h1>
+    <FilmList></FilmList>
   )
 }
 

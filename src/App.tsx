@@ -1,10 +1,12 @@
 import './App.css'
-import FilmList from './components/UserFilmsList/FilmList'
+import {BrowserRouter} from 'react-router-dom'
+import { AppRouter } from './Router'; 
 
 function App() {
-
   return (
-    <FilmList></FilmList>
+    <BrowserRouter>
+      <AppRouter/>
+    </BrowserRouter>
   )
 }
 

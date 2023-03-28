@@ -1,11 +1,13 @@
-import './App.css'
-import FilmList from './components/UserFilmsList/FilmList'
+import "./App.css";
+import Film from "./components/UserFilmsList/Film";
+import FilmList from "./components/UserFilmsList/FilmList";
 
 function App() {
-
   return (
-    <FilmList></FilmList>
-  )
+    <>
+      <FilmList></FilmList>
+    </>
+  );
 }
 
-export default App
+export default App;

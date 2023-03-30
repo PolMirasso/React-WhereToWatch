@@ -25,7 +25,7 @@ export const LoginPage: React.FC<{}> = () =>{
     e.preventDefault();
     console.log(loginData);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login/", {
+      const response = await fetch("https://wheretowatch-vps.herokuapp.com/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

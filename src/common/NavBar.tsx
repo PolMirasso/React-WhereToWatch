@@ -1,26 +1,34 @@
 import React from "react";
-import {AppBar, Box, Toolbar, Container, Grid, Button, Typography , Stack} from "@mui/material";
 
-export const NavBar: React.FC<{}> = () =>{
-    return(
-        <Box sx={{flexGrow : 1}}>
-            <AppBar position="fixed">
-                <Toolbar>
-                    <Container maxWidth='xl'>
-                        <Grid container direction="row" justifyContent="space-between" alignItems="center">
-                            <Grid item>
-                                <Typography>WTW</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Stack direction={"row"} spacing={2}>
-                                    <Button fullWidth variant='contained'>Login</Button>
-                                    <Button fullWidth variant='contained'>Register</Button>
-                                </Stack>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    );
-}
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Container,
+  Grid,
+  Button,
+  Typography,
+  Stack,
+} from "@mui/material";
+
+// <Button fullWidth variant='contained'>Login</Button>
+// <Button fullWidth variant='contained'>Register</Button>
+
+export const NavBar: React.FC<{}> = () => {
+  return (
+    <div className="nav container">
+      <a href="/" className="logo">
+        Where <span>To</span> Watch
+      </a>
+
+      <div className="search-box">
+        <input type="search" name="" id="search-input" />
+        {/* icono lupa */}
+      </div>
+
+      <a href="#" className="user">
+        <img src="" alt="" className="user-img" />
+      </a>
+    </div>
+  );
+};

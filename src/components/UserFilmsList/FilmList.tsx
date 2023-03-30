@@ -27,16 +27,19 @@ function FilmList() {
   async function fetchData() {
     try {
       console.log("asad: " + page);
-      const response = await fetch("http://127.0.0.1:8000/getTopRatedFilms/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          num_page: page.toString(),
-          language: "ca",
-        }).toString(),
-      });
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getTopRatedFilms/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            num_page: page.toString(),
+            language: "ca",
+          }).toString(),
+        }
+      );
       const data = await response.json();
       setFilms(data);
     } catch (error) {
@@ -49,37 +52,6 @@ function FilmList() {
 
   return (
     <>
-      <div className={page_styles.body}>
-        <div className={page_styles.header}>
-          <div className={page_styles.nav}>
-            <div className={page_styles.logo_ul}>
-              <img
-                src="https://www.aps.edu/sapr/images/pnglot.comtwitterbirdlogopng139735.png"
-                alt=""
-              />
-
-              <ul>
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="/">Login</a>
-                </li>
-                <li>
-                  <a href="/">Register</a>
-                </li>
-              </ul>
-            </div>
-            <div className={page_styles.user}>
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div>
         <h1>Pelicules recomanades</h1>
         <ul className={film_styles.movies}>

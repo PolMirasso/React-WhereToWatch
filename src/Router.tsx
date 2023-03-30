@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route } from "react-router-dom";
+<<<<<<< Updated upstream
 import { RouterLayout } from './common/RouterLayout';
 import { FilmPage } from './pages/film';
 import { HomePage } from './pages/home';
@@ -19,3 +20,21 @@ export const AppRouter: React.FC<{}> = () =>{
     );
 
 }
+=======
+import { RouterLayout } from "./common/RouterLayout";
+import { HomePage } from "./pages/home";
+import { LoginPage } from "./pages/login";
+import { RegisterPage } from "./pages/register";
+
+export const AppRouter: React.FC<{}> = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<RouterLayout />}>
+        <Route path="/" element={<HomePage />} />
+      </Route>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+    </Routes>
+  );
+};
+>>>>>>> Stashed changes

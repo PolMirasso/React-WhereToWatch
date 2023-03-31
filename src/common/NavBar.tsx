@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 
@@ -18,6 +18,22 @@ import FilmList from "../pages/home/FilmList";
 // <Button fullWidth variant='contained'>Register</Button>
 
 export const NavBar: React.FC<{}> = () => {
+  const [input, setInput] = useState("");
+  const fechData = (value) = > {
+    fetch("")
+    .then((response) => response.json())
+    .then((json) => {
+      return(
+        value&&
+        Film&&
+        Film.name&&
+        Film.name.toLowerCase().includes(value)
+      );
+    });
+    console.log(results);
+
+  }
+ 
   return (
     <>
       <div className="nav container">
@@ -26,7 +42,7 @@ export const NavBar: React.FC<{}> = () => {
         </a>
 
         <div className="search-box">
-          <input type="search" name="" id="search-input" />
+          <input value={input}  onChange={{e} => setInput(e.target.value)} type="search" name="" id="search-input" />
           <i className="bx">
             <HiOutlineMagnifyingGlass />
           </i>

@@ -9,12 +9,18 @@ import { ThemeConfig } from '../../config/theme.config';
 type RegisterType = {
   username: string,
   password: string,
+  email: string,
+  age: number,
+  
 } 
 
 export const RegisterPage: React.FC<{}> = () =>{
   const [registerData,setRegisterData] = React.useState<RegisterType>({
     username:"",
     password:"",
+    email:"",
+    age:0,
+    
   })
 
   const dataRegister =(e: React.ChangeEvent<HTMLInputElement>)=>{  
@@ -33,6 +39,7 @@ export const RegisterPage: React.FC<{}> = () =>{
         body: new URLSearchParams({
           username: registerData.username,
           password: registerData.password,
+         
         }).toString(),
       });
       const data = await response.json();

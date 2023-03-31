@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import page_styles from "../../module/main.module.css";
-import film_styles from "../../module/films.module.css";
+import film_styles from "../../module/filmList.module.css";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
+import { sliderClasses } from "@mui/material";
 
 function FilmList() {
   interface Film {
@@ -28,7 +28,6 @@ function FilmList() {
   async function fetchData() {
     try {
       console.log(films);
-      console.log("asad: " + page);
       const response = await fetch(
         "https://wheretowatch-vps.herokuapp.com/getTopRatedFilms/",
         {
@@ -69,27 +68,69 @@ function FilmList() {
 
           <br />
 
-          <div className="popular-content">
+          <div className={film_styles.sliderContent}>
             <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+              slidesPerView={1}
               spaceBetween={50}
-              slidesPerView={3}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                el: ".swiper-pagination",
+                clickable: true,
+              }}
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              }}
+              breakpoints={{
+                280: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
+                320: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                510: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                758: {
+                  slidesPerView: 3,
+                  spaceBetween: 15,
+                },
+                900: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+              }}
               onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
             >
               {films.map((film) => (
                 <SwiperSlide>
-                  <div key={film.film_id}>
-                    <img src={film.poster_path} alt={film.title} width="150" />
-                    <h2>{film.title}</h2>
+                  <div key={film.film_id} className={film_styles.sliderContent}>
+                    <img
+                      src={film.poster_path}
+                      alt={film.title}
+                      className={film_styles.movieImage}
+                    />
+                    <h2 className={film_styles.filmBoxText}>{film.title}</h2>
                   </div>
                 </SwiperSlide>
               ))}
               <SwiperSlide>
-                <a onClick={incrementPage}>
+                <a
+                  onClick={incrementPage}
+                  className={film_styles.sliderContent}
+                >
                   <img
                     src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
-                    alt=""
+                    alt="btn_more"
+                    className={film_styles.movieImage}
                   />
                 </a>
               </SwiperSlide>

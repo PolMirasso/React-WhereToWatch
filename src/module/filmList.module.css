@@ -1,0 +1,46 @@
+.movies{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            150px,
+            1fr
+        )
+    );
+    gap: 16px;
+}
+
+
+.movieBox{
+    position: relative;
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+}
+
+.movieImage{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.filmBoxText{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 14px;
+    background: linear-gradient(
+        8deg,
+        hsl(240 17% 14% / 74%) 14%,
+        hsl(240 17% 14% / 14%) 44%
+    );
+    overflow: hidden;
+
+    font-size: 1.1rem;
+    font-weight: 500;
+}

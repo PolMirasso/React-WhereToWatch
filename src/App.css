@@ -148,3 +148,23 @@ header{
 .nav-link-title{
     font-size: 0.7rem;
 }
+
+section{
+    padding: 3rem 0 2rem;
+}
+
+/* Pelis populars */
+
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--container-color);
+    padding: 8px 14px;
+    border: 1px solid hsl(200, 100%, 99% / 5);
+}
+
+.heading-title{
+    font-size: 1.2rem;
+    font-weight: 500;
+}

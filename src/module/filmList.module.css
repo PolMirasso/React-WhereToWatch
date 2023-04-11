@@ -44,3 +44,12 @@
     font-size: 1.1rem;
     font-weight: 500;
 }
+
+
+.SwiperButtonNext::after,
+.SwiperButtonPrev::after {
+    color: var(--text-color);
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+    text-shadow: 0 0 10px black;
+
+}

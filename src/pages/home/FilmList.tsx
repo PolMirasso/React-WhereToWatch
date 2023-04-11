@@ -3,11 +3,16 @@ import film_styles from "../../module/filmList.module.css";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
+
 import { sliderClasses } from "@mui/material";
+import { NavigationType } from "react-router-dom";
 
 function FilmList() {
   interface Film {
@@ -17,17 +22,15 @@ function FilmList() {
   }
 
   const [films, setFilms] = useState<Film[]>([]);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
 
   const incrementPage = () => {
     // Update state with incremented value
     setPage(page + 1);
-    fetchData();
   };
 
   async function fetchData() {
     try {
-      console.log(films);
       const response = await fetch(
         "https://wheretowatch-vps.herokuapp.com/getTopRatedFilms/",
         {
@@ -41,22 +44,22 @@ function FilmList() {
           }).toString(),
         }
       );
+
+      console.log("Page:" + page);
+
       const data = await response.json();
 
       const dataFinal = films.concat(data);
 
-      console.log("=================");
-      console.log(dataFinal);
-      console.log("=================");
-
-      setFilms(dataFinal);
+      setFilms(dataFinal); // Add the films from the current page to the existing films state
     } catch (error) {
       console.error("Error fetching films:", error);
     }
   }
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -67,60 +70,60 @@ function FilmList() {
           </div>
 
           <br />
-
-          <div className={film_styles.sliderContent}>
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-              slidesPerView={1}
-              spaceBetween={50}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                el: ".swiper-pagination",
-                clickable: true,
-              }}
-              navigation={{
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-              }}
-              breakpoints={{
-                280: {
-                  slidesPerView: 1,
-                  spaceBetween: 10,
-                },
-                320: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                510: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                758: {
-                  slidesPerView: 3,
-                  spaceBetween: 15,
-                },
-                900: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
-            >
+          <Swiper
+            modules={[Navigation, Scrollbar, A11y, Autoplay]}
+            slidesPerView={1}
+            spaceBetween={50}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={{
+              prevEl: ".swiper-button-prev",
+              nextEl: ".swiper-button-next",
+            }}
+            breakpoints={{
+              280: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              510: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              758: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              900: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+            }}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            <div className={film_styles.sliderContent}>
               {films.map((film) => (
-                <SwiperSlide>
-                  <div key={film.film_id} className={film_styles.sliderContent}>
-                    <img
-                      src={film.poster_path}
-                      alt={film.title}
-                      className={film_styles.movieImage}
-                    />
-                    <h2 className={film_styles.filmBoxText}>{film.title}</h2>
-                  </div>
-                </SwiperSlide>
+                <div>
+                  <SwiperSlide>
+                    <div className={film_styles.sliderContent}>
+                      <img
+                        src={film.poster_path}
+                        alt={film.title}
+                        className={film_styles.movieImage}
+                      />
+                      <h2 className={film_styles.filmBoxText}>{film.title}</h2>
+                    </div>
+                  </SwiperSlide>
+                </div>
               ))}
               <SwiperSlide>
                 <a
@@ -134,8 +137,15 @@ function FilmList() {
                   />
                 </a>
               </SwiperSlide>
-            </Swiper>
-          </div>
+            </div>
+
+            <div
+              className={`${film_styles.SwiperButtonPrev} swiper-button-prev`}
+            ></div>
+            <div
+              className={`${film_styles.SwiperButtonNext} swiper-button-next`}
+            ></div>
+          </Swiper>
         </section>
         {/* https://youtu.be/vwYiYMxUu4o?t=1290 */}
       </section>

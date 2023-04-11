@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-
 import {
   AppBar,
   Box,
@@ -19,7 +18,22 @@ import FilmList from "../pages/home/FilmList";
 
 export const NavBar = () => {
 
- 
+  const [input, setInput] = useState("");
+
+  const fetchData = (value: React.SetStateAction<string>) => {
+    fetch("https://wheretowatch-vps.herokuapp.com/getAllFilms/").then ((response) => response.json()).then((json) => {
+      const results = json.filter((film: { name: { toLowerCase: () => React.SetStateAction<string>[]; }; }) => {
+        return film && film.name && film.name.toLowerCase().includes(value)
+      });
+      console.log(results);
+    }); 
+  }
+
+  const handleChange = (value: React.SetStateAction<string>) => {
+    setInput(value);
+    fetchData(value);
+  };
+
   return (
     <>
       <div className="nav container">
@@ -28,8 +42,9 @@ export const NavBar = () => {
         </a>
 
         <div className="search-box">
-          <input type="search" name="" id="search-input" />
+          <input type="search" value={input} onChange={(e) => handleChange(e.target.value)} placeholder="Escriu per cercar..." name="" id="search-input" />
           <i className="bx">
+            
             <HiOutlineMagnifyingGlass />
           </i>
         </div>

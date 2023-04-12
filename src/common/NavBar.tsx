@@ -73,8 +73,8 @@ export const NavBar = () => {
               className="user-img"
             />
             <ul className="dropdown">
-              <li><a className="log" href="/register">Register</a></li>
-              <li><a className="reg" href="/register">Login</a></li>
+              <li><a className="log" href="/login">Login</a></li>
+              <li><a className="reg" href="/register">Register</a></li>
             </ul>
           </li>
         </ul>

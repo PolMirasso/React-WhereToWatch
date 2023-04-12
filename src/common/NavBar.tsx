@@ -65,17 +65,19 @@ export const NavBar = () => {
             <HiOutlineMagnifyingGlass />
           </i>
         </div>
-        <li className="dropdown-li">
-          <img
-            src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
-            alt=""
-            className="user-img"
-          />
-          <ul className="dropdown">
-            <label>Benvinguts a Where To Watch</label>
-            <li><a href="/login">LOGIN</a><a href="/register">REGISTER</a></li>
-          </ul>
-        </li>
+        <ul className="main-links">
+          <li className="dropdown-li">
+            <img
+              src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
+              alt=""
+              className="user-img"
+            />
+            <ul className="dropdown">
+              <li><a className="log" href="/register">Register</a></li>
+              <li><a className="reg" href="/register">Login</a></li>
+            </ul>
+          </li>
+        </ul>
 
         <div className="navbar">
           <a href="#" className="nav-link nav-active">

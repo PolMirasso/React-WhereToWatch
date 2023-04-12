@@ -14,6 +14,11 @@ import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 import { sliderClasses } from "@mui/material";
 import { NavigationType } from "react-router-dom";
 
+// interface RecivedData{
+
+// }
+
+// function FilmList({ data }: {data:}) {
 function FilmList() {
   interface Film {
     film_id: number;

@@ -98,7 +98,9 @@ export const NavBar = () => {
           </a>
         </div>
       </div>
+      {/* <FilmList data={"popular"}></FilmList> */}
       <FilmList></FilmList>
+      {/* <FilmList></FilmList> */}
     </>
   );
 };

@@ -22,6 +22,7 @@ interface FilmListProps {
   propsReceive: {
     title: string;
     url: string;
+    genreid: number;
   };
   key: string;
 }
@@ -43,23 +44,43 @@ function FilmList(props: FilmListProps) {
 
   async function fetchData() {
     try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            num_page: page.toString(),
-            language: "ca",
-          }).toString(),
-        }
-      );
+      let response;
 
-      console.log("Page:" + page);
+      if (props.propsReceive.url == "getMoviesByGenre") {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              page: page.toString(),
+              language: "es",
+              genres_id: props.propsReceive.genreid.toString(),
+            }).toString(),
+          }
+        );
+      } else {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              num_page: page.toString(),
+              language: "ca",
+              genres_id: props.propsReceive.genreid.toString(),
+            }).toString(),
+          }
+        );
+      }
 
       const data = await response.json();
+
+      console.log("peticio:" + props.propsReceive.title);
 
       const dataFinal = films.concat(data);
 

@@ -13,11 +13,13 @@
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
     "add": "^2.0.6",
+    "bootstrap": "^5.2.3",
     "boxicons": "^2.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
+    "reactstrap": "^9.1.8",
     "styled-components": "^5.3.9",
     "swiper": "^9.1.1"
   },

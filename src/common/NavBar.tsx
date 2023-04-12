@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineUnorderedList } from "react-icons/ai";
 import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+import {
   AppBar,
   Box,
   Toolbar,
@@ -58,14 +64,19 @@ export const NavBar = () => {
             <HiOutlineMagnifyingGlass />
           </i>
         </div>
-
-        <a href="#" className="user">
-          <img
-            src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
-            alt=""
-            className="user-img"
-          />
-        </a>
+        <ul className="main-links">
+          <li className="dropdown-li">
+            <img
+              src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
+              alt=""
+              className="user-img"
+            />
+            <ul className="dropdown">
+              <li><a className="log" href="/register">Register</a></li>
+              <li><a className="reg" href="/register">Login</a></li>
+            </ul>
+          </li>
+        </ul>
 
         <div className="navbar">
           <a href="#" className="nav-link nav-active">

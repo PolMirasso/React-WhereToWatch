@@ -11,7 +11,6 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import FilmList from "../pages/home/FilmList";
 
 // <Button fullWidth variant='contained'>Login</Button>
 // <Button fullWidth variant='contained'>Register</Button>
@@ -89,9 +88,6 @@ export const NavBar = () => {
           </a>
         </div>
       </div>
-      {/* <FilmList data={"popular"}></FilmList> */}
-      <FilmList></FilmList>
-      {/* <FilmList></FilmList> */}
     </>
   );
 };

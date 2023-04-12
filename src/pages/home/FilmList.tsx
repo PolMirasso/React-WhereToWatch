@@ -16,10 +16,17 @@ import { NavigationType } from "react-router-dom";
 
 // interface RecivedData{
 
-// }
-
 // function FilmList({ data }: {data:}) {
-function FilmList() {
+
+interface FilmListProps {
+  propsReceive: {
+    title: string;
+    url: string;
+  };
+  key: string;
+}
+
+function FilmList(props: FilmListProps) {
   interface Film {
     film_id: number;
     title: string;
@@ -37,7 +44,7 @@ function FilmList() {
   async function fetchData() {
     try {
       const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getTopRatedFilms/",
+        "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
         {
           method: "POST",
           headers: {
@@ -69,9 +76,9 @@ function FilmList() {
   return (
     <>
       <section className="home container" id="home">
-        <section className="popular container" id="popular">
+        <section className="films container" id="films">
           <div className="heading">
-            <h2 className="heading-title">Pelicules populars</h2>
+            <h2 className="heading-title"> {props.propsReceive.title}</h2>
           </div>
 
           <br />
@@ -117,18 +124,16 @@ function FilmList() {
           >
             <div className={film_styles.sliderContent}>
               {films.map((film) => (
-                <div>
-                  <SwiperSlide>
-                    <div className={film_styles.sliderContent}>
-                      <img
-                        src={film.poster_path}
-                        alt={film.title}
-                        className={film_styles.movieImage}
-                      />
-                      <h2 className={film_styles.filmBoxText}>{film.title}</h2>
-                    </div>
-                  </SwiperSlide>
-                </div>
+                <SwiperSlide key={film.film_id}>
+                  <div className={film_styles.sliderContent}>
+                    <img
+                      src={film.poster_path}
+                      alt={film.title}
+                      className={film_styles.movieImage}
+                    />
+                    <h2 className={film_styles.filmBoxText}>{film.title}</h2>
+                  </div>
+                </SwiperSlide>
               ))}
               <SwiperSlide>
                 <a

@@ -147,7 +147,6 @@ function FilmList() {
             ></div>
           </Swiper>
         </section>
-        {/* https://youtu.be/vwYiYMxUu4o?t=1290 */}
       </section>
     </>
   );

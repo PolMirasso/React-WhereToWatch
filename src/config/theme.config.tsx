@@ -6,8 +6,8 @@ type ThemeProp = {
 };
 
 export enum themePalette {
-    BG = "#0d1b2a",
-    BLUE = "#778DA9",
+    BG = "#272725",
+    BLACK = "#ffb43a",
     FONT_GLOBAL = "'Barlow Condensed', sans-serif",
     //Alert_Styles
     ERROR_MAIN ="#f44336",
@@ -21,7 +21,7 @@ const theme = createTheme({
             default: themePalette.BG,
         },
         primary:{
-            main: themePalette.BLUE,
+            main: themePalette.BLACK,
         },
     },
     typography:{

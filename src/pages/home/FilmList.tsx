@@ -13,6 +13,7 @@ import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 
 import { sliderClasses } from "@mui/material";
 import { NavigationType } from "react-router-dom";
+import FilmRecommended from "./FilmRecommended";
 
 // interface RecivedData{
 
@@ -161,5 +162,4 @@ function FilmList(props: FilmListProps) {
     </>
   );
 }
-
 export default FilmList;

@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  max-width: 1060px;
+  max-width: 1068px;
   margin: auto;
   width: 100%;
 }
@@ -138,6 +138,7 @@ header {
 .nav-link:hover,
 .nav-active {
   color: var(--text-color);
+  
   transition: 0.3s all linear;
   transform: scale(1.1);
 }
@@ -151,10 +152,10 @@ header {
 }
 
 section {
-  padding: 3rem 0 2rem;
+  padding: 1rem 0 2rem;
 }
 
-/* Pelis populars */
+/* film sliders */
 
 .heading {
   display: flex;

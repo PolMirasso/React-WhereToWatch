@@ -5,7 +5,7 @@ import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField";
 import { ThemeConfig } from "../../config/theme.config";
-import film_styles from "../../module/login.module.css";
+import film_styles from "../../module/loginregister.module.css";
 
 type LoginType = {
   username: string;

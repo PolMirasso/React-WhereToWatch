@@ -72,7 +72,7 @@ function FilmList(props: FilmListProps) {
             },
             body: new URLSearchParams({
               num_page: page.toString(),
-              language: "ca",
+              language: "es",
             }).toString(),
           }
         );
@@ -147,14 +147,17 @@ function FilmList(props: FilmListProps) {
           <div className={film_styles.sliderContent}>
             {films.map((film) => (
               <SwiperSlide key={film.film_id}>
-                <div className={film_styles.sliderContent}>
+                <a
+                  href={`/film/${film.film_id}`}
+                  className={film_styles.sliderContent}
+                >
                   <img
                     src={film.poster_path}
                     alt={film.title}
                     className={film_styles.movieImage}
                   />
                   <h2 className={film_styles.filmBoxText}>{film.title}</h2>
-                </div>
+                </a>
               </SwiperSlide>
             ))}
             <SwiperSlide>

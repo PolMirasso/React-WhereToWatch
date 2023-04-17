@@ -7,6 +7,12 @@ import { SearchResultsList } from "./SearchResultsList";
 
 export const NavBar = () => {
   const [results, setResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+
+  const handleSearch = () => {
+    // implement the search functionality here and update the results state
+    setShowResults(true); // set the showResults state to true when the search is completed
+  };
 
   return (
     <div className={navbar_styles.header}>
@@ -16,8 +22,9 @@ export const NavBar = () => {
         </a>
         <div className={navbar_styles.searchBox}>
           <SearchBar setResults={setResults} />
+          <SearchResultsList results={results} />
         </div>
-        <SearchResultsList results={results} />
+        
 
         <ul className={navbar_styles.mainLinks}>
           <li className={navbar_styles.dropdownLi}></li>

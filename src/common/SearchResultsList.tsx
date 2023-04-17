@@ -9,7 +9,7 @@ interface SearchResultsProps {
 export const SearchResultsList = ({results}: SearchResultsProps) => {
   return (
     <div className={searchResults_styles.searchList}>
-        {results.map((result, id) => {
+         {results.slice(0, 5).map((result, id) => {
             return <SearchResult result={result} key={id}/>
           })}
     </div>

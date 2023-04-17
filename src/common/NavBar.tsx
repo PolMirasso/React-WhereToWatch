@@ -20,7 +20,10 @@ export const NavBar = () => {
         <SearchResultsList results={results}/>
 
         <ul className={navbar_styles.mainLinks}>
-          <li className={navbar_styles.dropdownLi}>
+          <li className={navbar_styles.dropdownLi}></li>
+         </ul> 
+        <ul className="main-links">
+          <li className="dropdown-li">
             <img
               src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
               alt=""

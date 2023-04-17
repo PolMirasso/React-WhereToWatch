@@ -13,6 +13,7 @@ import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 
 import { sliderClasses } from "@mui/material";
 import { NavigationType } from "react-router-dom";
+import FilmRecommended from "./FilmRecommended";
 
 // interface RecivedData{
 
@@ -46,7 +47,7 @@ function FilmList(props: FilmListProps) {
     try {
       let response;
 
-      if (props.propsReceive.url == "getMoviesByGenre") {
+      if (props.propsReceive.url == "getMoviesByGenre/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
           {
@@ -55,7 +56,7 @@ function FilmList(props: FilmListProps) {
               "Content-Type": "application/x-www-form-urlencoded",
             },
             body: new URLSearchParams({
-              page: page.toString(),
+              num_page: page.toString(),
               language: "es",
               genres_id: props.propsReceive.genreid.toString(),
             }).toString(),
@@ -71,8 +72,7 @@ function FilmList(props: FilmListProps) {
             },
             body: new URLSearchParams({
               num_page: page.toString(),
-              language: "ca",
-              genres_id: props.propsReceive.genreid.toString(),
+              language: "es",
             }).toString(),
           }
         );
@@ -96,91 +96,90 @@ function FilmList(props: FilmListProps) {
 
   return (
     <>
-      <section className="home container" id="home">
-        <section className="films container" id="films">
-          <div className="heading">
-            <h2 className="heading-title"> {props.propsReceive.title}</h2>
-          </div>
+      <section className="popular container" id="popular">
+        <div className="heading">
+          <h2 className="heading-title"> {props.propsReceive.title}</h2>
+        </div>
 
-          <br />
-          <Swiper
-            modules={[Navigation, Scrollbar, A11y, Autoplay]}
-            slidesPerView={1}
-            spaceBetween={50}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
-            }}
-            breakpoints={{
-              280: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
-              320: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-              },
-              510: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-              },
-              758: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-              },
-              900: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-            }}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
-          >
-            <div className={film_styles.sliderContent}>
-              {films.map((film) => (
-                <SwiperSlide key={film.film_id}>
-                  <div className={film_styles.sliderContent}>
-                    <img
-                      src={film.poster_path}
-                      alt={film.title}
-                      className={film_styles.movieImage}
-                    />
-                    <h2 className={film_styles.filmBoxText}>{film.title}</h2>
-                  </div>
-                </SwiperSlide>
-              ))}
-              <SwiperSlide>
+        <br />
+        <Swiper
+          modules={[Navigation, Scrollbar, A11y, Autoplay]}
+          slidesPerView={1}
+          spaceBetween={50}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={{
+            prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+          }}
+          breakpoints={{
+            280: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            320: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            510: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            758: {
+              slidesPerView: 3,
+              spaceBetween: 15,
+            },
+            900: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 25,
+            },
+          }}
+        >
+          <div className={film_styles.sliderContent}>
+            {films.map((film) => (
+              <SwiperSlide key={film.film_id}>
                 <a
-                  onClick={incrementPage}
+                  href={`/film/${film.film_id}`}
                   className={film_styles.sliderContent}
                 >
                   <img
-                    src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
-                    alt="btn_more"
+                    src={film.poster_path}
+                    alt={film.title}
                     className={film_styles.movieImage}
                   />
+                  <h2 className={film_styles.filmBoxText}>{film.title}</h2>
                 </a>
               </SwiperSlide>
-            </div>
+            ))}
+            <SwiperSlide>
+              <a onClick={incrementPage} className={film_styles.sliderContent}>
+                <img
+                  src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
+                  alt="btn_more"
+                  className={film_styles.movieImage}
+                />
+              </a>
+            </SwiperSlide>
+          </div>
 
-            <div
-              className={`${film_styles.SwiperButtonPrev} swiper-button-prev`}
-            ></div>
-            <div
-              className={`${film_styles.SwiperButtonNext} swiper-button-next`}
-            ></div>
-          </Swiper>
-        </section>
+          <div
+            className={`${film_styles.SwiperButtonPrev} swiper-button-prev`}
+          ></div>
+          <div
+            className={`${film_styles.SwiperButtonNext} swiper-button-next`}
+          ></div>
+        </Swiper>
       </section>
     </>
   );
 }
-
 export default FilmList;

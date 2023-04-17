@@ -1,0 +1,15 @@
+.logo {
+    text-align: center;
+    font-size: 6.4rem;
+    color: var(--text-color);
+    font-weight: 1000;
+    text-transform: uppercase;
+    margin: 0 auto 0 0;
+  }
+  .logo span {
+    color: var(--main-color);
+  }
+  .inicia {
+    font-size: 1.0rem;
+    font-weight: 500;
+  }

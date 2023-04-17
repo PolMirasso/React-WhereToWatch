@@ -37,10 +37,7 @@ function FilmRecommended() {
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(() => {
-    console.log("reload");
-    console.log(filmGenres);
-  }, [filmGenres]);
+  useEffect(() => {}, [filmGenres]);
 
   return (
     <>
@@ -75,16 +72,14 @@ function FilmRecommended() {
       {filmGenres.length > 0 && (
         <>
           {filmGenres.map((genres) => (
-            <div key={genres.id}>
-              <FilmList
-                key={genres.name}
-                propsReceive={{
-                  title: "Pelicules " + genres.name,
-                  url: "getMoviesByGenre/",
-                  genreid: genres.id,
-                }}
-              />
-            </div>
+            <FilmList
+              key={genres.name}
+              propsReceive={{
+                title: "Pelicules " + genres.name,
+                url: "getMoviesByGenre/",
+                genreid: genres.id,
+              }}
+            />
           ))}
         </>
       )}

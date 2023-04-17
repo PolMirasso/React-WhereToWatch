@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  max-width: 1060px;
+  max-width: 1300px;
   margin: auto;
   width: 100%;
 }
@@ -138,6 +138,7 @@ header {
 .nav-link:hover,
 .nav-active {
   color: var(--text-color);
+  
   transition: 0.3s all linear;
   transform: scale(1.1);
 }
@@ -151,10 +152,10 @@ header {
 }
 
 section {
-  padding: 3rem 0 2rem;
+  padding: 1rem 0 2rem;
 }
 
-/* Pelis populars */
+/* film sliders */
 
 .heading {
   display: flex;
@@ -179,7 +180,7 @@ html::-webkit-scrollbar-thumb {
   background-color: var(--main-color);
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 1270px) {
   .navbar {
     bottom: 0;
     left: 0;
@@ -265,7 +266,40 @@ html::-webkit-scrollbar-thumb {
   .home {
     min-height: 380px;
   }
+  .heading{
+    padding: 2px 14px;
+  }
+  .heading-title{
+    font-size: 1rem;
+  }
 }
+
+@media (max-width: 408px) {
+  *{
+    scroll-padding-top: 5rem;
+  }
+  .nav{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 5px;
+  }
+  .search-box{
+    max-width: 100%;
+    width: 100%;
+    border-radius: 4px;
+    order: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .home{
+    min-height: 440px;
+    margin-top: 7rem, !important;
+    
+  }
+}
+
+
 .main-links {
   display: flex;
   gap: 1rem;
@@ -287,10 +321,11 @@ html::-webkit-scrollbar-thumb {
 .dropdown {
   position: absolute;
   top: 100%;
-right: 20%;
+  right: 20%;
   opacity: 0;
   display: none;
   background-color:#2d2e37;
+  border-radius: 8px;
 }
 .dropdown li {
   list-style: none;
@@ -305,6 +340,7 @@ right: 20%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    border-radius: 8px;
 }
 a.reg:link  {
   
@@ -317,4 +353,27 @@ a.reg:link  {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    border-radius: 8px;
+}
+.dropdownProfile{
+  position: absolute;
+  top: 4.5rem;
+  right: 1.5rem;
+  width: 120px;
+  padding:15px;
+  opacity: 0;
+  border-radius: 8px;
+  display: none;
+  background-color:#2d2e37;
+}
+.dropdownProfile::before{
+  content: '';
+  position: absolute;
+  top: -0.7rem;
+  right: 1.1rem;
+  width: 20px;
+  padding:20px;
+  right: 20%;
+  display: none;
+  background-color:#2d2e37;
 }

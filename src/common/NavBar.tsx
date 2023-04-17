@@ -1,101 +1,56 @@
 import React, { useState } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from "reactstrap";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Container,
-  Grid,
-  Button,
-  Typography,
-  Stack,
-} from "@mui/material";
-
-// <Button fullWidth variant='contained'>Login</Button>
-// <Button fullWidth variant='contained'>Register</Button>
+import SearchBar from "./SearchBar";
+import navbar_styles from "../module/navbar.module.css"
+import { SearchResultsList } from "./SearchResultsList";
 
 export const NavBar = () => {
-  const [input, setInput] = useState("");
-
-  const fetchData = (value: React.SetStateAction<string>) => {
-    fetch("https://wheretowatch-vps.herokuapp.com/getAllFilms/")
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.filter(
-          (film: {
-            name: { toLowerCase: () => React.SetStateAction<string>[] };
-          }) => {
-            return film && film.name && film.name.toLowerCase().includes(value);
-          }
-        );
-        console.log(results);
-      });
-  };
-
-  const handleChange = (value: React.SetStateAction<string>) => {
-    setInput(value);
-    fetchData(value);
-  };
+  const [results, setResults] = useState([]);
 
   return (
     <>
-      <div className="nav container">
-        <a href="/" className="logo">
-          Where <span>To</span> Watch
+      <div className={`${navbar_styles.nav} ${navbar_styles.container}`}>
+        <a href="/" className={navbar_styles.logo}>
+          Where<span>To</span>Watch
         </a>
-
-        <div className="search-box">
-          <input
-            type="search"
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
-            placeholder="Escriu per cercar..."
-            name=""
-            id="search-input"
-          />
-          <i className="bx">
-            <HiOutlineMagnifyingGlass />
-          </i>
+        <div className={navbar_styles.searchBox}>
+        <SearchBar setResults={setResults}/>
         </div>
-        <ul className="main-links">
-          <li className="dropdown-li">
+        <SearchResultsList results={results}/>
+
+        <ul className={navbar_styles.mainLinks}>
+          <li className={navbar_styles.dropdownLi}>
             <img
               src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
               alt=""
-              className="user-img"
+              className={navbar_styles.userImg}
             />
-            <ul className="dropdown">
-              <li><a className="log" href="/login">Login</a></li>
-              <li><a className="reg" href="/register">Register</a></li>
+            <ul className={navbar_styles.dropdown}>
+              <li><a className={navbar_styles.log} href="/login">Login</a></li>
+              <li><a className={navbar_styles.reg} href="/register">Register</a></li>
             </ul>
           </li>
         </ul>
 
-        <div className="navbar">
-          <a href="#" className="nav-link nav-active">
-            <i className="bx">
+        <div className={navbar_styles.navbar}>
+          <a href="#" className={`${navbar_styles.navLink} ${navbar_styles.navActive}`}>
+            <i className={navbar_styles.bx}>
               <AiOutlineUnorderedList />
             </i>
-            <span className="nav-link-title">Perfil</span>
+            <span className={navbar_styles.navLinkTitle}>Perfil</span>
           </a>
-          <a href="#" className="nav-link">
-            <i className="bx">
+          <a href="#" className={navbar_styles.navLink}>
+            <i className={navbar_styles.bx}>
               <AiOutlineUnorderedList />
             </i>
-            <span className="nav-link-title">Llistes</span>
+            <span className={navbar_styles.navLinkTitle}>Llistes</span>
           </a>
-          <a href="#" className="nav-link">
-            <i className="bx">
+          <a href="#" className={navbar_styles.navLink}>
+            <i className={navbar_styles.bx}>
               <AiOutlineUnorderedList />
             </i>
-            <span className="nav-link-title">Llistes</span>
+            <span className={navbar_styles.navLinkTitle}>Llistes</span>
           </a>
         </div>
       </div>

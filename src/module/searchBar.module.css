@@ -1,0 +1,31 @@
+.searchBox {
+  max-width: 240px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 0.7rem;
+  padding: 8px 15px;
+  background: var(--container-color);
+  border-radius: 4rem;
+  margin-right: 1rem;
+}
+
+.bx {
+  cursor: pointer;
+}
+
+.searchBox .bx {
+  font-size: 1.1rem;
+}
+.searchBox .bx:hover {
+  color: var(--main-color);
+}
+
+#searchInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  background: transparent;
+  font-size: 0.938rem;
+}

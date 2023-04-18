@@ -164,11 +164,13 @@ function FilmList(props: FilmListProps) {
                   href={`/film/${film.film_id}`}
                   className={film_styles.sliderContent}
                 >
+                  <button>Add to Watchlist</button>
                   <img
                     src={film.poster_path}
                     alt={film.title}
                     className={film_styles.movieImage}
                   />
+
                   <h2 className={film_styles.filmBoxText}>{film.title}</h2>
                 </a>
               </SwiperSlide>

@@ -30,11 +30,13 @@ export const NavBar = () => {
         </ul>
         <ul className="main-links">
           <li className="dropdown-li">
-            <img
-              src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
-              alt=""
-              className={navbar_styles.userImg}
-            />
+            <a href="/profile">
+              <img
+                src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
+                alt=""
+                className={navbar_styles.userImg}
+              />
+            </a>
             <ul className={navbar_styles.dropdown}>
               <li>
                 <a className={navbar_styles.log} href="/login">
@@ -60,7 +62,7 @@ export const NavBar = () => {
             </i>
             <span className={navbar_styles.navLinkTitle}>Perfil</span>
           </a>
-          <a href="#" className={navbar_styles.navLink}>
+          <a href="/lists" className={navbar_styles.navLink}>
             <i className={navbar_styles.bx}>
               <AiOutlineUnorderedList />
             </i>
@@ -70,7 +72,7 @@ export const NavBar = () => {
             <i className={navbar_styles.bx}>
               <AiOutlineUnorderedList />
             </i>
-            <span className={navbar_styles.navLinkTitle}>Llistes</span>
+            <span className={navbar_styles.navLinkTitle}>Altres</span>
           </a>
         </div>
       </div>

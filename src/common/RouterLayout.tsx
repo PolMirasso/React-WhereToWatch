@@ -7,7 +7,6 @@ export const RouterLayout: React.FC<{}> = () => {
   return (
     <>
       <NavBar></NavBar>
-      
     </>
   );
 };

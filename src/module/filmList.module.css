@@ -68,6 +68,30 @@
     border-radius: 0.5rem;
 }
 
+.homeImg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+ 
+.homeText{
+    padding-left: 40px;
+}
+
+.homeTitle{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.homeText p{
+    font-size: 0.938rem;
+    margin: 10px 0 20px;
+    color: var(--main-color);
+}
+
 .heading{
     display: flex;
     align-items: center;
@@ -75,6 +99,7 @@
     background-color: var(--container-color);
     padding: 8px 14px;
     border: 1px solid hsl(200, 100%, 99% / 5%);
+    margin-bottom: 2rem;
 }
 
 .headingTitle{

@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import FilmList from "./FilmList";
+import FilmListBig from "./FilmListBig";
 import film_styles from "../../module/filmList.module.css";
+import navbar_styles from "../..//module/navbar.module.css";
 
 function FilmRecommended() {
   interface FilmGenres {
@@ -21,7 +23,10 @@ function FilmRecommended() {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            language: "es",
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1],
           }).toString(),
         }
       );
@@ -43,7 +48,20 @@ function FilmRecommended() {
   return (
     <>
       <div
-        className={`${film_styles.popular} ${film_styles.container} ${film_styles.section}`}
+        className={`${navbar_styles.section} ${film_styles.home} ${navbar_styles.container}`}
+      >
+        <FilmListBig
+          key={"upcoming"}
+          propsReceive={{
+            title: "Pelicules recients",
+            url: "getUpcomingFilms/",
+            genreid: 0,
+          }}
+        ></FilmListBig>
+      </div>
+
+      <div
+        className={`${film_styles.section} ${film_styles.popular} ${film_styles.container}`}
       >
         <FilmList
           key={"valorades"}
@@ -72,7 +90,6 @@ function FilmRecommended() {
           }}
         />
 
-        {/* Add a conditional check to verify that the filmGenres state is loaded */}
         {filmGenres.length > 0 && (
           <>
             {filmGenres.map((genres) => (

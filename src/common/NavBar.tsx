@@ -24,7 +24,6 @@ export const NavBar = () => {
           <SearchBar setResults={setResults} />
           <SearchResultsList results={results} />
         </div>
-        
 
         <ul className={navbar_styles.mainLinks}>
           <li className={navbar_styles.dropdownLi}></li>

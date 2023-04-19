@@ -1,12 +1,15 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
 import { NavBar } from "./NavBar";
-import FilmRecommended from "../pages/home/FilmRecommended";
+import React from "react";
 
-export const RouterLayout: React.FC<{}> = () => {
+export const RouterLayout: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  ...props
+}) => {
   return (
-    <>
-      <NavBar></NavBar>
-    </>
+    <div {...props}>
+      <NavBar />
+      <main>{children}</main>
+      <footer></footer>
+    </div>
   );
 };

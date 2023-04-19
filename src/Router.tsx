@@ -11,10 +11,38 @@ import { ProfilePage } from "./pages/profile";
 export const AppRouter: React.FC<{}> = () => {
   return (
     <Routes>
-      <Route path="/" element={[<RouterLayout />, <HomePage />]} />
-      <Route path="/lists" element={[<RouterLayout />, <ListPage />]} />
-      <Route path="/profile" element={[<RouterLayout />, <ProfilePage />]} />
-      <Route path="/film/:id" element={[<RouterLayout />, <FilmPage />]} />
+      <Route
+        path="/"
+        element={
+          <RouterLayout>
+            <HomePage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/lists"
+        element={
+          <RouterLayout>
+            <ListPage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <RouterLayout>
+            <ProfilePage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/film/:id"
+        element={
+          <RouterLayout>
+            <FilmPage />
+          </RouterLayout>
+        }
+      />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
     </Routes>

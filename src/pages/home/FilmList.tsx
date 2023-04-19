@@ -8,17 +8,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 
-import { sliderClasses } from "@mui/material";
-import { NavigationType } from "react-router-dom";
-import FilmRecommended from "./FilmRecommended";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
-// interface RecivedData{
-
-// function FilmList({ data }: {data:}) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface FilmListProps {
   propsReceive: {
@@ -91,7 +87,7 @@ function FilmList(props: FilmListProps) {
 
       const dataFinal = films.concat(data);
 
-      setFilms(dataFinal); // Add the films from the current page to the existing films state
+      setFilms(dataFinal);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -122,9 +118,6 @@ function FilmList(props: FilmListProps) {
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
           }}
           navigation={{
             prevEl: ".swiper-button-prev",
@@ -164,14 +157,27 @@ function FilmList(props: FilmListProps) {
                   href={`/film/${film.film_id}`}
                   className={film_styles.sliderContent}
                 >
-                  <button>Add to Watchlist</button>
-                  <img
-                    src={film.poster_path}
-                    alt={film.title}
-                    className={film_styles.movieImage}
-                  />
+                  <div className={film_styles.movieBox}>
+                    <img
+                      src={film.poster_path}
+                      alt={film.title}
+                      className={film_styles.movieImage}
+                    />
+                    <div className={film_styles.boxText}>
+                      <h2 className={film_styles.movieTitle}>{film.title}</h2>
+                      <span className={film_styles.movieType}>nota</span>
+                      <a
+                        href="#"
+                        className={`${film_styles.watchBtn} ${film_styles.playBtn}`}
+                      >
+                        {/* icon className={`${film_styles.bx}`}  */}
 
-                  <h2 className={film_styles.filmBoxText}>{film.title}</h2>
+                        <AiOutlinePlusCircle
+                          className={`${film_styles.bx}`}
+                        ></AiOutlinePlusCircle>
+                      </a>
+                    </div>
+                  </div>
                 </a>
               </SwiperSlide>
             ))}

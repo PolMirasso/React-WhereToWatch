@@ -178,7 +178,7 @@
   }
   
   @media (max-width: 991px) {
-    .movie-box {
+    .movieBox {
       height: 340px;
     }
     .movies-content {

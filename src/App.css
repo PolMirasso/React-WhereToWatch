@@ -86,17 +86,6 @@ header {
   margin-right: 1rem;
 }
 
-.bx {
-  cursor: pointer;
-}
-
-.search-box .bx {
-  font-size: 1.1rem;
-}
-.search-box .bx:hover {
-  color: var(--main-color);
-}
-
 #search-input {
   width: 100%;
   border: none;
@@ -141,10 +130,6 @@ header {
   
   transition: 0.3s all linear;
   transform: scale(1.1);
-}
-
-.nav-link .bx {
-  font-size: 1.6rem;
 }
 
 .nav-link-title {
@@ -198,7 +183,7 @@ html::-webkit-scrollbar-thumb {
       hsl(240, 17%, 14% / 90%) 100%
     );
   }
-  .nav-link .bx {
+  .navLink .bx {
     font-size: 1.5rem;
   }
 }
@@ -376,4 +361,9 @@ a.reg:link  {
   right: 20%;
   display: none;
   background-color:#2d2e37;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  color: var(--main-color);
+  background-color: var(--main-color);
 }

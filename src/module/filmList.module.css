@@ -24,7 +24,7 @@
     object-fit: cover;
 }
 
-.filmBoxText{
+.movieBox .boxText{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -43,10 +43,51 @@
     overflow: hidden;
     color: var(--text-color);
 
+}
+
+
+.movieTitle{
     font-size: 1.1rem;
     font-weight: 500;
 }
 
+.movieType{
+    font-size: 0.938rem;
+    font-weight: 500;
+}
+
+.playBtn{
+    display: flex;
+    align-items: center;
+    column-gap: 0.8rem;
+    color: var(--text-color);
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+    text-decoration: none;
+}
+
+.watchBtn .bx{
+    font-size: 10px;
+    background-color: var(--container-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.watchBtn .bx:hover{
+   
+    background: var(--hover-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .SwiperButtonNext::after,
 .SwiperButtonPrev::after {

@@ -10,15 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { Navigation, Scrollbar, A11y, Autoplay, Pagination } from "swiper";
-
-import { sliderClasses } from "@mui/material";
-import { NavigationType } from "react-router-dom";
-import FilmRecommended from "./FilmRecommended";
-
-// interface RecivedData{
-
-// function FilmList({ data }: {data:}) {
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
 
 interface FilmListProps {
   propsReceive: {
@@ -80,8 +72,6 @@ function FilmList(props: FilmListProps) {
       <div
         className={`${navbar_styles.section} ${film_styles.popular} ${navbar_styles.container} ${film_styles.swiper} swiper`}
       >
-        <br />
-
         <Swiper
           modules={[Navigation, Scrollbar, A11y, Autoplay, Pagination]}
           slidesPerView={1}
@@ -113,13 +103,15 @@ function FilmList(props: FilmListProps) {
                   />
                   <div className={`${film_styles1.play_text}`}>
                     <h1 className={`${film_styles.homeTitle}`}>{film.title}</h1>
-                    {/* <p>genres</p> */}
+                    <p>genres</p>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
-            <div className="swiper-pagination"></div>
           </div>
+          <div
+            className={`${film_styles.swiperPagination} swiper-pagination`}
+          ></div>
         </Swiper>
       </div>
     </>

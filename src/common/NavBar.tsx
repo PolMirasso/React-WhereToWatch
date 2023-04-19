@@ -4,6 +4,7 @@ import { AiOutlineUnorderedList } from "react-icons/ai";
 import SearchBar from "./SearchBar";
 import navbar_styles from "../module/navbar.module.css";
 import { SearchResultsList } from "./SearchResultsList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const NavBar = () => {
   const [results, setResults] = useState([]);
@@ -70,7 +71,7 @@ export const NavBar = () => {
           </a>
           <a href="#" className={navbar_styles.navLink}>
             <i className={navbar_styles.bx}>
-              <AiOutlineUnorderedList />
+              <i className="fas fa-light fa-list-check"></i>
             </i>
             <span className={navbar_styles.navLinkTitle}>Altres</span>
           </a>

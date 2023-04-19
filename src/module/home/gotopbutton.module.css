@@ -1,0 +1,7 @@
+.goTop {
+  display: fixed;
+}
+
+.goTop:hover {
+  transform: scale(1.1);
+}

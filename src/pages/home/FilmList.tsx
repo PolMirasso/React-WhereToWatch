@@ -30,6 +30,7 @@ function FilmList(props: FilmListProps) {
     film_id: number;
     title: string;
     poster_path: string;
+    vote_average: number;
   }
 
   const [films, setFilms] = useState<Film[]>([]);
@@ -165,7 +166,9 @@ function FilmList(props: FilmListProps) {
                     />
                     <div className={film_styles.boxText}>
                       <h2 className={film_styles.movieTitle}>{film.title}</h2>
-                      <span className={film_styles.movieType}>nota</span>
+                      <span className={film_styles.movieType}>
+                        {film.vote_average}
+                      </span>
                       <a
                         href="#"
                         className={`${film_styles.watchBtn} ${film_styles.playBtn}`}

@@ -31,6 +31,9 @@ export const ProfilePage = () => {
 
             <div className={profile_styles.name}>Jessica Potter</div>
             <div className={profile_styles.job}>Visual Artist</div>
+            <p className={profile_styles.job}>
+              <i className="fas fa-map-marker-alt front-icons"></i>Seattle
+            </p>
 
             <div className={profile_styles.actions}>
               <button className={profile_styles.btn}>Follow</button>

@@ -86,7 +86,7 @@
   left: -3px;
   border-width: 1px;
   border-style: solid;
-  border-color: var(--text-color) var(--text-color) var(--text-color)
+  border-color: var(--main-color) var(--main-color) var(--main-color)
     transparent;
   border-radius: 50%;
   transition: all 1.5s ease-in-out;
@@ -96,13 +96,13 @@
   height: 82px;
   top: -6px;
   left: -6px;
-  border-color: var(--text-color) transparent var(--text-color)
-    var(--text-color);
+  border-color: var(--main-color) transparent var(--main-color)
+    var(--main-color);
 }
 .profile .image img {
   display: block;
   border-radius: 50%;
-  background: #f5e8df;
+  background: #ede5df;
 }
 .profile .image:hover {
   cursor: pointer;
@@ -142,7 +142,7 @@
   color: var(--text-color);
 }
 .profile .actions .btn:hover {
-  background: #4c4b4a;
+  background: #afaca9;
   color: #fff;
 }
 .stats {

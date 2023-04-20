@@ -1,13 +1,14 @@
 .searchList {
   flex-direction: column;
+  position: fixed;
   max-width: 240px;
   width: 100%;
   display: flex;
   align-items: center;
   column-gap: 0.7rem;
   padding: 8px 15px;
-  background: var(--container-color);
+  background: var(--container-color); 
   border-radius: 0.8rem;
   margin-right: 1rem;
-  margin-top: 2%;
+  margin-top: 1%;
 }

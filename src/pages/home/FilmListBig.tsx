@@ -26,12 +26,18 @@ function FilmList(props: FilmListProps) {
     film_id: number;
     title: string;
     release_date: string;
-    popularity: string;
+    genre_ids: number[];
     poster_path: string;
     backdrop_path: string;
   }
 
+  interface FilmGenres {
+    id: number;
+    name: string;
+  }
+
   const [films, setFilms] = useState<Film[]>([]);
+  const [filmGenres, setFilmGenres] = useState<FilmGenres[]>([]);
 
   async function fetchData() {
     try {
@@ -63,7 +69,37 @@ function FilmList(props: FilmListProps) {
     }
   }
 
+  async function fetchGenresData() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getGenres/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1],
+          }).toString(),
+        }
+      );
+      const data = await response.json();
+
+      console.log("Dades generes obtingudes");
+
+      console.log(data);
+
+      setFilmGenres(data["genres"]);
+    } catch (error) {
+      console.error("Error fetching genres:", error);
+    }
+  }
+
   useEffect(() => {
+    fetchGenresData();
     fetchData();
   }, []);
 
@@ -95,16 +131,31 @@ function FilmList(props: FilmListProps) {
                 <div
                   className={`${film_styles1.play_container} ${navbar_styles.container}`}
                 >
-                  {" "}
-                  <img
-                    src={film.backdrop_path}
-                    alt="Logo"
-                    className={`${film_styles.homeImg} `}
-                  />
-                  <div className={`${film_styles1.play_text}`}>
-                    <h1 className={`${film_styles.homeTitle}`}>{film.title}</h1>
-                    <p>genres</p>
-                  </div>
+                  <a
+                    href={`/film/${film.film_id}`}
+                    className={film_styles.sliderContent}
+                  >
+                    <img
+                      src={film.backdrop_path}
+                      alt="Logo"
+                      className={`${film_styles.homeImg} `}
+                    />
+                    <div className={`${film_styles1.play_text}`}>
+                      <h1 className={`${film_styles.homeTitle}`}>
+                        {film.title}
+                      </h1>
+                      <p>
+                        Genres:{" "}
+                        {film.genre_ids
+                          .map(
+                            (id) =>
+                              filmGenres.find((genre) => genre.id === id)?.name
+                          )
+                          .filter(Boolean)
+                          .join(", ")}
+                      </p>
+                    </div>
+                  </a>
                 </div>
               </SwiperSlide>
             ))}

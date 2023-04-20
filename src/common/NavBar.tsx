@@ -15,6 +15,10 @@ export const NavBar = () => {
     setShowResults(true); // set the showResults state to true when the search is completed
   };
 
+  function toggleMenu() {
+    const toggleMenu = document.querySelector(".menu");
+    toggleMenu?.classList.toggle("active");
+  }
   return (
     <div className={navbar_styles.header}>
       <div className={`${navbar_styles.nav} ${navbar_styles.container}`}>
@@ -23,35 +27,53 @@ export const NavBar = () => {
         </a>
         <div className={navbar_styles.searchBox}>
           <SearchBar setResults={setResults} />
-          <SearchResultsList results={results} />
+          {results.length > 0 ? <SearchResultsList results={results} /> : null}
         </div>
 
-        <ul className={navbar_styles.mainLinks}>
-          <li className={navbar_styles.dropdownLi}></li>
-        </ul>
-        <ul className="main-links">
-          <li className="dropdown-li">
-            <a href="/profile">
-              <img
-                src="https://cdn.discordapp.com/attachments/985160580648292353/1090935434080686090/user.jpg"
-                alt=""
-                className={navbar_styles.userImg}
-              />
+        {/* <div className={navbar_styles.dropdown}>
+          <a href="/profile">
+            <img
+              src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png"
+              alt=""
+              className={navbar_styles.userImg}
+            />
+          </a>
+          <div className={navbar_styles.dropdownContent}>
+            <a className={`${navbar_styles.marginBottom5} log`} href="/login">
+              Login
             </a>
-            <ul className={navbar_styles.dropdown}>
+            <a
+              className={`${navbar_styles.marginBottom5} reg`}
+              href="/register"
+            >
+              Register
+            </a>
+          </div>
+        </div> */}
+
+        <div className="action">
+          <div className={navbar_styles.userImg} onClick={toggleMenu}>
+            <img src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png" />
+          </div>
+          <div className="menu">
+            <h3>Nom</h3>
+            <ul>
               <li>
-                <a className={navbar_styles.log} href="/login">
-                  Login
-                </a>
+                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
+                <a href="#">My profile</a>
               </li>
               <li>
-                <a className={navbar_styles.reg} href="/register">
-                  Register
-                </a>
+                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
+                <a href="#">Edit profile</a>
+              </li>
+
+              <li>
+                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
+                <a href="#">Logout</a>
               </li>
             </ul>
-          </li>
-        </ul>
+          </div>
+        </div>
 
         <div className={navbar_styles.navbar}>
           <a

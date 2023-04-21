@@ -442,5 +442,99 @@ a.reg:link  {
 }
 
 .action .menu ul li:hover a {
-  color: #ff5d94;
+  color: var(--main-color)
+} 
+
+
+
+
+#button {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
 }
+#button::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#button:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#button:active {
+  background-color: #555;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Styles for the content section */
+
+.content {
+  width: 77%;
+  margin: 50px auto;
+  font-family: 'Merriweather', serif;
+  font-size: 17px;
+  color: #6c767a;
+  line-height: 1.9;
+}
+@media (min-width: 500px) {
+  .content {
+    width: 43%;
+  }
+  #button {
+    margin: 30px;
+  }
+}
+.content h1 {
+  margin-bottom: -10px;
+  color: #03a9f4;
+  line-height: 1.5;
+}
+.content h3 {
+  font-style: italic;
+  color: #96a2a7;
+}
+
+.goTopHidden{
+  display: none;
+}
+
+.goTop{
+  display: block;
+}
+
+.goTop__text{
+  position: fixed;
+  background: var(--main-color);
+  box-shadow: 2px 2px 5px var(--hover-color);
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  bottom: 5%;
+  left: 90%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+}
+.goTop__text:hover{
+  transform: scale(1.1);
+}
+

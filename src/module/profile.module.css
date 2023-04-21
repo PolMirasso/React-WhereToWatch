@@ -4,7 +4,6 @@
 
 .container {
   background-color: var(--container-color);
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 1rem;
   margin-top: 5%;
   position: absolute;

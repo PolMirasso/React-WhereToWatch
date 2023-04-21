@@ -60,7 +60,7 @@ export const NavBar = () => {
             <ul>
               <li>
                 <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                <a href="#">My profile</a>
+                <a href="/profile">My profile</a>
               </li>
               <li>
                 <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />

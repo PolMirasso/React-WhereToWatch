@@ -8,7 +8,9 @@ export const ListPage: React.FC = () => {
       className={`${navbar_styles.section} ${film_styles.home} ${navbar_styles.container}`}
     >
       {" "}
-      <div>Pagina de llistes</div>
+      <form action="">
+        <input type="text" name="listname" placeholder="" />
+      </form>
     </div>
   );
 };

@@ -94,30 +94,6 @@ export const NavBar = () => {
           </div>
         </div>
 
-        <div className="action">
-          <div className={navbar_styles.userImg} onClick={toggleMenu}>
-            <img src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png" />
-          </div>
-          <div className="menu">
-            <h3>Nom</h3>
-            <ul>
-              <li>
-                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                <a href="/profile">My profile</a>
-              </li>
-              <li>
-                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                <a href="#">Edit profile</a>
-              </li>
-
-              <li>
-                <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                <a href="#">Logout</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <div className={navbar_styles.navbar}>
           <a
             href="#"

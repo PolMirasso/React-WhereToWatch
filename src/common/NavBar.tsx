@@ -6,12 +6,11 @@ import navbar_styles from "../module/navbar.module.css";
 import { SearchResultsList } from "./SearchResultsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GoTop from "./goTop";
-import { useUser } from "../services/userManager/userService";
+// import userService from "../services/userManager/userService";
 
 export const NavBar = () => {
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const { user, setUser } = useUser();
 
   const handleSearch = () => {
     // implement the search functionality here and update the results state
@@ -23,9 +22,10 @@ export const NavBar = () => {
     toggleMenu?.classList.toggle("active");
   }
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  // useEffect(() => {
+  //   console.log("user:");
+  //   console.log(userService.user);
+  // }, []);
 
   return (
     <>
@@ -43,8 +43,8 @@ export const NavBar = () => {
 
           <div className="action">
             <div className={navbar_styles.userImg} onClick={toggleMenu}>
-              {/* <img src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png" /> */}
-              <img src={user.image_profile} />
+              <img src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png" />
+              {/* <img src={userService.user.image_profile} /> */}
             </div>
             <div className="menu">
               <h3>UserName</h3>

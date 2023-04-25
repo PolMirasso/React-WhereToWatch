@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { Container, Button, Grid } from "@mui/material";
 import Paper from "@mui/material/Paper/Paper";
 import Box from "@mui/material/Box/Box";
@@ -8,7 +8,6 @@ import { ThemeConfig } from "../../config/theme.config";
 import film_styles from "../../module/loginregister.module.css";
 
 import loginService from "../../services/userManager/login";
-import userService from "../../services/userManager/userService";
 
 export const LoginPage: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
@@ -20,9 +19,8 @@ export const LoginPage: React.FC<{}> = () => {
     try {
       const user = await loginService.login({ username, password });
 
-      window.localStorage.setItem("loggedWTWSession", JSON.stringify(user));
-
-      // userService.setUser(user);
+      console.log(user);
+      // window.localStorage.setItem("loggedWTWSession", JSON.stringify(user));
 
       setUsername("");
       setPassword("");

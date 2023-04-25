@@ -1,4 +1,6 @@
-const login = async (credentials: any) => {
+import Cookies from "js-cookie";
+
+const login = async (credentials) => {
   try {
     const response = await fetch(
       "https://wheretowatch-vps.herokuapp.com/api/login/",
@@ -14,6 +16,18 @@ const login = async (credentials: any) => {
       }
     );
     const data = await response.json();
+
+    console.log(data);
+
+    // Cookies.set("authToken", data.token);
+    const userData = {
+      username: data.username,
+      age: data.age,
+      image_profile: data.image_profile,
+    };
+
+    Cookies.set("authToken", data.token);
+    Cookies.set("userData", JSON.stringify(userData));
 
     return data;
   } catch (error) {

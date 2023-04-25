@@ -113,7 +113,7 @@ function FilmList(props: FilmListProps) {
           slidesPerView={1}
           spaceBetween={50}
           autoplay={{
-            delay: 20000,
+            delay: 10000,
             disableOnInteraction: false,
           }}
           pagination={{

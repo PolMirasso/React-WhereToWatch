@@ -7,23 +7,27 @@ import { NavBar } from "./common/NavBar";
 import HomePage from "./pages/home";
 import FilmList from "./pages/home/FilmList";
 import FilmRecommended from "./pages/home/FilmRecommended";
-import { useUser } from "./services/userManager/userService";
+
+import { AuthProvider } from "./context/AuthProvider";
+import Cookies from "js-cookie";
+import verifyToken from "./services/userManager/verifyToken";
 
 function App() {
-  const { user, setUser } = useUser();
-
   useEffect(() => {
-    const loggedUserJSON = localStorage.getItem("loggedWTWSession");
+    const checkToken = async () => {
+      const token = await Cookies.get("authToken");
 
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-    }
-  }, [setUser]);
-
+      if (token) {
+        verifyToken.verifyToken({ token });
+      }
+    };
+    checkToken().catch(console.error);
+  }, []);
   return (
     <BrowserRouter>
-      <AppRouter />
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

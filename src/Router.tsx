@@ -7,6 +7,7 @@ import { RegisterPage } from "./pages/register";
 import { FilmPage } from "./pages/film";
 import { ListPage } from "./pages/lists";
 import { ProfilePage } from "./pages/profile";
+import { CreateListPage } from "./pages/lists/createlist/createlist";
 
 export const AppRouter: React.FC<{}> = () => {
   return (
@@ -24,6 +25,14 @@ export const AppRouter: React.FC<{}> = () => {
         element={
           <RouterLayout>
             <ListPage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/create_lists"
+        element={
+          <RouterLayout>
+            <CreateListPage />
           </RouterLayout>
         }
       />

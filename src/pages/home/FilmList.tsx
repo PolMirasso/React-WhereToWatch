@@ -15,17 +15,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-interface FilmListProps {
-  propsReceive: {
-    title: string;
-    url: string;
-    genreid: number;
-  };
-  key: string;
-}
+function FilmList(props) {
+  const history = useNavigate();
 
-function FilmList(props: FilmListProps) {
   interface Film {
     film_id: number;
     title: string;
@@ -153,35 +147,41 @@ function FilmList(props: FilmListProps) {
         >
           <div className={film_styles.sliderContent}>
             {films.map((film) => (
-              <SwiperSlide key={film.film_id}>
-                <a
-                  href={`/film/${film.film_id}`}
-                  className={film_styles.sliderContent}
-                >
-                  <div className={film_styles.movieBox}>
-                    <img
-                      src={film.poster_path}
-                      alt={film.title}
-                      className={film_styles.movieImage}
-                    />
-                    <div className={film_styles.boxText}>
-                      <h2 className={film_styles.movieTitle}>{film.title}</h2>
-                      <span className={film_styles.movieType}>
-                        {film.vote_average}
-                      </span>
-                      <a
-                        href="#"
-                        className={`${film_styles.watchBtn} ${film_styles.playBtn}`}
-                      >
-                        {/* icon className={`${film_styles.bx}`}  */}
+              <SwiperSlide
+                key={film.film_id}
+                onClick={(event) => {
+                  event.preventDefault();
+                  history(`film/${film.film_id}`);
+                }}
+              >
+                <div className={film_styles.movieBox}>
+                  {/* <a
+                    href={`/film/${film.film_id}`}
+                    className={film_styles.sliderContent}
+                  > */}
+                  <img
+                    src={film.poster_path}
+                    alt={film.title}
+                    className={film_styles.movieImage}
+                  />
+                  <div className={film_styles.boxText}>
+                    <h2 className={film_styles.movieTitle}>{film.title}</h2>
+                    <span className={film_styles.movieType}>
+                      {film.vote_average}
+                    </span>
+                    <a
+                      href="#"
+                      className={`${film_styles.watchBtn} ${film_styles.playBtn}`}
+                    >
+                      {/* icon className={`${film_styles.bx}`}  */}
 
-                        <AiOutlinePlusCircle
-                          className={`${film_styles.bx}`}
-                        ></AiOutlinePlusCircle>
-                      </a>
-                    </div>
+                      <AiOutlinePlusCircle
+                        className={`${film_styles.bx}`}
+                      ></AiOutlinePlusCircle>
+                    </a>
                   </div>
-                </a>
+                  {/* </a> */}
+                </div>
               </SwiperSlide>
             ))}
             <SwiperSlide>

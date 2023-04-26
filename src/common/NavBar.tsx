@@ -32,7 +32,7 @@ export const NavBar = () => {
   async function logout() {
     Cookies.remove("authToken");
     Cookies.remove("userData");
-    window.location.reload(false);
+    window.location.reload();
   }
 
   useEffect(() => {

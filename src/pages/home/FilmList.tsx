@@ -89,6 +89,10 @@ function FilmList(props) {
   }
 
   useEffect(() => {
+    setFilms([]);
+  }, []);
+
+  useEffect(() => {
     fetchData();
   }, [page]);
 
@@ -155,10 +159,6 @@ function FilmList(props) {
                 }}
               >
                 <div className={film_styles.movieBox}>
-                  {/* <a
-                    href={`/film/${film.film_id}`}
-                    className={film_styles.sliderContent}
-                  > */}
                   <img
                     src={film.poster_path}
                     alt={film.title}
@@ -180,7 +180,6 @@ function FilmList(props) {
                       ></AiOutlinePlusCircle>
                     </a>
                   </div>
-                  {/* </a> */}
                 </div>
               </SwiperSlide>
             ))}

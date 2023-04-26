@@ -17,16 +17,20 @@ const login = async (credentials) => {
     );
     const data = await response.json();
 
-    console.log(data);
+    if (response.ok) {
+      const userData = {
+        username: data.username,
+        age: data.age,
+        image_profile: data.image_profile,
+      };
 
-    const userData = {
-      username: data.username,
-      age: data.age,
-      image_profile: data.image_profile,
-    };
+      Cookies.set("authToken", data.token);
+      Cookies.set("userData", JSON.stringify(userData));
 
-    Cookies.set("authToken", data.token);
-    Cookies.set("userData", JSON.stringify(userData));
+      return { status: "ok", userData };
+    } else {
+      return { status: "error", data };
+    }
   } catch (error) {
     console.error("Error fetching genres:", error);
   }

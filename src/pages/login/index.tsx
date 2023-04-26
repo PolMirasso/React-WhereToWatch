@@ -19,13 +19,17 @@ export const LoginPage: React.FC<{}> = () => {
     event.preventDefault();
 
     try {
-      const user = await loginService.login({ username, password });
-
-      console.log(user);
+      const result = await loginService.login({ username, password });
 
       setUsername("");
       setPassword("");
-      history("/");
+
+      if (result.status == "ok") {
+        history("/");
+      } else {
+        alert("Usuari o contrasenya no valid");
+        console.log(result.data.non_field_errors);
+      }
     } catch (e) {
       console.log("login error:" + e);
     }

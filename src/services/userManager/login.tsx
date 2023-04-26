@@ -19,7 +19,6 @@ const login = async (credentials) => {
 
     console.log(data);
 
-    // Cookies.set("authToken", data.token);
     const userData = {
       username: data.username,
       age: data.age,

@@ -6,12 +6,14 @@ import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField";
 import { ThemeConfig } from "../../config/theme.config";
 import film_styles from "../../module/loginregister.module.css";
+import { useNavigate } from "react-router-dom";
 
 import loginService from "../../services/userManager/login";
 
 export const LoginPage: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const history = useNavigate();
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
@@ -20,10 +22,10 @@ export const LoginPage: React.FC<{}> = () => {
       const user = await loginService.login({ username, password });
 
       console.log(user);
-      // window.localStorage.setItem("loggedWTWSession", JSON.stringify(user));
 
       setUsername("");
       setPassword("");
+      history("/");
     } catch (e) {
       console.log("login error:" + e);
     }

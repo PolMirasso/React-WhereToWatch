@@ -31,6 +31,7 @@ function FilmList(props) {
   const [page, setPage] = useState(1);
 
   const incrementPage = () => {
+    // Update state with incremented value
     setPage(page + 1);
   };
 
@@ -77,6 +78,8 @@ function FilmList(props) {
 
       const data = await response.json();
 
+      console.log("peticio:" + props.propsReceive.title);
+
       const dataFinal = films.concat(data);
 
       setFilms(dataFinal);
@@ -95,12 +98,17 @@ function FilmList(props) {
 
   return (
     <>
-      <div className={` ${navbar_styles.container} swiper`}>
-        <div className={`${film_styles.wrapper}`}>
-          <h2>
-            <strong>{props.propsReceive.title}</strong>
+      <div
+        className={`${navbar_styles.section} ${film_styles.popular} ${navbar_styles.container} ${film_styles.swiper} swiper`}
+      >
+        <div className={film_styles.heading}>
+          <h2 className={film_styles.headingTitle}>
+            {" "}
+            {props.propsReceive.title}
           </h2>
         </div>
+
+        <br />
 
         <Swiper
           modules={[Navigation, Scrollbar, A11y, Autoplay]}
@@ -117,11 +125,11 @@ function FilmList(props) {
           breakpoints={{
             280: {
               slidesPerView: 1,
-              spaceBetween: 5,
+              spaceBetween: 10,
             },
             320: {
               slidesPerView: 2,
-              spaceBetween: 5,
+              spaceBetween: 10,
             },
             510: {
               slidesPerView: 2,
@@ -150,21 +158,7 @@ function FilmList(props) {
                   history(`film/${film.film_id}`);
                 }}
               >
-                <div className={`${film_styles.cards} `}>
-                  <figure className={`${film_styles.card} `}>
-                    <img
-                      src={film.poster_path}
-                      className={`${film_styles.filmImages}`}
-                    />
-                    <figcaption
-                      className={`${film_styles.figcaptionTitle} ${film_styles.boxText}`}
-                    >
-                      {film.title}
-                    </figcaption>
-                  </figure>
-                </div>
-
-                {/* <div className={film_styles.movieBox}>
+                <div className={film_styles.movieBox}>
                   <img
                     src={film.poster_path}
                     alt={film.title}
@@ -181,12 +175,12 @@ function FilmList(props) {
                     >
                       {/* icon className={`${film_styles.bx}`}  */}
 
-                {/* <AiOutlinePlusCircle
+                      <AiOutlinePlusCircle
                         className={`${film_styles.bx}`}
                       ></AiOutlinePlusCircle>
                     </a>
                   </div>
-                </div>  */}
+                </div>
               </SwiperSlide>
             ))}
             <SwiperSlide>

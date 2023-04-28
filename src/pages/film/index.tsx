@@ -53,9 +53,15 @@ interface FilmInfoProps {
   vote_count: number;
 }
 
+interface FilmVideoProps {
+  id: string;
+  name: string;
+  video: string;
+}
+
 export const FilmPage: React.FC = () => {
   const [filmData, setfilmData] = useState<FilmInfoProps>();
-
+  const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   let location = useLocation();
   const urlId = location.pathname.split("/")[2];
 
@@ -87,9 +93,36 @@ export const FilmPage: React.FC = () => {
       console.error("Error fetching films:", error);
     }
   }
+  async function fetchDataVideo() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getMovieVideos/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1].toLowerCase(),
+          }).toString(),
+        }
+      );
+      const datavideo = await response.json();
+      setfilmDataVideo(datavideo);
+      console.log(datavideo);
+      console.log("data video recived");
 
+      console.log(filmData);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
   useEffect(() => {
-    console.log("fsfd");
+    fetchDataVideo();
     fetchData();
   }, []);
 
@@ -109,23 +142,45 @@ export const FilmPage: React.FC = () => {
             alt=""
             className={film_styles.play_img_portada_no}
           />
+          <div className={film_styles.play_text}>
+            <h2>{filmData?.title}</h2>
+            <h3>{filmData?.tagline}</h3>
+          </div>
         </div>
-        <div className={film_styles.play_text}>
-          <h2>{filmData?.title}</h2>
-          <div className="rating">
-            <i className="bx bxs-star">{filmData?.vote_average}</i>
-          </div>
-
-          <div className="tags">
-            {filmData?.genres.map((genre) => (
-              <span key={genre.id}>{genre.name}</span>
-            ))}
-          </div>
-          <a href="#" className="watch-btn">
-            <i className="bx bx-right-arrow"></i>
-            <span>Watch the trailer</span>
-          </a>
-          <i className="bx bx-right-arrow play-movie"></i>
+      </div>
+      <div
+        className={`${film_styles.play_container} ${navbar_styles.container}`}
+      >
+        <h4>Sinopsis:</h4>
+        <div className="rating">
+          <i className="bx bxs-star">{filmData?.vote_average}</i>
+        </div>
+        <br />
+        <h4>Genere:</h4>
+        <br />
+        <div className="tags">
+          {filmData?.genres.map((genre) => (
+            <span key={genre.id}>
+              {" "}
+              <a href={`/#${genre.name}`}>{genre.name}</a>
+            </span>
+          ))}
+        </div>
+        <br />
+        <h4>Sinopsis:</h4>
+        <br />
+        <div className="tags">
+          <label>{filmData?.overview}</label>
+        </div>
+        <br />
+        <h4>Estudis:</h4>
+        <div className="tags">
+          {filmData?.production_companies.map((production_companies) => (
+            <span key={production_companies.id}>
+              <br />
+              {production_companies.name}
+            </span>
+          ))}
         </div>
       </div>
     </>

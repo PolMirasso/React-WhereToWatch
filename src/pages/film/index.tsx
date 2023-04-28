@@ -212,7 +212,7 @@ export const FilmPage: React.FC = () => {
               </button>
               <p>
                 {" "}
-                <div className="video-source">
+                <div className={`${film_styles.video_source}`}>
                   <ReactPlayer
                     url="https://youtu.be/4u87tmlj4oE"
                     width="100%"

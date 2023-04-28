@@ -65,7 +65,7 @@
 }
 .profile {
   float: left;
-  width: 360px;
+  width: 860px;
   height: 320px;
   text-align: center;
 }
@@ -115,12 +115,13 @@
   transform: rotate(-360deg);
 }
 .profile .name {
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 600;
   margin-top: 20px;
 }
 .profile .job {
-  font-size: 11px;
+  padding-top: 15px;
+  font-size: 16px;
   line-height: 15px;
 }
 .profile .actions {
@@ -135,7 +136,7 @@
   border: 1px solid var(--text-color);
   border-radius: 15px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
   color: var(--text-color);

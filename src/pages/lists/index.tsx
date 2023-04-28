@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import navbar_styles from "../../module/navbar.module.css";
 import film_styles from "../../module/filmList.module.css";
 import list_styles from "../../module/MovieList/movieList.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import Cookies from "js-cookie";
 
 export const ListPage: React.FC = () => {
   return (

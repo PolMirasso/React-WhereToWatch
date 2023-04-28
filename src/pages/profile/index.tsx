@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import navbar_styles from "../../module/navbar.module.css";
 import film_styles from "../../module/filmList.module.css";
 import profile_styles from "../../module/profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
 
 export const ProfilePage = () => {
   function follow(): React.MouseEventHandler<HTMLAnchorElement> | undefined {
     throw new Error("Function not implemented.");
   }
+
+  const [userData, setUserData] = useState();
+
+  async function getUserData() {
+    const userData = Cookies.get("userData");
+
+    if (userData) {
+      const parsedObject = JSON.parse(userData);
+      return setUserData(parsedObject);
+    }
+    return;
+  }
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <div
@@ -22,37 +38,40 @@ export const ProfilePage = () => {
               <div className={profile_styles.circle1}></div>
               <div className={profile_styles.circle2}></div>
               <img
-                src="https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png"
+                src={`https://wheretowatch-vps.herokuapp.com${
+                  userData
+                    ? userData.image_profile
+                    : "/static/defaultImageProfile.png"
+                }`}
                 width="70"
                 height="70"
-                alt="Jessica Potter"
               />
             </div>
 
-            <div className={profile_styles.name}>Jessica Potter</div>
-            <div className={profile_styles.job}>Visual Artist</div>
-            <p className={profile_styles.job}>
-              <i className="fas fa-map-marker-alt front-icons"></i>Seattle
-            </p>
+            <div className={profile_styles.name}>
+              {userData ? userData.username : "User"}
+            </div>
+            <div className={profile_styles.job}>Description</div>
 
             <div className={profile_styles.actions}>
-              <button className={profile_styles.btn}>Follow</button>
-              <button className={profile_styles.btn}>Message</button>
+              <button className={profile_styles.btn}>Edit Profile</button>
+              <br />
+              <button className={profile_styles.btn}>Logout</button>
             </div>
           </div>
 
           <div className={profile_styles.stats}>
             <div className={profile_styles.box}>
               <span className={profile_styles.value}>523</span>
-              <span className={profile_styles.parameter}>Posts</span>
+              <span className={profile_styles.parameter}>Films Watched</span>
             </div>
             <div className={profile_styles.box}>
-              <span className={profile_styles.value}>1387</span>
-              <span className={profile_styles.parameter}>Likes</span>
+              <span className={profile_styles.value}>138</span>
+              <span className={profile_styles.parameter}>Series Watched</span>
             </div>
             <div className={profile_styles.box}>
-              <span className={profile_styles.value}>146</span>
-              <span className={profile_styles.parameter}>Follower</span>
+              <span className={profile_styles.value}>661</span>
+              <span className={profile_styles.parameter}>Total Watched</span>
             </div>
           </div>
         </div>

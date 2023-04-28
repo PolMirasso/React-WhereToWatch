@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import film_styles1 from "../../module/filmList.module.css";
-
+import ReactPlayer from "react-player";
 interface FilmInfoProps {
   adult: boolean;
   backdrop_path: string;
@@ -60,6 +60,11 @@ interface FilmVideoProps {
 }
 
 export const FilmPage: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   let location = useLocation();
@@ -182,6 +187,48 @@ export const FilmPage: React.FC = () => {
             </span>
           ))}
         </div>
+        <button onClick={handleOpenModal} id="btn-abrir-trailer">
+          Trailer
+        </button>
+        {showModal && (
+          <div
+            id="modal"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "rgba(0,0,0,0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 9999,
+            }}
+          >
+            <div style={{ background: "#fff", padding: "2rem" }}>
+              <button onClick={handleCloseModal} id="btn-cerrar-trailer">
+                Cerrar modal
+              </button>
+              <p>
+                {" "}
+                <div className="video-source">
+                  <ReactPlayer
+                    url="https://youtu.be/4u87tmlj4oE"
+                    width="100%"
+                    height="100%"
+                    controls
+                    playing
+                    muted
+                    loop
+                    playbackRate={1.75}
+                    className="react-player"
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

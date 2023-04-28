@@ -206,7 +206,12 @@ export const FilmPage: React.FC = () => {
               zIndex: 9999,
             }}
           >
-            <div style={{ background: "#fff", padding: "2rem" }}>
+            <div>
+              <button
+                onClick={handleCloseModal}
+                id="btn_cerrar_trailer"
+                className={`${film_styles.btn_cerrar_trailer}`}
+              ></button>
               <p>
                 {" "}
                 <div className={`${film_styles.video_source}`}>
@@ -223,11 +228,6 @@ export const FilmPage: React.FC = () => {
                   />
                 </div>
               </p>
-              <button
-                onClick={handleCloseModal}
-                id="btn_cerrar_trailer"
-                className={`${film_styles.btn_cerrar_trailer}`}
-              ></button>
             </div>
           </div>
         )}

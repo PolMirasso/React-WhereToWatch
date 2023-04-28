@@ -143,21 +143,23 @@ function FilmList(props) {
         >
           <div className={film_styles.sliderContent}>
             {films.map((film) => (
-              <SwiperSlide
-                key={film.film_id}
-                onClick={(event) => {
-                  event.preventDefault();
-                  history(`film/${film.film_id}`);
-                }}
-              >
+              <SwiperSlide key={film.film_id}>
                 <div className={`${film_styles.cards} `}>
                   <figure className={`${film_styles.card} `}>
                     <AiOutlinePlusCircle
-                      className={`${film_styles.bx} ${film_styles.cards}`}
+                      className={`${film_styles.bx}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        history(`adf`);
+                      }}
                     ></AiOutlinePlusCircle>
                     <img
                       src={film.poster_path}
                       className={`${film_styles.filmImages}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        history(`film/${film.film_id}`);
+                      }}
                     />
 
                     <figcaption

@@ -59,3 +59,18 @@
   padding-right: 80%;
   padding-top: 10%;
 }
+.video_source {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  z-index: -1;
+}
+
+.video_source video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

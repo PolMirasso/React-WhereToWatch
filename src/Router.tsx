@@ -7,6 +7,7 @@ import { RegisterPage } from "./pages/register";
 import { FilmPage } from "./pages/film";
 import { ListPage } from "./pages/lists";
 import { ProfilePage } from "./pages/profile";
+import { EditProfilePage } from "./pages/profile/editProfile";
 import { CreateListPage } from "./pages/lists/createlist/createlist";
 
 export const AppRouter: React.FC<{}> = () => {
@@ -41,6 +42,14 @@ export const AppRouter: React.FC<{}> = () => {
         element={
           <RouterLayout>
             <ProfilePage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/editprofile/:id_user"
+        element={
+          <RouterLayout>
+            <EditProfilePage />
           </RouterLayout>
         }
       />

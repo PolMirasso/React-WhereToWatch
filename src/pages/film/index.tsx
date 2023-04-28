@@ -148,7 +148,7 @@ export const FilmPage: React.FC = () => {
             className={film_styles.play_img_portada_no}
           />
           <div className={film_styles.play_text}>
-            <h1>{filmData?.title}</h1>
+            <h2>{filmData?.title}</h2>
             <h3>{filmData?.tagline}</h3>
           </div>
         </div>
@@ -207,14 +207,11 @@ export const FilmPage: React.FC = () => {
             }}
           >
             <div style={{ background: "#fff", padding: "2rem" }}>
-              <button onClick={handleCloseModal} id="btn-cerrar-trailer">
-                Cerrar modal
-              </button>
               <p>
                 {" "}
                 <div className={`${film_styles.video_source}`}>
                   <ReactPlayer
-                    url="https://youtu.be/4u87tmlj4oE"
+                    url={`${filmDataVideo[0]?.video}`}
                     width="100%"
                     height="100%"
                     controls
@@ -226,6 +223,11 @@ export const FilmPage: React.FC = () => {
                   />
                 </div>
               </p>
+              <button
+                onClick={handleCloseModal}
+                id="btn_cerrar_trailer"
+                className={`${film_styles.btn_cerrar_trailer}`}
+              ></button>
             </div>
           </div>
         )}

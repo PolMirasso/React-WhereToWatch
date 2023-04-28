@@ -5,12 +5,14 @@ import profile_styles from "../../module/profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
   function follow(): React.MouseEventHandler<HTMLAnchorElement> | undefined {
     throw new Error("Function not implemented.");
   }
 
+  const history = useNavigate();
   const [userData, setUserData] = useState();
 
   async function getUserData() {
@@ -22,6 +24,14 @@ export const ProfilePage = () => {
     }
     return;
   }
+
+  async function logout() {
+    Cookies.remove("authToken");
+    Cookies.remove("userData");
+    history("/");
+    window.location.reload();
+  }
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -56,7 +66,9 @@ export const ProfilePage = () => {
             <div className={profile_styles.actions}>
               <button className={profile_styles.btn}>Edit Profile</button>
               <br />
-              <button className={profile_styles.btn}>Logout</button>
+              <button className={profile_styles.btn} onClick={logout}>
+                Logout
+              </button>
             </div>
           </div>
 

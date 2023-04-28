@@ -6,6 +6,7 @@ import navbar_styles from "../module/navbar.module.css";
 import { SearchResultsList } from "./SearchResultsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 import GoTop from "./goTop";
 // import userService from "../services/userManager/userService";
@@ -13,6 +14,7 @@ import GoTop from "./goTop";
 export const NavBar = () => {
   const [results, setResults] = useState([]);
   const [userData, setUserData] = useState();
+  const history = useNavigate();
 
   function toggleMenu() {
     const toggleMenu = document.querySelector(".menu");
@@ -32,6 +34,7 @@ export const NavBar = () => {
   async function logout() {
     Cookies.remove("authToken");
     Cookies.remove("userData");
+    history("/");
     window.location.reload();
   }
 

@@ -44,7 +44,7 @@
     text-decoration: none;
 }
 
-.watchBtn .bx{
+.bx{
     font-size: 10px;
     background-color: var(--container-color);
     width: 40px;
@@ -53,9 +53,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 10px;
+    position: absolute;
+    visibility: hidden;
 }
 
-.watchBtn .bx:hover{
+.bx:hover{
    
     background: var(--hover-color);
     width: 40px;
@@ -224,18 +227,15 @@ h2:after {
 .news {
   flex-flow: row wrap;
 }
-.cards .card,
+ .cards .card,
 .news .card {
-  margin: 20px;
-  width: 180px;
-  height: 270px;
   overflow: hidden;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.8);
+  box-shadow: 0 5px 10px var(--container-color);
   transform-origin: center top;
   transform-style: preserve-3d;
   transform: translateZ(0);
   transition: 0.3s;
-}
+} 
 .cards .card img,
 .news .card img {
   width: 100%;
@@ -255,6 +255,10 @@ h2:after {
   transition: 0.3s;
 }
 
+.card:hover .bx{
+  visibility: visible;
+}
+
 .cards .card:hover,
 .news .card:hover,
 .cards .card:focus,
@@ -271,6 +275,7 @@ h2:after {
 .cards .card:active .figcaptionTitle,
 .news .card:active .figcaptionTitle {
   transform: none;
+  background-color: rgba(33, 31, 31, 0.414)
 }
 
 
@@ -320,14 +325,12 @@ h2:after {
   z-index: 10;
   width: 200%;
   height: 100%;
-  top: 135%;
-  left: -195px;
-  opacity: 0.3;
-  transform: rotate(110deg);
-  background-image: linear-gradient(to top, black, transparent);
-  transition: 0.2s;
-
-
+  top: -90%;
+  left: -20px;
+  opacity: 0.1;
+  transform: rotate(45deg);
+  background: linear-gradient(to top, transparent, #fff 15%, rgba(255,255,255,0.5));
+  transition: 0.3s;
 }
 .cards .card:hover:after,
 .news .card:hover:after,
@@ -335,8 +338,7 @@ h2:after {
 .news .card:focus:after,
 .cards .card:active:after,
 .news .card:active:after {
-  top: 80%;
-  opacity: 1;
-  z-index: 1;
-
+  transform: rotate(25deg);
+  top: -40%;
+  opacity: 0.15;
 }

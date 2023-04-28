@@ -148,7 +148,7 @@ export const FilmPage: React.FC = () => {
             className={film_styles.play_img_portada_no}
           />
           <div className={film_styles.play_text}>
-            <h2>{filmData?.title}</h2>
+            <h1>{filmData?.title}</h1>
             <h3>{filmData?.tagline}</h3>
           </div>
         </div>

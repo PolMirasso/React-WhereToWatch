@@ -152,14 +152,18 @@ function FilmList(props) {
               >
                 <div className={`${film_styles.cards} `}>
                   <figure className={`${film_styles.card} `}>
+                    <AiOutlinePlusCircle
+                      className={`${film_styles.bx} ${film_styles.cards}`}
+                    ></AiOutlinePlusCircle>
                     <img
                       src={film.poster_path}
                       className={`${film_styles.filmImages}`}
                     />
+
                     <figcaption
                       className={`${film_styles.figcaptionTitle} ${film_styles.boxText}`}
                     >
-                      {film.title}
+                      {film.title}{" "}
                     </figcaption>
                   </figure>
                 </div>

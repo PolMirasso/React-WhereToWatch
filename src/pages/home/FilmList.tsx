@@ -145,7 +145,13 @@ function FilmList(props) {
             {films.map((film) => (
               <SwiperSlide key={film.film_id}>
                 <div className={`${film_styles.cards} `}>
-                  <figure className={`${film_styles.card} `}>
+                  <figure
+                    className={`${film_styles.card} `}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      history(`film/${film.film_id}`);
+                    }}
+                  >
                     <AiOutlinePlusCircle
                       className={`${film_styles.bx}`}
                       onClick={(event) => {
@@ -156,10 +162,6 @@ function FilmList(props) {
                     <img
                       src={film.poster_path}
                       className={`${film_styles.filmImages}`}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        history(`film/${film.film_id}`);
-                      }}
                     />
 
                     <figcaption
@@ -169,30 +171,6 @@ function FilmList(props) {
                     </figcaption>
                   </figure>
                 </div>
-
-                {/* <div className={film_styles.movieBox}>
-                  <img
-                    src={film.poster_path}
-                    alt={film.title}
-                    className={film_styles.movieImage}
-                  />
-                  <div className={film_styles.boxText}>
-                    <h2 className={film_styles.movieTitle}>{film.title}</h2>
-                    <span className={film_styles.movieType}>
-                      {film.vote_average}
-                    </span>
-                    <a
-                      href="#"
-                      className={`${film_styles.watchBtn} ${film_styles.playBtn}`}
-                    >
-                      {/* icon className={`${film_styles.bx}`}  */}
-
-                {/* <AiOutlinePlusCircle
-                        className={`${film_styles.bx}`}
-                      ></AiOutlinePlusCircle>
-                    </a>
-                  </div>
-                </div>  */}
               </SwiperSlide>
             ))}
             <SwiperSlide>

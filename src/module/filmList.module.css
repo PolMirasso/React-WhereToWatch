@@ -59,10 +59,11 @@
     margin-right: auto;
     margin-left: 80%;
 
+
+    
 }
 
 .bx:hover{
-   
     background: var(--hover-color);
     width: 40px;
     height: 40px;
@@ -70,7 +71,6 @@
     display: flex;
     align-content: flex-end;
     margin-left: 80%;
-
 }
 
 .SwiperButtonNext::after,
@@ -261,6 +261,8 @@ h2:after {
 
 .card:hover .bx{
   visibility: visible;
+  z-index: 9999;
+  position: absolute;
 }
 
 .cards .card:hover,

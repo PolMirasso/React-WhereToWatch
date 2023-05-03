@@ -59,11 +59,12 @@ export const NavBar = () => {
           <div className="action">
             <div className={navbar_styles.userImg} onClick={toggleMenu}>
               <img
-                src={`https://wheretowatch-vps.herokuapp.com${
+                src={
                   userData
                     ? userData.image_profile
-                    : "/static/defaultImageProfile.png"
-                }`}
+                    : "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png"
+                }
+                className={navbar_styles.userImg}
               />
             </div>
             <div className="menu">

@@ -59,14 +59,27 @@ interface FilmVideoProps {
   video: string;
 }
 
-export const FilmPage: React.FC = () => {
+export const FilmPage = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
+  const [page, setPage] = useState(1);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
+  const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
+  const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
   let location = useLocation();
   const urlId = location.pathname.split("/")[2];
 
@@ -92,8 +105,6 @@ export const FilmPage: React.FC = () => {
       setfilmData(data);
       console.log(data);
       console.log("data recived");
-
-      console.log(filmData);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -120,8 +131,111 @@ export const FilmPage: React.FC = () => {
       setfilmDataVideo(datavideo);
       console.log(datavideo);
       console.log("data video recived");
-
-      console.log(filmData);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+  async function fetchDataSimilar() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getSimilarMovie/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1].toLowerCase(),
+            num_page: page.toString(),
+          }).toString(),
+        }
+      );
+      const datasimilar = await response.json();
+      setfilmDataSimilar(datasimilar);
+      console.log(datasimilar);
+      console.log("data similar");
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+  async function fetchDataLocalitat() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getFilmData/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1].toLowerCase(),
+          }).toString(),
+        }
+      );
+      const dataproviders = await response.json();
+      setfilmDataProviders(dataproviders);
+      console.log(dataproviders);
+      console.log("data providers");
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+  async function fetchDataCinemes() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getProviders/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1].toLowerCase(),
+          }).toString(),
+        }
+      );
+      const dataproviders = await response.json();
+      setfilmDataProviders(dataproviders);
+      console.log(dataproviders);
+      console.log("data providers");
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+  async function fetchDataProviders() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getProviders/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1].toLowerCase(),
+          }).toString(),
+        }
+      );
+      const dataproviders = await response.json();
+      setfilmDataProviders(dataproviders);
+      console.log(dataproviders);
+      console.log("data providers");
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -129,6 +243,8 @@ export const FilmPage: React.FC = () => {
   useEffect(() => {
     fetchDataVideo();
     fetchData();
+    fetchDataSimilar();
+    fetchDataProviders();
   }, []);
 
   return (
@@ -148,7 +264,9 @@ export const FilmPage: React.FC = () => {
             className={film_styles.play_img_portada_no}
           />
           <div className={film_styles.play_text}>
-            <h2>{filmData?.title}</h2>
+            <h1>
+              {filmData?.title} ({filmData?.release_date.split("-")[0]})
+            </h1>
             <h3>{filmData?.tagline}</h3>
           </div>
         </div>
@@ -187,6 +305,7 @@ export const FilmPage: React.FC = () => {
             </span>
           ))}
         </div>
+        <div className="plaltaformes">filmDataProviders?</div>
         <button onClick={handleOpenModal} id="btn-abrir-trailer">
           Trailer
         </button>

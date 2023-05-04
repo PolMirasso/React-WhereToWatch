@@ -66,7 +66,7 @@ mark {
   white-space: nowrap;
   transform: translate(0, 0);
   transform-origin: 0 0;
-  background: var(--color-background);
+  background: #1e1e1a;
   transition: transform 120ms ease-in;
   font-weight: bold;
   line-height: 1.2;

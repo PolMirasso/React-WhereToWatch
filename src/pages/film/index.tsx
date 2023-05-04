@@ -280,7 +280,7 @@ export const FilmPage = () => {
             </span>
           ))}
         </div>
-        <div className="plaltaformes">filmDataProviders?</div>
+        <div className="plaltaformes"></div>
         <button onClick={handleOpenModal} id="btn-abrir-trailer">
           Trailer
         </button>

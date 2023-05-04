@@ -6,6 +6,7 @@ import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import film_styles1 from "../../module/filmList.module.css";
 import ReactPlayer from "react-player";
+import FilmList from "../home/FilmList";
 interface FilmInfoProps {
   adult: boolean;
   backdrop_path: string;
@@ -103,8 +104,8 @@ export const FilmPage = () => {
       );
       const data = await response.json();
       setfilmData(data);
-      console.log(data);
       console.log("data recived");
+      console.log(data);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -129,35 +130,8 @@ export const FilmPage = () => {
       );
       const datavideo = await response.json();
       setfilmDataVideo(datavideo);
+      console.log("data video");
       console.log(datavideo);
-      console.log("data video recived");
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    }
-  }
-  async function fetchDataSimilar() {
-    try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getSimilarMovie/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            movie_id: urlId,
-            language:
-              navigator.language.split("-").length < 1
-                ? navigator.language
-                : navigator.language.split("-")[1].toLowerCase(),
-            num_page: page.toString(),
-          }).toString(),
-        }
-      );
-      const datasimilar = await response.json();
-      setfilmDataSimilar(datasimilar);
-      console.log(datasimilar);
-      console.log("data similar");
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -165,7 +139,7 @@ export const FilmPage = () => {
   async function fetchDataLocalitat() {
     try {
       const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getFilmData/",
+        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
         {
           method: "POST",
           headers: {
@@ -180,10 +154,10 @@ export const FilmPage = () => {
           }).toString(),
         }
       );
-      const dataproviders = await response.json();
-      setfilmDataProviders(dataproviders);
-      console.log(dataproviders);
-      console.log("data providers");
+      const datalocalitat = await response.json();
+      setfilmDataProviders(datalocalitat);
+      console.log("data localitat");
+      console.log(datalocalitat);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -191,7 +165,7 @@ export const FilmPage = () => {
   async function fetchDataCinemes() {
     try {
       const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getProviders/",
+        "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
         {
           method: "POST",
           headers: {
@@ -206,10 +180,10 @@ export const FilmPage = () => {
           }).toString(),
         }
       );
-      const dataproviders = await response.json();
-      setfilmDataProviders(dataproviders);
-      console.log(dataproviders);
-      console.log("data providers");
+      const datacinema = await response.json();
+      setfilmDataProviders(datacinema);
+      console.log("data cinemes");
+      console.log(datacinema);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -234,8 +208,8 @@ export const FilmPage = () => {
       );
       const dataproviders = await response.json();
       setfilmDataProviders(dataproviders);
-      console.log(dataproviders);
       console.log("data providers");
+      console.log(dataproviders);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -243,8 +217,9 @@ export const FilmPage = () => {
   useEffect(() => {
     fetchDataVideo();
     fetchData();
-    fetchDataSimilar();
     fetchDataProviders();
+    fetchDataLocalitat();
+    fetchDataCinemes();
   }, []);
 
   return (
@@ -350,6 +325,14 @@ export const FilmPage = () => {
             </div>
           </div>
         )}
+        <FilmList
+          key={"popular"}
+          propsReceive={{
+            title: "Pelicules Similars",
+            url: "getSimilarMovie/",
+            moveId: urlId,
+          }}
+        />
       </div>
     </>
   );

@@ -15,7 +15,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 
 function FilmList(props) {
   const history = useNavigate();
@@ -29,6 +29,7 @@ function FilmList(props) {
 
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
+  const [btn_play, setBbtn_play] = useState(true);
 
   const incrementPage = () => {
     setPage(page + 1);
@@ -149,14 +150,16 @@ function FilmList(props) {
                     className={`${film_styles.card} `}
                     onClick={(event) => {
                       event.preventDefault();
-                      history(`film/${film.film_id}`);
+                      if (btn_play) history(`film/${film.film_id}`);
+                      setBbtn_play(true);
                     }}
                   >
                     <AiOutlinePlusCircle
                       className={`${film_styles.bx}`}
-                      onClick={(event) => {
+                      onClickCapture={(event) => {
                         event.preventDefault();
-                        history(`adf`);
+                        console.log("a");
+                        setBbtn_play(false);
                       }}
                     ></AiOutlinePlusCircle>
                     <img

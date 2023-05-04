@@ -58,9 +58,7 @@
     visibility: hidden;
     margin-right: auto;
     margin-left: 80%;
-
-
-    
+    flex-wrap: wrap;
 }
 
 .bx:hover{
@@ -71,7 +69,9 @@
     display: flex;
     align-content: flex-end;
     margin-left: 80%;
+
 }
+
 
 .SwiperButtonNext::after,
 .SwiperButtonPrev::after {

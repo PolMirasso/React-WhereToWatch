@@ -317,7 +317,6 @@ export const FilmPage = () => {
                     playing
                     muted
                     loop
-                    playbackRate={1.75}
                     className="react-player"
                   />
                 </div>

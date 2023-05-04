@@ -1,6 +1,6 @@
 @import url("https://rsms.me/inter/inter.css");
 :root {
-  --color-dark: #212121;
+  --color-dark: var(--background-color);
   --color-signal: var(--main-color);
   --color-background: var(--color-dark);
   --color-text: var(--color-dark);

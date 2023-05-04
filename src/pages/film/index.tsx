@@ -167,7 +167,7 @@ export const FilmPage: React.FC = () => {
           {filmData?.genres.map((genre) => (
             <span key={genre.id}>
               {" "}
-              <a href={`/#${genre.name}`}>{genre.name}</a>
+              <a href={`/#${genre.name}`}>{genre.name} </a>
             </span>
           ))}
         </div>

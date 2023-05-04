@@ -1,270 +1,269 @@
 * {
-    font-family: "Barlow Condensed", sans-serif;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    box-sizing: border-box;
-    scroll-padding-top: 2rem;
-  }
-  
-  :root {
-    --main-color: #ffb43a;
-    --hover-color: hsl(37, 94%, 57%);
-    --body-color: #1e1e1a;
-    --container-color: #2d2e37;
-    --text-color: #fcfeff;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  li {
-    list-style: none;
-  }
-  
-  img {
-    width: 100%;
-  }
-  
-  body {
-    background: var(--body-color);
-    color: var(--text-color);
-  }
-  
-  .heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--container-color);
-    padding: 8px 14px;
-  }
-  
-  .container {
-    max-width: 1068px;
-    margin: auto;
-    width: 100%;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: var(--body-color);
-    z-index: 100;
-  }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-  }
-  
-  .logo {
-    font-size: 1.4rem;
-    color: var(--text-color);
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 0 auto 0 0;
-  }
-  
-  .logo span {
-    color: var(--main-color);
-  }
-  
-  .user {
-    display: block;
-  }
-  
-  .userImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-left: 10px;
-    object-fit: cover;
-    object-position: center;
-  }
-  
+  font-family: "Barlow Condensed", sans-serif;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  scroll-padding-top: 2rem;
+}
+
+:root {
+  --main-color: #ffb43a;
+  --hover-color: hsl(37, 94%, 57%);
+  --body-color: #1e1e1a;
+  --container-color: #2d2e37;
+  --text-color: #fcfeff;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+body {
+  background: var(--body-color);
+  color: var(--text-color);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--container-color);
+  padding: 8px 14px;
+}
+
+.container {
+  max-width: 1068px;
+  margin: auto;
+  width: 100%;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--body-color);
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 1.4rem;
+  color: var(--text-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 auto 0 0;
+}
+
+.logo span {
+  color: var(--main-color);
+}
+
+.user {
+  display: block;
+}
+
+.userImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.navbar {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.1rem;
+}
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #b7b7b7;
+}
+
+.navLink:hover,
+.navActive {
+  color: var(--text-color);
+  transition: 0.3s all linear;
+  transform: scale(1.1);
+}
+
+.navLink .bx {
+  font-size: 2.4rem;
+}
+
+.navLinkTitle {
+  font-size: 0.7rem;
+}
+
+section {
+  padding: 3rem 0 2rem;
+}
+
+/* Pelis populars */
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--container-color);
+  padding: 8px 14px;
+  border: 1px solid hsl(200, 100%, 99% / 5);
+}
+
+.headingTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+html::-webkit-scrollbar {
+  width: 0.5rem;
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+}
+
+@media (max-width: 1170px) {
   .navbar {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 18px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 2.1rem;
-  }
-  
-  .navLink {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #b7b7b7;
-  }
-  
-  .navLink:hover,
-  .navActive {
-    color: var(--text-color);
-    transition: 0.3s all linear;
-    transform: scale(1.1);
-  }
-  
-  .navLink .bx {
-    font-size: 2.4rem;
-  }
-  
-  .navLinkTitle {
-    font-size: 0.7rem;
-  }
-  
-  section {
-    padding: 3rem 0 2rem;
-  }
-  
-  /* Pelis populars */
-  
-  .heading {
-    display: flex;
-    align-items: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    transform: translateY(0);
+    flex-direction: row;
     justify-content: space-between;
-    background: var(--container-color);
-    padding: 8px 14px;
-    border: 1px solid hsl(200, 100%, 99% / 5);
+    row-gap: 1px;
+    padding: 10px;
+    border-top: 1px solid hsl(200, 100%, 99% / 5%);
+    background: linear-gradient(
+      8deg,
+      hsl(240, 17%, 14% / 100%) 5%,
+      hsl(240, 17%, 14% / 90%) 100%
+    );
   }
-  
-  .headingTitle {
+  .nav-link .bx {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1060px) {
+  .container {
+    margin: 0 auto;
+    width: 95%;
+  }
+}
+
+@media (max-width: 991px) {
+  .movieBox {
+    height: 340px;
+  }
+  .movies-content {
+    grid-template-columns: repeat(auto-fit, minmax(214px, 1fr));
+  }
+}
+
+@media (max-width: 888px) {
+  .nav {
+    padding: 14px 0;
+  }
+  .home {
+    min-height: 440px;
+    margin-top: 4rem !important;
+  }
+  .home-text {
+    min-height: 25px;
+  }
+  .home-title {
+    font-size: 1.6rem;
+  }
+  .watch-btn span {
+    font-size: 0.9rem;
+  }
+  .movie-title {
+    font-size: 1rem;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 768) {
+  .nav {
+    padding: 11px 0;
+  }
+  .logo {
     font-size: 1.2rem;
-    font-weight: 500;
   }
-  
-  html::-webkit-scrollbar {
-    width: 0.5rem;
-    background: transparent;
+  .section {
+    padding: 2rem 0;
   }
-  
-  html::-webkit-scrollbar-thumb {
-    background-color: var(--main-color);
+
+  .home-img {
+    object-position: left;
   }
-  
-  @media (max-width: 1170px) {
-    .navbar {
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: auto;
-      transform: translateY(0);
-      flex-direction: row;
-      justify-content: space-between;
-      row-gap: 1px;
-      padding: 10px;
-      border-top: 1px solid hsl(200, 100%, 99% / 5%);
-      background: linear-gradient(
-        8deg,
-        hsl(240, 17%, 14% / 100%) 5%,
-        hsl(240, 17%, 14% / 90%) 100%
-      );
-    }
-    .nav-link .bx {
-      font-size: 1.5rem;
-    }
+  .tag span,
+  .about-movie p {
+    font-size: 0.875rem;
   }
-  
-  @media (max-width: 1060px) {
-    .container {
-      margin: 0 auto;
-      width: 95%;
-    }
+}
+
+@media (max-width: 514px) {
+  .home {
+    min-height: 380px;
   }
-  
-  @media (max-width: 991px) {
-    .movieBox {
-      height: 340px;
-    }
-    .movies-content {
-      grid-template-columns: repeat(auto-fit, minmax(214px, 1fr));
-    }
-  }
-  
-  @media (max-width: 888px) {
-    .nav {
-      padding: 14px 0;
-    }
-    .home {
-      min-height: 440px;
-      margin-top: 4rem !important;
-    }
-    .home-text {
-      min-height: 25px;
-    }
-    .home-title {
-      font-size: 1.6rem;
-    }
-    .watch-btn span {
-      font-size: 0.9rem;
-    }
-    .movie-title {
-      font-size: 1rem;
-      padding-right: 30px;
-    }
-  }
-  
-  @media (max-width: 768) {
-    .nav {
-      padding: 11px 0;
-    }
-    .logo {
-      font-size: 1.2rem;
-    }
-    .section {
-      padding: 2rem 0;
-    }
-  
-    .home-img {
-      object-position: left;
-    }
-    .tag span,
-    .about-movie p {
-      font-size: 0.875rem;
-    }
-  }
-  
-  @media (max-width: 514px) {
-    .home {
-      min-height: 380px;
-    }
-  }
-  .mainLinks {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-  }
-  
-  .mainLinks li {
-    padding: 0.5rem 1rem;
-  }
-  
-   a.log:link  {
-      width: 100%;
-      height: 100%;
-      background-color:var(--main-color);
-      border: none;
-      color: white;
-      padding: 10px 30px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-  }
-  a.reg:link  {
-    
-      width: 100%;
-      height: 100%;
-      background-color:var(--main-color);
-      border: none;
-      color: white;
-      padding: 10px 30px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-  }
+}
+.mainLinks {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.mainLinks li {
+  padding: 0.5rem 1rem;
+}
+
+a.log:link {
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+a.reg:link {
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}

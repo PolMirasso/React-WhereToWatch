@@ -129,6 +129,7 @@
 }
 .profile .actions .btn {
   display: block;
+  text-decoration: none;
   width: 120px;
   height: 30px;
   margin: 0 auto 10px auto;

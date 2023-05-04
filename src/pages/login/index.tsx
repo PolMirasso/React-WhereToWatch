@@ -13,6 +13,7 @@ import loginService from "../../services/userManager/login";
 export const LoginPage: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const history = useNavigate();
 
   const handleLogin = async (event: any) => {
@@ -27,7 +28,8 @@ export const LoginPage: React.FC<{}> = () => {
       if (result.status == "ok") {
         history("/");
       } else {
-        alert("Usuari o contrasenya no valid");
+        // alert("Error" + result.data.non_field_errors);
+        setError(result.data.non_field_errors);
         console.log(result.data.non_field_errors);
       }
     } catch (e) {
@@ -78,6 +80,8 @@ export const LoginPage: React.FC<{}> = () => {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
+                <p className="error">{error}</p>
+
                 <Button
                   fullWidth
                   type="submit"

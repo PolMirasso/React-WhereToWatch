@@ -107,7 +107,6 @@ function FilmList(props) {
             {props.propsReceive.title}
           </h2>
         </div>
-
         <br />
 
         <Swiper

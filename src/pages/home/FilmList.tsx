@@ -29,7 +29,7 @@ function FilmList(props) {
 
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
-  const [btn_play, setBbtn_play] = useState(true);
+  const [activeBtn, setActiveBtn] = useState(true);
 
   const incrementPage = () => {
     setPage(page + 1);
@@ -150,8 +150,8 @@ function FilmList(props) {
                     className={`${film_styles.card} `}
                     onClick={(event) => {
                       event.preventDefault();
-                      if (btn_play) history(`film/${film.film_id}`);
-                      setBbtn_play(true);
+                      if (activeBtn) history(`film/${film.film_id}`);
+                      setActiveBtn(true);
                     }}
                   >
                     <AiOutlinePlusCircle
@@ -159,7 +159,7 @@ function FilmList(props) {
                       onClickCapture={(event) => {
                         event.preventDefault();
                         console.log("a");
-                        setBbtn_play(false);
+                        setActiveBtn(false);
                       }}
                     ></AiOutlinePlusCircle>
                     <img

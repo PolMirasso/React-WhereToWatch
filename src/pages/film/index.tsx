@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
@@ -61,16 +61,6 @@ interface FilmVideoProps {
 }
 
 export const FilmPage = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
-
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -83,6 +73,7 @@ export const FilmPage = () => {
   const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
   let location = useLocation();
   const urlId = location.pathname.split("/")[2];
+  const scroller = useRef(null);
 
   async function fetchData() {
     try {
@@ -215,6 +206,10 @@ export const FilmPage = () => {
     }
   }
   useEffect(() => {
+    scroller.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
     fetchDataVideo();
     fetchData();
     fetchDataProviders();
@@ -224,114 +219,121 @@ export const FilmPage = () => {
 
   return (
     <>
-      <div
-        className={`${film_styles.play_container} ${navbar_styles.container}`}
-      >
-        <img
-          src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${filmData?.backdrop_path}`}
-          alt=""
-          className={film_styles.play_img}
-        />
-        <div className={film_styles.container_no}>
+      <div ref={scroller} style={{ overflowY: "scroll" }}>
+        <div
+          className={`${film_styles.play_container} ${navbar_styles.container}`}
+        >
           <img
-            src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${filmData?.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${filmData?.backdrop_path}`}
             alt=""
-            className={film_styles.play_img_portada_no}
+            className={film_styles.play_img}
           />
-          <div className={film_styles.play_text}>
-            <h1>
-              {filmData?.title} ({filmData?.release_date.split("-")[0]})
-            </h1>
-            <h3>{filmData?.tagline}</h3>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`${film_styles.play_container} ${navbar_styles.container}`}
-      >
-        <h4>Sinopsis:</h4>
-        <div className="rating">
-          <i className="bx bxs-star">{filmData?.vote_average}</i>
-        </div>
-        <br />
-        <h4>Genere:</h4>
-        <br />
-        <div className="tags">
-          {filmData?.genres.map((genre) => (
-            <span key={genre.id}>
-              {" "}
-              <a href={`/#${genre.name}`}>{genre.name} </a>
-            </span>
-          ))}
-        </div>
-        <br />
-        <h4>Sinopsis:</h4>
-        <br />
-        <div className="tags">
-          <label>{filmData?.overview}</label>
-        </div>
-        <br />
-        <h4>Estudis:</h4>
-        <div className="tags">
-          {filmData?.production_companies.map((production_companies) => (
-            <span key={production_companies.id}>
-              <br />
-              {production_companies.name}
-            </span>
-          ))}
-        </div>
-        <div className="plaltaformes"></div>
-        <button onClick={handleOpenModal} id="btn-abrir-trailer">
-          Trailer
-        </button>
-        {showModal && (
-          <div
-            id="modal"
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              background: "rgba(0,0,0,0.5)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              zIndex: 9999,
-            }}
-          >
-            <div>
-              <button
-                onClick={handleCloseModal}
-                id="btn_cerrar_trailer"
-                className={`${film_styles.btn_cerrar_trailer}`}
-              ></button>
-              <p>
-                {" "}
-                <div className={`${film_styles.video_source}`}>
-                  <ReactPlayer
-                    url={`${filmDataVideo[0]?.video}`}
-                    width="100%"
-                    height="100%"
-                    controls
-                    playing
-                    muted
-                    loop
-                    className="react-player"
-                  />
-                </div>
-              </p>
+          <div className={film_styles.container_no}>
+            <img
+              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${filmData?.poster_path}`}
+              alt=""
+              className={film_styles.play_img_portada_no}
+            />
+            <div className={film_styles.play_text}>
+              <h1>
+                {filmData?.title} ({filmData?.release_date.split("-")[0]})
+              </h1>
+              <h3>{filmData?.tagline}</h3>
             </div>
           </div>
-        )}
-        <FilmList
-          key={"popular"}
-          propsReceive={{
-            title: "Pelicules Similars",
-            url: "getSimilarMovie/",
-            moveId: urlId,
-          }}
-        />
+        </div>
+        <div
+          className={`${film_styles.play_container} ${navbar_styles.container}`}
+        >
+          <h4>Sinopsis:</h4>
+          <div className="rating">
+            <i className="bx bxs-star">{filmData?.vote_average}</i>
+          </div>
+          <br />
+          <h4>Genere:</h4>
+          <br />
+          <div className="tags">
+            {filmData?.genres.map((genre) => (
+              <span key={genre.id}>
+                {" "}
+                <a href={`/#${genre.name}`}>{genre.name} </a>
+              </span>
+            ))}
+          </div>
+          <br />
+          <h4>Sinopsis:</h4>
+          <br />
+          <div className="tags">
+            <label>{filmData?.overview}</label>
+          </div>
+          <br />
+          <h4>Estudis:</h4>
+          <div className="tags">
+            {filmData?.production_companies.map((production_companies) => (
+              <span key={production_companies.id}>
+                <br />
+                {production_companies.name}
+              </span>
+            ))}
+          </div>
+          <br />
+          <br />
+          <div className="plaltaformes"></div>
+          <button onClick={handleOpenModal} id="btn-abrir-trailer">
+            <h3>TRAILER</h3>
+          </button>
+          {showModal && (
+            <div
+              id="modal"
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: "rgba(0,0,0,0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 9999,
+              }}
+            >
+              <div>
+                <button
+                  onClick={handleCloseModal}
+                  id="btn_cerrar_trailer"
+                  className={`${film_styles.btn_cerrar_trailer}`}
+                ></button>
+                <p>
+                  {" "}
+                  <div className={`${film_styles.video_source}`}>
+                    <ReactPlayer
+                      url={`${filmDataVideo[0]?.video}`}
+                      width="100%"
+                      height="100%"
+                      controls
+                      playing
+                      muted
+                      loop
+                      className="react-player"
+                    />
+                  </div>
+                </p>
+              </div>
+            </div>
+          )}
+          <FilmList
+            key={"popular"}
+            propsReceive={{
+              title: "Pelicules Similars",
+              url: "getSimilarMovie/",
+              moveId: urlId,
+            }}
+          />
+          <br />
+          <br />
+          <br />
+        </div>
       </div>
     </>
   );

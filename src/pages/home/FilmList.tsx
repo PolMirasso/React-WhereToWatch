@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import film_styles from "../../module/filmList.module.css";
 import navbar_styles from "../..//module/navbar.module.css";
 
+import { Link } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,11 +15,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { generatePath } from "react-router-dom";
 
 function FilmList(props) {
-  const history = useNavigate();
-
+  const navigate = useNavigate();
   interface Film {
     film_id: number;
     title: string;
@@ -29,8 +29,7 @@ function FilmList(props) {
 
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
-  const [activeBtn, setActiveBtn] = useState(true);
-
+  const [btn_play, setBbtn_play] = useState(true);
   const incrementPage = () => {
     setPage(page + 1);
   };
@@ -38,6 +37,7 @@ function FilmList(props) {
   async function fetchData() {
     try {
       let response;
+      let data;
 
       if (props.propsReceive.url == "getMoviesByGenre/") {
         response = await fetch(
@@ -57,6 +57,28 @@ function FilmList(props) {
             }).toString(),
           }
         );
+        data = await response.json();
+      } else if (props.propsReceive.url == "getSimilarMovie/") {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/getSimilarMovie/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              movie_id: props.propsReceive.moveId,
+              language:
+                navigator.language.split("-").length < 1
+                  ? navigator.language
+                  : navigator.language.split("-")[1].toLowerCase(),
+              page_num: page.toString(),
+            }).toString(),
+          }
+        );
+        data = await response.json();
+        console.log("data similar movies");
+        console.log(data);
       } else {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
@@ -74,9 +96,8 @@ function FilmList(props) {
             }).toString(),
           }
         );
+        data = await response.json();
       }
-
-      const data = await response.json();
 
       const dataFinal = films.concat(data);
 
@@ -150,8 +171,20 @@ function FilmList(props) {
                     className={`${film_styles.card} `}
                     onClick={(event) => {
                       event.preventDefault();
-                      if (activeBtn) history(`film/${film.film_id}`);
-                      setActiveBtn(true);
+                      if (btn_play) {
+                        if (window.location.pathname === "/") {
+                          navigate(`/film/${film.film_id}`);
+                        } else {
+                          const url = `/film/${film.film_id}`;
+                          navigate(`/`);
+                          if (window.location.pathname === "/") {
+                            setTimeout(() => {
+                              navigate(url);
+                            }, 100);
+                          }
+                        }
+                      }
+                      setBbtn_play(true);
                     }}
                   >
                     <AiOutlinePlusCircle

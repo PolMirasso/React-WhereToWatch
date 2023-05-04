@@ -64,7 +64,9 @@ export const ProfilePage = () => {
             <div className={profile_styles.job}>Description</div>
 
             <div className={profile_styles.actions}>
-              <button className={profile_styles.btn}>Edit Profile</button>
+              <button className={profile_styles.btn}>
+                <a href="/editprofile">Edit Profile</a>
+              </button>
               <br />
               <button className={profile_styles.btn} onClick={logout}>
                 Logout

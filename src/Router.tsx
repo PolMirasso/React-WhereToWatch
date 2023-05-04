@@ -46,7 +46,7 @@ export const AppRouter: React.FC<{}> = () => {
         }
       />
       <Route
-        path="/editprofile/:id_user"
+        path="/editprofile"
         element={
           <RouterLayout>
             <EditProfilePage />

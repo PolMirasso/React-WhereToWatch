@@ -64,10 +64,10 @@ function FilmRecommended() {
         className={`${film_styles.section} ${film_styles.popular} ${film_styles.container}`}
       >
         <FilmList
-          key={"valorades"}
+          key={"upcoming"}
           propsReceive={{
-            title: "Pelicules mes valorades",
-            url: "getTopRatedFilms/",
+            title: "Pelicules recients",
+            url: "getUpcomingFilms/",
             genreid: 0,
           }}
         />
@@ -82,14 +82,13 @@ function FilmRecommended() {
         />
 
         <FilmList
-          key={"upcoming"}
+          key={"valorades"}
           propsReceive={{
-            title: "Pelicules recients",
-            url: "getUpcomingFilms/",
+            title: "Pelicules mes valorades",
+            url: "getTopRatedFilms/",
             genreid: 0,
           }}
         />
-
         {filmGenres.length > 0 && (
           <>
             {filmGenres.map((genres) => (

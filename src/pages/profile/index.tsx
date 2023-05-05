@@ -48,11 +48,11 @@ export const ProfilePage = () => {
               <div className={profile_styles.circle1}></div>
               <div className={profile_styles.circle2}></div>
               <img
-                src={`https://wheretowatch-vps.herokuapp.com${
+                src={
                   userData
                     ? userData.image_profile
-                    : "/static/defaultImageProfile.png"
-                }`}
+                    : "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png"
+                }
                 width="70"
                 height="70"
               />

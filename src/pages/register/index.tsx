@@ -1,6 +1,8 @@
+import "../../module/tailwind/tailwind.css";
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import film_styles from "../../module/loginregister.module.css";
+import registerService from "../../services/userManager/register";
 
 type RegisterType = {
   username: string;
@@ -12,24 +14,50 @@ type RegisterType = {
 export const RegisterPage: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [image_profile, setImage_profile] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
   const history = useNavigate();
 
-  const handleLogin = async (event: any) => {
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    console.log(event.target.files);
+    setImage_profile(event.target.files[0]);
+    setFileName(file.name);
+  };
+
+  const handleRegister = async (event: any) => {
     event.preventDefault();
 
-    try {
-      const result = await registerService.login({ username, password });
+    const formData = new FormData();
+    formData.append("image_profile", image_profile);
 
+    try {
+      if (password != repeatPassword)
+        return setError("Les contrasenyes no coincideixen");
+
+      const result = await registerService.register({
+        username,
+        password,
+        image_profile,
+        email,
+      });
       setUsername("");
       setPassword("");
+      setRepeatPassword("");
+      setFileName("");
+      setImage_profile("");
+      setEmail("");
 
       if (result.status == "ok") {
-        history("/");
+        // history("/");
+        console.log("correct");
       } else {
-        // alert("Error" + result.data.non_field_errors);
-        setError(result.data.non_field_errors);
-        console.log(result.data.non_field_errors);
+        setError(result.data);
+        console.log(result.data);
       }
     } catch (e) {
       console.log("register error:" + e);
@@ -51,7 +79,11 @@ export const RegisterPage: React.FC<{}> = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form
+            className="space-y-6"
+            onSubmit={handleRegister}
+            encType="multipart/form-data"
+          >
             <div>
               <label
                 htmlFor="text"
@@ -63,6 +95,7 @@ export const RegisterPage: React.FC<{}> = () => {
                 <input
                   id="user_name"
                   name="user_name"
+                  onChange={(event) => setUsername(event.target.value)}
                   type="text"
                   autoComplete="user_name"
                   required
@@ -80,27 +113,10 @@ export const RegisterPage: React.FC<{}> = () => {
               <div className="mt-2">
                 <input
                   id="email"
+                  onChange={(event) => setEmail(event.target.value)}
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                Edad
-              </label>
-              <div className="mt-2">
-                <input
-                  id="number"
-                  name="number"
-                  type="number"
-                  autoComplete="number"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                 />
@@ -121,6 +137,7 @@ export const RegisterPage: React.FC<{}> = () => {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(event) => setPassword(event.target.value)}
                   autoComplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
@@ -138,45 +155,50 @@ export const RegisterPage: React.FC<{}> = () => {
               </div>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
+                  id="repeat_password"
+                  name="repeat_password"
                   type="password"
-                  autoComplete="current-password"
+                  onChange={(event) => setRepeatPassword(event.target.value)}
+                  autoComplete="none"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-center w-full">
-              <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <div className="mt-2">
+              <label className="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                <span className="flex items-center space-x-2">
                   <svg
-                    aria-hidden="true"
-                    className="w-10 h-10 mb-3 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                    ></path>
+                    />
                   </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    PNG, JPG (MAX. 800x400px)
-                  </p>
-                </div>
-                <input id="dropzone-file" type="file" className="hidden" />
+                  <span className="font-medium text-gray-600">
+                    {fileName ? fileName : "Drop files to Attach, or"}
+                    <span className="text-blue-600 underline"> browse</span>
+                  </span>
+                </span>
+                <input
+                  type="file"
+                  name="image_profile"
+                  className="hidden"
+                  autoComplete="none"
+                  required
+                  onChange={handleFileChange}
+                />
               </label>
             </div>
+            <p className="error">{error}</p>
 
             <div>
               <button

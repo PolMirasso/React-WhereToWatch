@@ -14,6 +14,7 @@ export const LoginPage: React.FC<{}> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const history = useNavigate();
 
   const handleLogin = async (event: any) => {
@@ -21,6 +22,7 @@ export const LoginPage: React.FC<{}> = () => {
 
     try {
       const result = await loginService.login({ username, password });
+      // const result = await loginService.login({ username, password });
 
       setUsername("");
       setPassword("");

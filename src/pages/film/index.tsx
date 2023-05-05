@@ -60,13 +60,32 @@ interface FilmVideoProps {
   video: string;
 }
 
+interface FilmVideoProps {
+  link: string;
+  flatrate: Array<{
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+  }>;
+  rent: Array<{
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+  }>;
+  buy: Array<{
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+  }>;
+}
+
 export const FilmPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
+  const [providersAvailable, setProvidersAvailable] = useState(false);
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
@@ -198,9 +217,16 @@ export const FilmPage = () => {
         }
       );
       const dataproviders = await response.json();
-      setfilmDataProviders(dataproviders);
       console.log("data providers");
-      console.log(dataproviders);
+      let foundObject = null;
+      for (let key in dataproviders.results) {
+        if (key === "ES") {
+          foundObject = dataproviders.results[key];
+        }
+      }
+      console.log("------------------------------");
+      console.log(foundObject);
+      setfilmDataProviders(foundObject);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -322,6 +348,68 @@ export const FilmPage = () => {
               </div>
             </div>
           )}
+          <br />
+          <br />
+          <h1>Tarifa:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.flatrate?.length ? (
+                filmDataProviders.flatrate.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>Aún no está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1>Llogar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.rent?.length ? (
+                filmDataProviders.rent.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>Aún no está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1>Comprar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.buy?.length ? (
+                filmDataProviders.buy.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>Aún no está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+
           <FilmList
             key={"popular"}
             propsReceive={{

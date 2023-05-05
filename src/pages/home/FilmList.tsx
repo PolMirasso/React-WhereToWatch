@@ -192,7 +192,7 @@ function FilmList(props) {
                       onClickCapture={(event) => {
                         event.preventDefault();
                         console.log("a");
-                        setActiveBtn(false);
+                        setBbtn_play(false);
                       }}
                     ></AiOutlinePlusCircle>
                     <img

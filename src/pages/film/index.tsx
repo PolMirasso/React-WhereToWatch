@@ -5,52 +5,52 @@ import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 
-// interface FilmInfoProps {
-//   adult: boolean;
-//   backdrop_path: string;
-//   belongs_to_collection: {
-//     id: number;
-//     name: string;
-//     poster_path: string;
-//   };
-//   budget: number;
-//   genres: {
-//     id: number;
-//     name: string;
-//   }[];
-//   homepage: string;
-//   id: number;
-//   imdb_id: string;
-//   original_language: string;
-//   original_title: string;
-//   overview: string;
-//   popularity: number;
-//   poster_path: string;
-//   production_companies: {
-//     id: number;
-//     logo_path: string;
-//     name: string;
-//     origin_country: string;
-//   }[];
-//   production_countries: {
-//     iso_3166_1: string;
-//     name: string;
-//   }[];
-//   release_date: string;
-//   revenue: number;
-//   runtime: number;
-//   spoken_languages: {
-//     english_name: string;
-//     iso_639_1: string;
-//     name: string;
-//   }[];
-//   status: string;
-//   tagline: string;
-//   title: string;
-//   video: boolean;
-//   vote_average: number;
-//   vote_count: number;
-// }
+interface FilmInfoProps {
+  adult: boolean;
+  backdrop_path: string;
+  belongs_to_collection: {
+    id: number;
+    name: string;
+    poster_path: string;
+  };
+  budget: number;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  spoken_languages: {
+    english_name: string;
+    iso_639_1: string;
+    name: string;
+  }[];
+  status: string;
+  tagline: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
 
 interface FilmVideoProps {
   id: string;
@@ -78,26 +78,24 @@ interface FilmVideoProps {
 }
 
 export const FilmPage = () => {
+  let location = useLocation();
   const [page, setPage] = useState(1);
-
-  const [providersAvailable, setProvidersAvailable] = useState(false);
-  const [filmData, setfilmData] = useState();
 
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
-  // const [filmData, setfilmData] = useState<FilmInfoProps>();
+  const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
   const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
-
-  let location = useLocation();
   const urlId = location.pathname.split("/")[2];
+
   const scroller = useRef(null);
 
   //Consultes al BackEnd
+
   //Dades pelicula completes
 
   async function fetchData() {
@@ -121,12 +119,7 @@ export const FilmPage = () => {
       const data = await response.json();
       setfilmData(data);
       console.log("data recived");
-      console.log(data);
       console.log(filmData);
-      fetchDataVideo();
-      fetchDataProviders();
-      fetchDataLocalitat();
-      fetchDataCinemes();
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -202,11 +195,8 @@ export const FilmPage = () => {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            movie_id: urlId,
-            language:
-              navigator.language.split("-").length < 1
-                ? navigator.language
-                : navigator.language.split("-")[1].toLowerCase(),
+            film_name: filmData?.title,
+            film_date: "2023-05-05",
           }).toString(),
         }
       );
@@ -264,11 +254,17 @@ export const FilmPage = () => {
   //Use Effect de les funcions
 
   useEffect(() => {
-    fetchDataVideo();
     fetchData();
+    fetchDataVideo();
+    fetchDataVideo();
+    fetchDataProviders();
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
+  useEffect(() => {
+    fetchDataLocalitat();
+    fetchDataCinemes();
+  }, [filmData]);
 
   return (
     <>

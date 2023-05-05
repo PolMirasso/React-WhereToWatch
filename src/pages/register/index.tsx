@@ -56,6 +56,7 @@ export const RegisterPage: React.FC<{}> = () => {
         // history("/");
         console.log("correct");
       } else {
+        result.data;
         setError(result.data);
         console.log(result.data);
       }
@@ -198,12 +199,15 @@ export const RegisterPage: React.FC<{}> = () => {
                 />
               </label>
             </div>
-            <p className="error">{error}</p>
-
+            <div>
+              {Object.entries(error).map(([key, value]) => (
+                <div key={key}>{value}</div>
+              ))}
+            </div>
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-yellow-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400"
+                className="flex w-full justify-center rounded-md bg-yellow-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400"
               >
                 Sign in
               </button>
@@ -213,7 +217,7 @@ export const RegisterPage: React.FC<{}> = () => {
           <p className="mt-10 text-center text-sm text-gray-500">
             Ja tens compte?{" "}
             <a
-              href="#"
+              href="/login"
               className="font-semibold leading-6 text-yellow-400 hover:text-yellow-600"
             >
               Inicia Sessio

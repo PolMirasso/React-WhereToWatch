@@ -33,7 +33,7 @@ const register = async (credentials) => {
       Cookies.set("userData", JSON.stringify(userData));
 
       return { status: "ok", userData };
-    } else {
+    } else if (response.status === 400) {
       return { status: "error", data };
     }
 
@@ -55,6 +55,7 @@ const register = async (credentials) => {
     // }
   } catch (error) {
     console.error("Error fetching genres:", error);
+    return { status: "error", error };
   }
 };
 

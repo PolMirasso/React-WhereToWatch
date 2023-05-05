@@ -1,6 +1,6 @@
 @import url("https://rsms.me/inter/inter.css");
 :root {
-  --color-dark: var(--background-color);
+  --color-dark: #1e1e1a;
   --color-signal: var(--main-color);
   --color-background: var(--color-dark);
   --color-text: var(--color-dark);
@@ -17,7 +17,7 @@
 h1,
 h2,
 h3 {
-  font-weight: 900;
+  font-weight: 1000;
 }
 mark {
   background: var(--color-accent);
@@ -26,6 +26,8 @@ mark {
   padding: 0 0.2em;
 }
 .card {
+  position: relative;
+  z-index: 1;
   background: var(--color-background);
   justify-items: center;
   padding: 20%;
@@ -78,7 +80,7 @@ mark {
   border: 3px solid currentColor;
   padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
   color: currentColor;
-  background: transparent;
+  background: #1e1e1a;
   border-radius: var(--size-radius);
 }
 .inputField:focus + .inputLabel,

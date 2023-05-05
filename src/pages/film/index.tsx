@@ -7,52 +7,52 @@ import navbar_styles from "../../module/navbar.module.css";
 import film_styles1 from "../../module/filmList.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
-interface FilmInfoProps {
-  adult: boolean;
-  backdrop_path: string;
-  belongs_to_collection: {
-    id: number;
-    name: string;
-    poster_path: string;
-  };
-  budget: number;
-  genres: {
-    id: number;
-    name: string;
-  }[];
-  homepage: string;
-  id: number;
-  imdb_id: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  production_companies: {
-    id: number;
-    logo_path: string;
-    name: string;
-    origin_country: string;
-  }[];
-  production_countries: {
-    iso_3166_1: string;
-    name: string;
-  }[];
-  release_date: string;
-  revenue: number;
-  runtime: number;
-  spoken_languages: {
-    english_name: string;
-    iso_639_1: string;
-    name: string;
-  }[];
-  status: string;
-  tagline: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
+// interface FilmInfoProps {
+//   adult: boolean;
+//   backdrop_path: string;
+//   belongs_to_collection: {
+//     id: number;
+//     name: string;
+//     poster_path: string;
+//   };
+//   budget: number;
+//   genres: {
+//     id: number;
+//     name: string;
+//   }[];
+//   homepage: string;
+//   id: number;
+//   imdb_id: string;
+//   original_language: string;
+//   original_title: string;
+//   overview: string;
+//   popularity: number;
+//   poster_path: string;
+//   production_companies: {
+//     id: number;
+//     logo_path: string;
+//     name: string;
+//     origin_country: string;
+//   }[];
+//   production_countries: {
+//     iso_3166_1: string;
+//     name: string;
+//   }[];
+//   release_date: string;
+//   revenue: number;
+//   runtime: number;
+//   spoken_languages: {
+//     english_name: string;
+//     iso_639_1: string;
+//     name: string;
+//   }[];
+//   status: string;
+//   tagline: string;
+//   title: string;
+//   video: boolean;
+//   vote_average: number;
+//   vote_count: number;
+// }
 
 interface FilmVideoProps {
   id: string;
@@ -80,20 +80,20 @@ interface FilmVideoProps {
 }
 
 export const FilmPage = () => {
-  const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
   const [providersAvailable, setProvidersAvailable] = useState(false);
-  const [filmData, setfilmData] = useState<FilmInfoProps>();
+  const [filmData, setfilmData] = useState();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
   const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
   let location = useLocation();
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
+  const [showModal, setShowModal] = useState(false);
 
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
   async function fetchData() {
     try {
       const response = await fetch(
@@ -116,6 +116,11 @@ export const FilmPage = () => {
       setfilmData(data);
       console.log("data recived");
       console.log(data);
+      console.log(filmData);
+      fetchDataVideo();
+      fetchDataProviders();
+      fetchDataLocalitat();
+      fetchDataCinemes();
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -232,15 +237,9 @@ export const FilmPage = () => {
     }
   }
   useEffect(() => {
-    scroller.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
-  useEffect(() => {
-    fetchDataVideo();
     fetchData();
-    fetchDataProviders();
-    fetchDataLocalitat();
-    fetchDataCinemes();
+
+    scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   return (

@@ -1,12 +1,10 @@
-import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
-import film_styles1 from "../../module/filmList.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
+
 // interface FilmInfoProps {
 //   adult: boolean;
 //   backdrop_path: string;
@@ -84,16 +82,24 @@ export const FilmPage = () => {
 
   const [providersAvailable, setProvidersAvailable] = useState(false);
   const [filmData, setfilmData] = useState();
-  const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
-  const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
-  const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
-  let location = useLocation();
-  const urlId = location.pathname.split("/")[2];
-  const scroller = useRef(null);
+
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  // const [filmData, setfilmData] = useState<FilmInfoProps>();
+  const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
+  const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
+  const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
+
+  let location = useLocation();
+  const urlId = location.pathname.split("/")[2];
+  const scroller = useRef(null);
+
+  //Consultes al BackEnd
+  //Dades pelicula completes
+
   async function fetchData() {
     try {
       const response = await fetch(
@@ -125,6 +131,9 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
+  //Dades trailer pelicula
+
   async function fetchDataVideo() {
     try {
       const response = await fetch(
@@ -151,6 +160,9 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
+  //Dades localitat on fan la pelicula i on hi han cines
+
   async function fetchDataLocalitat() {
     try {
       const response = await fetch(
@@ -177,6 +189,9 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
+  //Dades tots els cinemes de cada localitat
+
   async function fetchDataCinemes() {
     try {
       const response = await fetch(
@@ -203,6 +218,9 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
+  //Dades tots proveidors de la pelicula
+
   async function fetchDataProviders() {
     try {
       const response = await fetch(
@@ -236,7 +254,17 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
+  //Auto Scroll Al inici
+
   useEffect(() => {
+    scroller.current.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  //Use Effect de les funcions
+
+  useEffect(() => {
+    fetchDataVideo();
     fetchData();
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
@@ -263,19 +291,19 @@ export const FilmPage = () => {
               <h1>
                 {filmData?.title} ({filmData?.release_date.split("-")[0]})
               </h1>
-              <h3>{filmData?.tagline}</h3>
+              <h1>{filmData?.tagline}</h1>
             </div>
           </div>
         </div>
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
-          <h4>Sinopsis:</h4>
+          <h1>Valoració:</h1>
           <div className="rating">
             <i className="bx bxs-star">{filmData?.vote_average}</i>
           </div>
           <br />
-          <h4>Genere:</h4>
+          <h1>Genere:</h1>
           <br />
           <div className="tags">
             {filmData?.genres.map((genre) => (
@@ -286,18 +314,17 @@ export const FilmPage = () => {
             ))}
           </div>
           <br />
-          <h4>Sinopsis:</h4>
+          <h1>Sinopsis:</h1>
           <br />
           <div className="tags">
             <label>{filmData?.overview}</label>
           </div>
           <br />
-          <h4>Estudis:</h4>
+          <h1>Estudis:</h1>
           <div className="tags">
             {filmData?.production_companies.map((production_companies) => (
               <span key={production_companies.id}>
-                <br />
-                {production_companies.name}
+                <br />· {production_companies.name}
               </span>
             ))}
           </div>
@@ -305,7 +332,7 @@ export const FilmPage = () => {
           <br />
           <div className="plaltaformes"></div>
           <button onClick={handleOpenModal} id="btn-abrir-trailer">
-            <h3>TRAILER</h3>
+            <h1>TRAILER</h1>
           </button>
           {showModal && (
             <div
@@ -364,7 +391,7 @@ export const FilmPage = () => {
                   </div>
                 ))
               ) : (
-                <p>Aún no está disponible en ninguna plataforma.</p>
+                <p>No no está disponible en ninguna plataforma.</p>
               )}
             </div>
           </div>
@@ -384,7 +411,7 @@ export const FilmPage = () => {
                   </div>
                 ))
               ) : (
-                <p>Aún no está disponible en ninguna plataforma.</p>
+                <p>No está disponible en ninguna plataforma.</p>
               )}
             </div>
           </div>
@@ -404,7 +431,7 @@ export const FilmPage = () => {
                   </div>
                 ))
               ) : (
-                <p>Aún no está disponible en ninguna plataforma.</p>
+                <p>No está disponible en ninguna plataforma.</p>
               )}
             </div>
           </div>

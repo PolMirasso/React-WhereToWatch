@@ -5,7 +5,7 @@ const register = async (credentials) => {
   try {
     const formData = new FormData();
     formData.append("username", credentials.username);
-    formData.append("age", "25");
+    formData.append("nsfw_content", "0");
     formData.append("email", credentials.email);
     formData.append("password", credentials.password);
     formData.append("image_profile", credentials.image_profile);
@@ -25,7 +25,7 @@ const register = async (credentials) => {
     if (response && response.status === 200) {
       const userData = {
         username: data.user.username,
-        age: data.user.age,
+        nsfw_content: data.user.nsfw_content,
         image_profile: data.user.image_profile,
       };
 

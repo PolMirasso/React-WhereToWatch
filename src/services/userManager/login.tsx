@@ -20,7 +20,7 @@ const login = async (credentials) => {
     if (response.ok) {
       const userData = {
         username: data.username,
-        age: data.age,
+        nsfw_content: data.nsfw_content,
         image_profile: data.image_profile,
       };
 

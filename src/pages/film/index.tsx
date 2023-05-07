@@ -80,7 +80,9 @@ interface FilmVideoProps {
 export const FilmPage = () => {
   let location = useLocation();
   const [page, setPage] = useState(1);
-
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => setShowModal(true);
@@ -195,7 +197,9 @@ export const FilmPage = () => {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            film_name: filmData?.title,
+            film_name: removeAccents(filmData.title)
+              .replace(/\s+/g, "-")
+              .toLowerCase(),
             film_date: "2023-05-05",
           }).toString(),
         }

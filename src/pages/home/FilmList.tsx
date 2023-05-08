@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { generatePath } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function FilmList(props) {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function FilmList(props) {
 
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
-  const [btn_play, setBbtn_play] = useState(true);
+  const [btn_play, setBtn_play] = useState(true);
   const incrementPage = () => {
     setPage(page + 1);
   };
@@ -79,6 +80,53 @@ function FilmList(props) {
         data = await response.json();
         console.log("data similar movies");
         console.log(data);
+      } else if (props.propsReceive.url == "getFilmTitleAndImage/") {
+        // if (props.propsReceive.list_content.lenght() > 0) {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/getFilmTitleAndImage/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: "Token " + (await Cookies.get("authToken")),
+            },
+            body: new URLSearchParams({
+              list_content: props.propsReceive.list_content,
+              language:
+                navigator.language.split("-").length < 1
+                  ? navigator.language
+                  : navigator.language.split("-")[1].toLowerCase(),
+            }).toString(),
+          }
+        );
+        data = await response.json();
+
+        const filtered_Data = [];
+
+        data.forEach((array) => {
+          array.forEach((obj) => {
+            const newObj = {
+              film_id: obj.film_id,
+              title: obj.title,
+              vote_average: obj.vote_average,
+              poster_path: obj.poster_path,
+            };
+
+            filtered_Data.push(newObj);
+          });
+        });
+
+        data = filtered_Data;
+        // } else {
+        //   data = {
+        //     film_id: 0,
+        //     title: "",
+        //     vote_average: "",
+        //     poster_path: "",
+        //   };
+        // }
+
+        console.log("data getFilmTitleAndImage");
       } else {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
@@ -184,7 +232,7 @@ function FilmList(props) {
                           }
                         }
                       }
-                      setBbtn_play(true);
+                      setBtn_play(true);
                     }}
                   >
                     <AiOutlinePlusCircle
@@ -192,7 +240,7 @@ function FilmList(props) {
                       onClickCapture={(event) => {
                         event.preventDefault();
                         console.log("a");
-                        setBbtn_play(false);
+                        setBtn_play(false);
                       }}
                     ></AiOutlinePlusCircle>
                     <img
@@ -209,15 +257,21 @@ function FilmList(props) {
                 </div>
               </SwiperSlide>
             ))}
-            <SwiperSlide>
-              <a onClick={incrementPage} className={film_styles.sliderContent}>
-                <img
-                  src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
-                  alt="btn_more"
-                  className={film_styles.movieImage}
-                />
-              </a>
-            </SwiperSlide>
+
+            {props.propsReceive.render_next_page === undefined && (
+              <SwiperSlide>
+                <a
+                  onClick={incrementPage}
+                  className={film_styles.sliderContent}
+                >
+                  <img
+                    src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
+                    alt="btn_more"
+                    className={film_styles.movieImage}
+                  />
+                </a>
+              </SwiperSlide>
+            )}
           </div>
 
           <div

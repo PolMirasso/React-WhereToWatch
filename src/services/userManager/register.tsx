@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 
 const register = async (credentials) => {
-  console.log(credentials);
   try {
     const formData = new FormData();
     formData.append("username", credentials.username);

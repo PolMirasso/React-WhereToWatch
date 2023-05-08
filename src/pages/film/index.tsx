@@ -206,13 +206,12 @@ export const FilmPage = () => {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            film_name: filmData.original_title,
+            film_name: filmData.title,
             film_date: "20230509",
           }).toString(),
         }
       );
       const datacinema = await response.json();
-      console.log("--------------------------------" + filmData.title);
       setCinemaData(datacinema);
       console.log("data cinemes");
       console.log(datacinema);
@@ -279,7 +278,7 @@ export const FilmPage = () => {
 
   return (
     <>
-      <div ref={scroller} style={{ overflowY: "scroll" }}>
+      <div ref={scroller}>
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >

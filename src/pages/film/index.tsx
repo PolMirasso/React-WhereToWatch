@@ -58,7 +58,7 @@ interface FilmVideoProps {
   video: string;
 }
 
-interface FilmVideoProps {
+interface FilmProvidersProps {
   link: string;
   flatrate: Array<{
     logo_path: string;
@@ -76,26 +76,36 @@ interface FilmVideoProps {
     provider_name: string;
   }>;
 }
+interface ProvinceData {
+  [provinceName: string]: { [cityCode: number]: string };
+}
 
 export const FilmPage = () => {
   let location = useLocation();
   const [page, setPage] = useState(1);
-  const removeAccents = (str) => {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  };
+
   const [showModal, setShowModal] = useState(false);
+  const [provinceState, setProvinceState] = useState<{
+    [province: string]: boolean;
+  }>({});
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
-  const [filmDataSimilar, setfilmDataSimilar] = useState<FilmVideoProps>();
-  const [filmDataProviders, setfilmDataProviders] = useState<FilmVideoProps>();
+  const [filmDataProviders, setfilmDataProviders] =
+    useState<FilmProvidersProps>();
+  const [datacinema, setCinemaData] = useState<ProvinceData>();
+
   const urlId = location.pathname.split("/")[2];
-
   const scroller = useRef(null);
-
+  const toggleProvinceState = (province: string) => {
+    setProvinceState({
+      ...provinceState,
+      [province]: !provinceState[province],
+    });
+  };
   //Consultes al BackEnd
 
   //Dades pelicula completes
@@ -120,8 +130,7 @@ export const FilmPage = () => {
       );
       const data = await response.json();
       setfilmData(data);
-      console.log("data recived");
-      console.log(filmData);
+      console.log("");
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -190,22 +199,21 @@ export const FilmPage = () => {
   async function fetchDataCinemes() {
     try {
       const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
+        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            film_name: removeAccents(filmData.title)
-              .replace(/\s+/g, "-")
-              .toLowerCase(),
-            film_date: "2023-05-05",
+            film_name: filmData.original_title,
+            film_date: "20230509",
           }).toString(),
         }
       );
       const datacinema = await response.json();
-      setfilmDataProviders(datacinema);
+      console.log("--------------------------------" + filmData.title);
+      setCinemaData(datacinema);
       console.log("data cinemes");
       console.log(datacinema);
     } catch (error) {
@@ -241,7 +249,6 @@ export const FilmPage = () => {
           foundObject = dataproviders.results[key];
         }
       }
-      console.log("------------------------------");
       console.log(foundObject);
       setfilmDataProviders(foundObject);
     } catch (error) {
@@ -446,6 +453,34 @@ export const FilmPage = () => {
           />
           <br />
           <br />
+          <div className={film_styles.button_container}>
+            {datacinema &&
+              Object.keys(datacinema)
+                .filter((province) => province !== "film_id")
+                .map((province) => (
+                  <div
+                    key={province}
+                    className={film_styles.province_container}
+                  >
+                    <h3
+                      className={film_styles.button}
+                      onClick={() => toggleProvinceState(province)}
+                    >
+                      {province}
+                    </h3>
+                    {provinceState[province] && (
+                      <div className={film_styles.sub_buttons}>
+                        <ul className={film_styles.sub_button}>
+                          {Object.keys(datacinema[province]).map((city) => (
+                            <li key={city}>{datacinema[province][city]}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+          </div>
+
           <br />
         </div>
       </div>

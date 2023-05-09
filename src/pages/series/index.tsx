@@ -82,17 +82,16 @@ interface SerieInfoProps {
   vote_count: number;
 }
 interface SerieProvidersProps {
-  id: number;
-  results: {
-    [countryCode: string]: {
-      link: string;
-      flatrate: {
-        logo_path: string;
-        provider_id: number;
-        provider_name: string;
-        display_priority: number;
-      }[];
-    };
+  flatrate: any;
+  countryCode: string;
+  providers: {
+    link: string;
+    flatrate: {
+      logo_path: string;
+      provider_id: number;
+      provider_name: string;
+      display_priority: number;
+    }[];
   };
 }
 
@@ -156,7 +155,15 @@ export const SeriePage = () => {
         }
       );
       const dataproviders = await response.json();
-      setSerieProviders(dataproviders);
+      console.log("data providers");
+      let foundObject = null;
+      for (let key in dataproviders.results) {
+        if (key === "ES" || key === "TW") {
+          foundObject = dataproviders.results[key];
+        }
+      }
+      console.log(foundObject);
+      setSerieProviders(foundObject);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -250,50 +257,22 @@ export const SeriePage = () => {
                   </div>
                 ))
               ) : (
-                <p>No no está disponible en ninguna plataforma.</p>
-              )}
-            </div>
-          </div>
-          <br />
-          <h1>Llogar:</h1>
-          <br />
-          <div className={`${film_styles.providers}`}>
-            <div className={`${film_styles.providers_container}`}>
-              {serieProviders?.rent?.length ? (
-                serieProviders.rent.map((provider) => (
-                  <div key={provider.provider_id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                      alt={provider.provider_name}
-                    />
-                    <p>{provider.provider_name}</p>
-                  </div>
-                ))
-              ) : (
                 <p>No está disponible en ninguna plataforma.</p>
               )}
             </div>
           </div>
+          <FilmList
+            key={"popular"}
+            propsReceive={{
+              title: "Pelicules Similars",
+              url: "getSeriesSimilars/",
+              moveId: urlId,
+            }}
+          />
           <br />
-          <h1>Comprar:</h1>
           <br />
-          <div className={`${film_styles.providers}`}>
-            <div className={`${film_styles.providers_container}`}>
-              {serieProviders?.buy?.length ? (
-                serieProviders.buy.map((provider) => (
-                  <div key={provider.provider_id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                      alt={provider.provider_name}
-                    />
-                    <p>{provider.provider_name}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No está disponible en ninguna plataforma.</p>
-              )}
-            </div>
-          </div>
+          <br />
+          <br />
         </div>
       </div>
     </>

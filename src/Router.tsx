@@ -9,6 +9,7 @@ import { ListPage } from "./pages/lists";
 import { ProfilePage } from "./pages/profile";
 import { EditProfilePage } from "./pages/profile/editProfile";
 import { CreateListPage } from "./pages/lists/createlist/createlist";
+import { SeriePage } from "./pages/series";
 
 export const AppRouter: React.FC<{}> = () => {
   return (
@@ -58,6 +59,14 @@ export const AppRouter: React.FC<{}> = () => {
         element={
           <RouterLayout>
             <FilmPage />
+          </RouterLayout>
+        }
+      />
+      <Route
+        path="/serie/:id"
+        element={
+          <RouterLayout>
+            <SeriePage />
           </RouterLayout>
         }
       />

@@ -5,7 +5,84 @@ import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 
-export const FilmPage = () => {
+interface SerieInfoProps {
+  adult: boolean;
+  backdrop_path: string;
+  created_by: {
+    id: number;
+    credit_id: string;
+    name: string;
+    gender: number;
+    profile_path: string;
+  }[];
+  episode_run_time: number[];
+  first_air_date: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  homepage: string;
+  id: number;
+  in_production: boolean;
+  languages: string[];
+  last_air_date: string;
+  last_episode_to_air: {
+    id: number;
+    name: string;
+    overview: string;
+    vote_average: number;
+    vote_count: number;
+    air_date: string;
+    episode_number: number;
+    production_code: string;
+    runtime: number;
+    season_number: number;
+    show_id: number;
+    still_path: string;
+  };
+  name: string;
+  next_episode_to_air: null | {
+    id: number;
+    name: string;
+    overview: string;
+    vote_average: number;
+    vote_count: number;
+    air_date: string;
+    episode_number: number;
+    production_code: string;
+    runtime: number;
+    season_number: number;
+    show_id: number;
+    still_path: string;
+  };
+  networks: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  status: string;
+  tagline: string;
+  type: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+export const SeriePage = () => {
   let location = useLocation();
   const [page, setPage] = useState(1);
 
@@ -65,9 +142,6 @@ export const FilmPage = () => {
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
-  useEffect(() => {
-    fetchDataSeries();
-  }, [serieData]);
 
   return (
     <>
@@ -87,10 +161,7 @@ export const FilmPage = () => {
               className={film_styles.play_img_portada_no}
             />
             <div className={film_styles.play_text}>
-              <h1>
-                {serieData?.title} ({serieData?.release_date.split("-")[0]})
-              </h1>
-              <h1>{serieData?.tagline}</h1>
+              <h1>{serieData?.name}</h1>
             </div>
           </div>
         </div>

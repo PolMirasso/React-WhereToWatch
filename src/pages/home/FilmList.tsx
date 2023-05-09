@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import film_styles from "../../module/filmList.module.css";
 import navbar_styles from "../..//module/navbar.module.css";
 
@@ -8,7 +8,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-
 import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -18,6 +17,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { generatePath } from "react-router-dom";
 import Cookies from "js-cookie";
+import SlideFilm from "./SlideFilm";
 
 function FilmList(props) {
   const navigate = useNavigate();
@@ -33,6 +33,12 @@ function FilmList(props) {
   const [btn_play, setBtn_play] = useState(true);
   const incrementPage = () => {
     setPage(page + 1);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(!open);
   };
 
   async function fetchData() {
@@ -81,52 +87,69 @@ function FilmList(props) {
         console.log("data similar movies");
         console.log(data);
       } else if (props.propsReceive.url == "getFilmTitleAndImage/") {
-        // if (props.propsReceive.list_content.lenght() > 0) {
-        response = await fetch(
-          "https://wheretowatch-vps.herokuapp.com/getFilmTitleAndImage/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              Authorization: "Token " + (await Cookies.get("authToken")),
-            },
-            body: new URLSearchParams({
-              list_content: props.propsReceive.list_content,
-              language:
-                navigator.language.split("-").length < 1
-                  ? navigator.language
-                  : navigator.language.split("-")[1].toLowerCase(),
-            }).toString(),
-          }
-        );
-        data = await response.json();
+        if (JSON.parse(props.propsReceive.list_content).length > 0) {
+          response = await fetch(
+            "https://wheretowatch-vps.herokuapp.com/getFilmTitleAndImage/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                Authorization: "Token " + (await Cookies.get("authToken")),
+              },
+              body: new URLSearchParams({
+                list_content: props.propsReceive.list_content,
+                language:
+                  navigator.language.split("-").length < 1
+                    ? navigator.language
+                    : navigator.language.split("-")[1].toLowerCase(),
+              }).toString(),
+            }
+          );
+          data = await response.json();
 
-        const filtered_Data = [];
+          const filtered_Data = [];
 
-        data.forEach((array) => {
-          array.forEach((obj) => {
-            const newObj = {
-              film_id: obj.film_id,
-              title: obj.title,
-              vote_average: obj.vote_average,
-              poster_path: obj.poster_path,
-            };
+          data.forEach((array) => {
+            array.forEach((obj) => {
+              const newObj = {
+                film_id: obj.film_id,
+                title: obj.title,
+                vote_average: obj.vote_average,
+                poster_path: obj.poster_path,
+              };
 
-            filtered_Data.push(newObj);
+              filtered_Data.push(newObj);
+            });
           });
-        });
 
-        data = filtered_Data;
-        // } else {
-        //   data = {
-        //     film_id: 0,
-        //     title: "",
-        //     vote_average: "",
-        //     poster_path: "",
-        //   };
-        // }
+          data = filtered_Data;
+        } else {
+          data = [
+            [
+              {
+                film_id: 0,
+                title: "",
+                vote_average: 0,
+                poster_path: "",
+              },
+            ],
+          ];
+          const filtered_Data = [];
 
-        console.log("data getFilmTitleAndImage");
+          data.forEach((array) => {
+            array.forEach((obj) => {
+              const newObj = {
+                film_id: obj.film_id,
+                title: obj.title,
+                vote_average: obj.vote_average,
+                poster_path: obj.poster_path,
+              };
+
+              filtered_Data.push(newObj);
+            });
+            data = filtered_Data;
+          });
+        }
       } else {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
@@ -148,7 +171,7 @@ function FilmList(props) {
       }
 
       const dataFinal = films.concat(data);
-
+      // console.log(dataFinal);
       setFilms(dataFinal);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -213,48 +236,15 @@ function FilmList(props) {
         >
           <div className={film_styles.sliderContent}>
             {films.map((film) => (
-              <SwiperSlide key={film.film_id}>
-                <div className={`${film_styles.cards} `}>
-                  <figure
-                    className={`${film_styles.card} `}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      if (btn_play) {
-                        if (window.location.pathname === "/") {
-                          navigate(`/film/${film.film_id}`);
-                        } else {
-                          const url = `/film/${film.film_id}`;
-                          navigate(`/`);
-                          if (window.location.pathname === "/") {
-                            setTimeout(() => {
-                              navigate(url);
-                            }, 100);
-                          }
-                        }
-                      }
-                      setBtn_play(true);
-                    }}
-                  >
-                    <AiOutlinePlusCircle
-                      className={`${film_styles.bx}`}
-                      onClickCapture={(event) => {
-                        event.preventDefault();
-                        console.log("a");
-                        setBtn_play(false);
-                      }}
-                    ></AiOutlinePlusCircle>
-                    <img
-                      src={film.poster_path}
-                      className={`${film_styles.filmImages}`}
-                    />
-
-                    <figcaption
-                      className={`${film_styles.figcaptionTitle} ${film_styles.boxText}`}
-                    >
-                      {film.title}{" "}
-                    </figcaption>
-                  </figure>
-                </div>
+              <SwiperSlide>
+                <SlideFilm
+                  propsReceive={{
+                    film_id: film.film_id,
+                    title: film.title,
+                    poster_path: film.poster_path,
+                    vote_average: film.vote_average,
+                  }}
+                />
               </SwiperSlide>
             ))}
 

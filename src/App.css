@@ -539,7 +539,36 @@ a.reg:link  {
   transform: scale(1.1);
 }
 
+.lista {
+  position: relative;
+  max-height: 372.38px;
+  overflow-y: auto;
+}
 
+.ullist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
 
+.lilist {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
 
+.boton-li {
+  display: flex;
+  justify-content: center;
+}
 
+.boton {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}

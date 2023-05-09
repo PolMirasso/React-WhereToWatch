@@ -27,6 +27,8 @@ export const ListPage: React.FC = () => {
     <div
       className={`${film_styles.section} ${film_styles.popular} ${film_styles.container}`}
     >
+      <br />
+      <br />
       {userList.map((list) => (
         <FilmList
           key={list.list_id}

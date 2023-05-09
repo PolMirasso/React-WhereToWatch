@@ -264,7 +264,7 @@ export const SeriePage = () => {
           <FilmList
             key={"popular"}
             propsReceive={{
-              title: "Pelicules Similars",
+              title: "Series Similars",
               url: "getSeriesSimilars/",
               moveId: urlId,
             }}

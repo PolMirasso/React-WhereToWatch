@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
-import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 
 interface SerieInfoProps {
@@ -75,12 +74,22 @@ interface SerieInfoProps {
     name: string;
     origin_country: string;
   }[];
+  seasons: {
+    air_date: string;
+    episode_count: number;
+    id: number;
+    name: string;
+    overview: string;
+    poster_path: string;
+    season_number: number;
+  }[];
   status: string;
   tagline: string;
   type: string;
   vote_average: number;
   vote_count: number;
 }
+
 interface SerieProvidersProps {
   flatrate: any;
   countryCode: string;
@@ -94,7 +103,6 @@ interface SerieProvidersProps {
     }[];
   };
 }
-
 export const SeriePage = () => {
   let location = useLocation();
 
@@ -107,10 +115,14 @@ export const SeriePage = () => {
 
   const [serieData, setSerieData] = useState<SerieInfoProps>();
   const [serieProviders, setSerieProviders] = useState<SerieProvidersProps>();
-
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
 
+  const [selectedSeasonId, setSelectedSeasonId] = useState(null);
+
+  const handleSeasonClick = (seasonId) => {
+    setSelectedSeasonId((prevId) => (prevId === seasonId ? null : seasonId));
+  };
   //Dades pelicula completes
 
   async function fetchDataSeries() {
@@ -133,7 +145,7 @@ export const SeriePage = () => {
       );
       const data = await response.json();
       setSerieData(data);
-      console.log();
+      console.log(data);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -205,9 +217,44 @@ export const SeriePage = () => {
             </div>
           </div>
         </div>
+
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
+          <div className={`${film_styles.season}`}>
+            <div className={`${film_styles.season_container}`}>
+              {serieData?.seasons.map((season) => (
+                <div key={season.id}>
+                  <div className={`${film_styles.season_poster_container}`}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w300/${season.poster_path}`}
+                      alt={`Season ${season.season_number} poster`}
+                      onClick={() => handleSeasonClick(season.id)}
+                    />
+                  </div>
+                  {selectedSeasonId === season.id && (
+                    <div className={`${film_styles.season_content_container}`}>
+                      {season.season_number === 1 ? (
+                        <div className="tags">
+                          <h3>{season.name}</h3>
+                          <label>{serieData?.overview}</label>
+                          <p>Number of Episodes: {season.episode_count}</p>
+                          <p>Air Date: {season.air_date}</p>
+                        </div>
+                      ) : (
+                        <>
+                          <h3>{season.name}</h3>
+                          <p>{season.overview}</p>
+                          <p>Number of Episodes: {season.episode_count}</p>
+                          <p>Air Date: {season.air_date}</p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
           <h1>Valoració:</h1>
           <div className="rating">
             <i className="bx bxs-star">{serieData?.vote_average}</i>
@@ -224,12 +271,6 @@ export const SeriePage = () => {
             ))}
           </div>
           <br />
-          <h1>Sinopsis:</h1>
-          <br />
-          <div className="tags">
-            <label>{serieData?.overview}</label>
-          </div>
-          <br />
           <h1>Estudis:</h1>
           <div className="tags">
             {serieData?.production_companies.map((production_companies) => (
@@ -238,12 +279,8 @@ export const SeriePage = () => {
               </span>
             ))}
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
+
           <h1>Tarifa:</h1>
-          <br />
           <div className={`${film_styles.providers}`}>
             <div className={`${film_styles.providers_container}`}>
               {serieProviders?.flatrate?.length ? (
@@ -261,6 +298,7 @@ export const SeriePage = () => {
               )}
             </div>
           </div>
+          <br />
           <FilmList
             key={"popular"}
             propsReceive={{

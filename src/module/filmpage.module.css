@@ -177,3 +177,53 @@
   text-align: center;
   margin-bottom: 20px;
 }
+.season {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.season_container {
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.season_container > div {
+  margin: 10px;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.season_poster_container {
+  position: relative;
+}
+
+.season_poster_container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.season_content_container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.season_content_container h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.season_content_container p {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+}

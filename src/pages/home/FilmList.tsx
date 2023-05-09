@@ -28,6 +28,7 @@ function FilmList(props) {
     vote_average: number;
   }
 
+  const urlId = location.pathname.split("/")[2];
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
   const [btn_play, setBtn_play] = useState(true);
@@ -150,6 +151,22 @@ function FilmList(props) {
             data = filtered_Data;
           });
         }
+        console.log("data getFilmTitleAndImage");
+      } else if (props.propsReceive.url == "getSeriesSimilars/") {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              movie_id: props.propsReceive.moveId,
+            }).toString(),
+          }
+        );
+        data = await response.json();
+        console.log("data getSimilarSerie");
       } else {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,

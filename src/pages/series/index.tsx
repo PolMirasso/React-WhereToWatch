@@ -81,25 +81,36 @@ interface SerieInfoProps {
   vote_average: number;
   vote_count: number;
 }
+interface SerieProvidersProps {
+  id: number;
+  results: {
+    [countryCode: string]: {
+      link: string;
+      flatrate: {
+        logo_path: string;
+        provider_id: number;
+        provider_name: string;
+        display_priority: number;
+      }[];
+    };
+  };
+}
 
 export const SeriePage = () => {
   let location = useLocation();
+
   const [page, setPage] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
-  const [provinceState, setProvinceState] = useState<{
-    [province: string]: boolean;
-  }>({});
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
-  const [serieData, setserieData] = useState<SerieInfoProps>();
+  const [serieData, setSerieData] = useState<SerieInfoProps>();
+  const [serieProviders, setSerieProviders] = useState<SerieProvidersProps>();
 
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
-
-  //Consultes al BackEnd
 
   //Dades pelicula completes
 
@@ -122,13 +133,34 @@ export const SeriePage = () => {
         }
       );
       const data = await response.json();
-      setserieData(data);
-      console.log("");
+      setSerieData(data);
+      console.log();
     } catch (error) {
       console.error("Error fetching films:", error);
     }
   }
 
+  async function fetchProvidersSeries() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getSeriesProviders/",
+
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            movie_id: urlId,
+          }).toString(),
+        }
+      );
+      const dataproviders = await response.json();
+      setSerieProviders(dataproviders);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
   //Auto Scroll Al inici
 
   useEffect(() => {
@@ -138,6 +170,7 @@ export const SeriePage = () => {
   //Use Effect de les funcions
 
   useEffect(() => {
+    fetchProvidersSeries();
     fetchDataSeries();
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
@@ -200,6 +233,67 @@ export const SeriePage = () => {
           </div>
           <br />
           <br />
+          <br />
+          <br />
+          <h1>Tarifa:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {serieProviders?.flatrate?.length ? (
+                serieProviders.flatrate.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No no está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1>Llogar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {serieProviders?.rent?.length ? (
+                serieProviders.rent.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1>Comprar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {serieProviders?.buy?.length ? (
+                serieProviders.buy.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -43,7 +43,7 @@ export const EditProfilePage = () => {
     event.preventDefault();
 
     fetch("/api/change_password/", {
-      method: "UPDATE",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Token " + localStorage.getItem("authToken"),

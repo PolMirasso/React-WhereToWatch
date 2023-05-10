@@ -1,13 +1,13 @@
 import Cookies from "js-cookie";
 
-const addContentList = async (props) => {
+const removeFromListContent = async (props) => {
   async function getToken() {
     const token = await Cookies.get("authToken");
     return token;
   }
   try {
     const response = await fetch(
-      "https://wheretowatch-vps.herokuapp.com/addToListContent/",
+      "https://wheretowatch-vps.herokuapp.com/removeFromListContent/",
       {
         method: "POST",
         headers: new Headers({
@@ -35,4 +35,4 @@ const addContentList = async (props) => {
   }
 };
 
-export default { addContentList };
+export default { removeFromListContent };

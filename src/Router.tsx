@@ -8,7 +8,6 @@ import { FilmPage } from "./pages/film";
 import { ListPage } from "./pages/lists";
 import { ProfilePage } from "./pages/profile";
 import { EditProfilePage } from "./pages/profile/editProfile";
-import { CreateListPage } from "./pages/lists/createlist/createlist";
 import { SeriePage } from "./pages/series";
 
 export const AppRouter: React.FC<{}> = () => {
@@ -30,14 +29,7 @@ export const AppRouter: React.FC<{}> = () => {
           </RouterLayout>
         }
       />
-      <Route
-        path="/create_lists"
-        element={
-          <RouterLayout>
-            <CreateListPage />
-          </RouterLayout>
-        }
-      />
+
       <Route
         path="/profile"
         element={

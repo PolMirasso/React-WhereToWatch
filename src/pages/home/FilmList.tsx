@@ -26,6 +26,7 @@ function FilmList(props) {
     title: string;
     poster_path: string;
     vote_average: number;
+    type: number;
   }
 
   const urlId = location.pathname.split("/")[2];
@@ -110,13 +111,14 @@ function FilmList(props) {
 
           const filtered_Data = [];
 
-          data.forEach((array) => {
+          data.forEach((array, i) => {
             array.forEach((obj) => {
               const newObj = {
                 film_id: obj.film_id,
                 title: obj.title,
                 vote_average: obj.vote_average,
                 poster_path: obj.poster_path,
+                type: obj.type,
               };
 
               filtered_Data.push(newObj);
@@ -188,7 +190,6 @@ function FilmList(props) {
       }
 
       const dataFinal = films.concat(data);
-      // console.log(dataFinal);
       setFilms(dataFinal);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -253,13 +254,20 @@ function FilmList(props) {
         >
           <div className={film_styles.sliderContent}>
             {films.map((film) => (
-              <SwiperSlide>
+              <SwiperSlide key={film.film_id}>
                 <SlideFilm
+                  userList={props.propsReceive.userList}
                   propsReceive={{
                     film_id: film.film_id,
                     title: film.title,
                     poster_path: film.poster_path,
                     vote_average: film.vote_average,
+                    type:
+                      props.propsReceive.type == 2
+                        ? film.type
+                        : props.propsReceive.type,
+                    methodList: props.propsReceive.methodList,
+                    list: props.propsReceive.list,
                   }}
                 />
               </SwiperSlide>

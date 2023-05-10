@@ -201,26 +201,8 @@ export const SeriePage = () => {
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
-          <img
-            src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${serieData?.backdrop_path}`}
-            alt=""
-            className={film_styles.play_img}
-          />
-          <div className={film_styles.container_no}>
-            <img
-              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${serieData?.poster_path}`}
-              alt=""
-              className={film_styles.play_img_portada_no}
-            />
-            <div className={film_styles.play_text}>
-              <h1>{serieData?.name}</h1>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className={`${film_styles.play_container} ${navbar_styles.container}`}
-        >
+          <br />
+          <br /> <h1 className={`${film_styles.h1}`}>{serieData?.name}</h1>
           <div className={`${film_styles.season}`}>
             <div className={`${film_styles.season_container}`}>
               {serieData?.seasons.map((season) => (
@@ -233,29 +215,48 @@ export const SeriePage = () => {
                     />
                   </div>
                   {selectedSeasonId === season.id && (
-                    <div className={`${film_styles.season_content_container}`}>
-                      {season.season_number === 1 ? (
-                        <div className="tags">
-                          <h3>{season.name}</h3>
-                          <label>{serieData?.overview}</label>
-                          <p>Number of Episodes: {season.episode_count}</p>
-                          <p>Air Date: {season.air_date}</p>
-                        </div>
-                      ) : (
-                        <>
+                    <div
+                      className={`${film_styles.overlay}`}
+                      onClick={() => handleSeasonClick(null)}
+                    >
+                      <div
+                        className={`${film_styles.season_content_container}`}
+                      >
+                        <div
+                          className={`${film_styles.season_details_container}`}
+                        >
+                          <div
+                            className={`${film_styles.play_container} ${navbar_styles.container}`}
+                          >
+                            <img
+                              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${serieData?.backdrop_path}`}
+                              alt=""
+                              className={film_styles.play_img}
+                            />
+                            <div className={film_styles.container_no}>
+                              <img
+                                src={`https://image.tmdb.org/t/p/w300/${season.poster_path}`}
+                                alt=""
+                                className={film_styles.play_img_portada_no}
+                              />
+                              <div className={film_styles.play_text}>
+                                <h1>{serieData?.name}</h1>
+                              </div>
+                            </div>
+                          </div>
                           <h3>{season.name}</h3>
                           <p>{season.overview}</p>
                           <p>Number of Episodes: {season.episode_count}</p>
                           <p>Air Date: {season.air_date}</p>
-                        </>
-                      )}
+                        </div>
+                      </div>
                     </div>
-                  )}
+                  )}{" "}
                 </div>
               ))}
             </div>
           </div>
-          <h1>Valoració:</h1>
+          <h1>Valoració de la Serie:</h1>
           <div className="rating">
             <i className="bx bxs-star">{serieData?.vote_average}</i>
           </div>
@@ -279,7 +280,6 @@ export const SeriePage = () => {
               </span>
             ))}
           </div>
-
           <h1>Tarifa:</h1>
           <div className={`${film_styles.providers}`}>
             <div className={`${film_styles.providers_container}`}>
@@ -298,20 +298,20 @@ export const SeriePage = () => {
               )}
             </div>
           </div>
-          <br />
-          <FilmList
-            key={"popular"}
-            propsReceive={{
-              title: "Series Similars",
-              url: "getSeriesSimilars/",
-              moveId: urlId,
-            }}
-          />
-          <br />
-          <br />
-          <br />
-          <br />
         </div>
+        <br />
+        <FilmList
+          key={"popular"}
+          propsReceive={{
+            title: "Series Similars",
+            url: "getSeriesSimilars/",
+            moveId: urlId,
+          }}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </>
   );

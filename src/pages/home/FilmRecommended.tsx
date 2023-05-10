@@ -4,6 +4,8 @@ import FilmList from "./FilmList";
 import FilmListBig from "./FilmListBig";
 import film_styles from "../../module/filmList.module.css";
 import navbar_styles from "../..//module/navbar.module.css";
+import Cookies from "js-cookie";
+import ListManager from "../../services/listManager/getUserList";
 
 function FilmRecommended() {
   interface FilmGenres {
@@ -12,6 +14,19 @@ function FilmRecommended() {
   }
 
   const [filmGenres, setFilmGenres] = useState<FilmGenres[]>([]);
+
+  const [userList, setUserList] = useState([]);
+
+  async function getList() {
+    const token = await Cookies.get("authToken");
+
+    let data_Recived = await ListManager.getList({ token });
+    setUserList(data_Recived["data"]);
+  }
+
+  useEffect(() => {
+    getList()["data"];
+  }, []);
 
   async function fetchData() {
     try {
@@ -69,6 +84,9 @@ function FilmRecommended() {
             title: "Pelicules recients",
             url: "getUpcomingFilms/",
             genreid: 0,
+            userList: userList,
+            type: 0,
+            methodList: 0,
           }}
         />
 
@@ -78,6 +96,9 @@ function FilmRecommended() {
             title: "Pelicules populars",
             url: "getPopularFilms/",
             genreid: 0,
+            userList: userList,
+            type: 0,
+            methodList: 0,
           }}
         />
 
@@ -87,6 +108,9 @@ function FilmRecommended() {
             title: "Pelicules mes valorades",
             url: "getTopRatedFilms/",
             genreid: 0,
+            userList: userList,
+            type: 0,
+            methodList: 0,
           }}
         />
         {filmGenres.length > 0 && (
@@ -98,6 +122,9 @@ function FilmRecommended() {
                   title: "Pelicules " + genres.name,
                   url: "getMoviesByGenre/",
                   genreid: genres.id,
+                  userList: userList,
+                  type: 0,
+                  methodList: 0,
                 }}
               />
             ))}

@@ -1,13 +1,13 @@
 import Cookies from "js-cookie";
 
-const addContentList = async (props) => {
+const createList = async (props) => {
   async function getToken() {
     const token = await Cookies.get("authToken");
     return token;
   }
   try {
     const response = await fetch(
-      "https://wheretowatch-vps.herokuapp.com/addToListContent/",
+      "https://wheretowatch-vps.herokuapp.com/createList/",
       {
         method: "POST",
         headers: new Headers({
@@ -15,9 +15,7 @@ const addContentList = async (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
         }),
         body: new URLSearchParams({
-          obj_id: props.obj_id,
-          obj_type: props.obj_type,
-          list_id: props.list_id,
+          list_name: props.newListName,
         }).toString(),
       }
     );
@@ -35,4 +33,4 @@ const addContentList = async (props) => {
   }
 };
 
-export default { addContentList };
+export default { createList };

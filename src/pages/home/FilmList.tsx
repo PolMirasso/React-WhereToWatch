@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { generatePath } from "react-router-dom";
 import Cookies from "js-cookie";
 import SlideFilm from "./SlideFilm";
+import deleteList from "../../services/listManager/deleteList";
+import editListName from "../../services/listManager/editListName";
 
 function FilmList(props) {
   const navigate = useNavigate();
@@ -33,14 +35,16 @@ function FilmList(props) {
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
   const [btn_play, setBtn_play] = useState(true);
+  const [listName, setListName] = useState("");
+
   const incrementPage = () => {
     setPage(page + 1);
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [editList, setEditList] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen(!open);
+  const handleEdit = () => {
+    setEditList(!editList);
   };
 
   async function fetchData() {
@@ -206,10 +210,83 @@ function FilmList(props) {
 
   return (
     <>
-      <div className={` ${navbar_styles.container} swiper`}>
-        <div className={`${film_styles.wrapper}`}>
+      <div className={` ${navbar_styles.container} swiper `}>
+        <div className={`${film_styles.wrapper} `}>
           <h2>
-            <strong>{props.propsReceive.title}</strong>
+            <strong>
+              {/*  */}
+
+              {editList ? (
+                <>
+                  {" "}
+                  <input
+                    type="text"
+                    id="text"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500 max-w-xs"
+                    defaultValue={props.propsReceive.title}
+                    onChange={(event) => setListName(event.target.value)}
+                    required
+                  />
+                </>
+              ) : (
+                <>{props.propsReceive.title}</>
+              )}
+
+              {props.propsReceive.type == 2 ? (
+                <>
+                  <button
+                    type="button"
+                    onClickCapture={(event) => {
+                      event.preventDefault();
+                      deleteList.deleteList(props.propsReceive.list.list_id);
+                      window.location.reload();
+                    }}
+                    className="float-right justify-end bg-gray-700 inline-block rounded border-2 border-yellow-600 px-6 pb-[6px] pt-1 text-xs font-medium uppercase leading-normal text-yellow-500 transition duration-150 ease-in-out hover:border-yellow-600 hover:text-yellow-600 focus:border-yellow-600 focus:text-yellow-600 focus:outline-none focus:ring-0 active:border-yellow-700 active:text-yellow-700  hover:bg-slate-800"
+                    data-te-ripple-init
+                  >
+                    Eliminar
+                  </button>
+
+                  {editList ? (
+                    <>
+                      {" "}
+                      <button
+                        onClickCapture={(event) => {
+                          event.preventDefault();
+                          handleEdit();
+                          editListName.updateListName(
+                            listName,
+                            props.propsReceive.list.list_id
+                          );
+                        }}
+                        type="button"
+                        className="float-right justify-end bg-gray-700 inline-block rounded border-2 border-yellow-600 px-6 pb-[6px] pt-1 text-xs font-medium uppercase leading-normal text-yellow-500 transition duration-150 ease-in-out hover:border-yellow-600 hover:text-yellow-600 focus:border-yellow-600 focus:text-yellow-600 focus:outline-none focus:ring-0 active:border-yellow-700 active:text-yellow-700 mx-1 hover:bg-slate-800"
+                        data-te-ripple-init
+                      >
+                        Guardar
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <button
+                        onClickCapture={(event) => {
+                          event.preventDefault();
+                          handleEdit();
+                        }}
+                        type="button"
+                        className="float-right justify-end bg-gray-700 inline-block rounded border-2 border-yellow-600 px-6 pb-[6px] pt-1 text-xs font-medium uppercase leading-normal text-yellow-500 transition duration-150 ease-in-out hover:border-yellow-600 hover:text-yellow-600 focus:border-yellow-600 focus:text-yellow-600 focus:outline-none focus:ring-0 active:border-yellow-700 active:text-yellow-700 mx-1 hover:bg-slate-800"
+                        data-te-ripple-init
+                      >
+                        Editar
+                      </button>
+                    </>
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
+            </strong>
           </h2>
         </div>
 

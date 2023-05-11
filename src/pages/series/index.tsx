@@ -1,8 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import FilmList from "../home/FilmList";
+
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import Cookies from "js-cookie";
+
+import addList from "../../services/listManager/addContentList";
+import ListManager from "../../services/listManager/getUserList";
 
 interface SerieInfoProps {
   adult: boolean;
@@ -105,6 +111,22 @@ interface SerieProvidersProps {
 }
 export const SeriePage = () => {
   let location = useLocation();
+  const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
+  const [userList, setUserList] = useState([]);
+
+  async function getList() {
+    const token = await Cookies.get("authToken");
+
+    let data_Recived = await ListManager.getList({ token });
+    setUserList(data_Recived["data"]);
+  }
 
   const [page, setPage] = useState(1);
 
@@ -191,7 +213,7 @@ export const SeriePage = () => {
   useEffect(() => {
     fetchProvidersSeries();
     fetchDataSeries();
-
+    getList();
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
@@ -256,6 +278,61 @@ export const SeriePage = () => {
               ))}
             </div>
           </div>
+          <AiOutlinePlusCircle
+            className={`${film_styles.bx}`}
+            onClickCapture={(event) => {
+              event.preventDefault();
+
+              if (Cookies.get("authToken") === undefined) {
+                navigate("/login");
+              } else {
+                handleOpen();
+              }
+            }}
+          ></AiOutlinePlusCircle>
+          {open ? (
+            <>
+              {" "}
+              <div className={`lista`}>
+                <ul className="ullist">
+                  <li className="lilist ">
+                    <button
+                      className="boton"
+                      onClickCapture={(event) => {
+                        event.preventDefault();
+
+                        handleOpen();
+                      }}
+                    >
+                      Tancar
+                    </button>
+                  </li>
+                  {userList.map((listValue) => (
+                    <li className="lilist" key={listValue.list_id}>
+                      <a
+                        onClick={async (event) => {
+                          event.preventDefault();
+
+                          try {
+                            handleOpen();
+                            await addList.addContentList({
+                              obj_id: urlId,
+                              obj_type: 1,
+                              list_id: listValue.list_id,
+                            });
+                          } catch (error) {}
+                        }}
+                      >
+                        {listValue.list_name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
           <h1>Valoració de la Serie:</h1>
           <div className="rating">
             <i className="bx bxs-star">{serieData?.vote_average}</i>

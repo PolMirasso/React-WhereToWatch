@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 
 const deleteList = async (props) => {
+  console.log(props);
   async function getToken() {
     const token = await Cookies.get("authToken");
     return token;
@@ -15,7 +16,7 @@ const deleteList = async (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
         }),
         body: new URLSearchParams({
-          list_id: props.list_id,
+          list_id: props,
         }).toString(),
       }
     );

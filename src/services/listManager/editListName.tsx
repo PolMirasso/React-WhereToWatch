@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-const updateListName = async (props) => {
+const updateListName = async (listNewName, list_id) => {
   async function getToken() {
     const token = await Cookies.get("authToken");
     return token;
@@ -15,8 +15,8 @@ const updateListName = async (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
         }),
         body: new URLSearchParams({
-          new_name: props.new_name,
-          list_id: props.list_id,
+          new_name: listNewName,
+          list_id: list_id,
         }).toString(),
       }
     );

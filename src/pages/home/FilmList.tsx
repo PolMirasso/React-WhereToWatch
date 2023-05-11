@@ -206,10 +206,34 @@ function FilmList(props) {
 
   return (
     <>
-      <div className={` ${navbar_styles.container} swiper`}>
-        <div className={`${film_styles.wrapper}`}>
+      <div className={` ${navbar_styles.container} swiper `}>
+        <div className={`${film_styles.wrapper} `}>
           <h2>
-            <strong>{props.propsReceive.title}</strong>
+            <strong>
+              {props.propsReceive.title}
+
+              {props.propsReceive.type == 2 ? (
+                <>
+                  <button
+                    type="button"
+                    className="float-right justify-end bg-gray-700 inline-block rounded border-2 border-yellow-600 px-6 pb-[6px] pt-1 text-xs font-medium uppercase leading-normal text-yellow-500 transition duration-150 ease-in-out hover:border-yellow-600 hover:text-yellow-600 focus:border-yellow-600 focus:text-yellow-600 focus:outline-none focus:ring-0 active:border-yellow-700 active:text-yellow-700  hover:bg-slate-800"
+                    data-te-ripple-init
+                  >
+                    Eliminar
+                  </button>
+
+                  <button
+                    type="button"
+                    className="float-right justify-end bg-gray-700 inline-block rounded border-2 border-yellow-600 px-6 pb-[6px] pt-1 text-xs font-medium uppercase leading-normal text-yellow-500 transition duration-150 ease-in-out hover:border-yellow-600 hover:text-yellow-600 focus:border-yellow-600 focus:text-yellow-600 focus:outline-none focus:ring-0 active:border-yellow-700 active:text-yellow-700 mx-1 hover:bg-slate-800"
+                    data-te-ripple-init
+                  >
+                    Editar
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
+            </strong>
           </h2>
         </div>
 

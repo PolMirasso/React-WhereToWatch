@@ -203,6 +203,7 @@ export const SeriePage = () => {
         >
           <br />
           <br /> <h1 className={`${film_styles.h1}`}>{serieData?.name}</h1>
+          <h1 className={`${film_styles.h1}`}>{serieData?.tagline}</h1>
           <div className={`${film_styles.season}`}>
             <div className={`${film_styles.season_container}`}>
               {serieData?.seasons.map((season) => (
@@ -228,11 +229,6 @@ export const SeriePage = () => {
                           <div
                             className={`${film_styles.play_container} ${navbar_styles.container}`}
                           >
-                            <img
-                              src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${serieData?.backdrop_path}`}
-                              alt=""
-                              className={film_styles.play_img}
-                            />
                             <div className={film_styles.container_no}>
                               <img
                                 src={`https://image.tmdb.org/t/p/w300/${season.poster_path}`}
@@ -271,6 +267,10 @@ export const SeriePage = () => {
               </span>
             ))}
           </div>
+          <h1>Genere:</h1>
+          <i className="bx bxs-star">{serieData?.number_of_episodes}</i>
+          <i className="bx bxs-star">{serieData?.number_of_seasons}</i>
+          <i className="bx bxs-star">{serieData?.status}</i>
           <br />
           <h1>Estudis:</h1>
           <div className="tags">

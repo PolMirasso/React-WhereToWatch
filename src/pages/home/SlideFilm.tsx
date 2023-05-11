@@ -108,6 +108,7 @@ function SlideFilm(props) {
                       obj_type: props.propsReceive.type,
                       list_id: props.propsReceive.list.list_id,
                     });
+                    window.location.reload();
                   }}
                 ></AiOutlineCloseCircle>
               ) : (

@@ -529,6 +529,8 @@ export const FilmPage = () => {
               title: "Pelicules Similars",
               url: "getSimilarMovie/",
               moveId: urlId,
+              type: 0,
+              userList: userList,
             }}
           />
           <br />

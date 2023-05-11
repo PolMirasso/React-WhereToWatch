@@ -380,6 +380,8 @@ export const SeriePage = () => {
         <FilmList
           key={"popular"}
           propsReceive={{
+            userList: userList,
+            type: 1,
             title: "Series Similars",
             url: "getSeriesSimilars/",
             moveId: urlId,

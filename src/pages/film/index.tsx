@@ -5,6 +5,7 @@ import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 import moment from "moment";
+import CinemaList from "./cinemaList";
 
 //PROPS INFO FILM
 
@@ -92,43 +93,35 @@ interface ProvinceData {
 
 export const FilmPage = () => {
   let location = useLocation();
-  const [page, setPage] = useState(1);
+  let filmId;
+
+  const today = moment().format("YYYYMMDD");
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   const [showModal, setShowModal] = useState(false);
   const [provinceState, setProvinceState] = useState<{
     [province: string]: boolean;
   }>({});
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-  const [selectedCityId, setSelectedCityId] = useState(null);
+  //DATAS:
+
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataProviders, setfilmDataProviders] =
     useState<FilmProvidersProps>();
   const [datalocalitat, setfilmDataLocalitat] = useState<ProvinceData>();
-  const [datacinema, setCinemaData] = useState<ProvinceData>();
+
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
-  const today = moment().format("YYYYMMDD");
-  const today2 = moment().format("YYYY-MM-DD");
+
   const toggleProvinceState = (province: string) => {
     setProvinceState({
       ...provinceState,
       [province]: !provinceState[province],
     });
   };
-  let filmId;
-  const handleCityClick = (selectedCity: {
-    provinceName: string;
-    cityCode: number;
-  }) => {
-    setSelectedCityId(selectedCity.cityCode);
-    fetchDataCinemes(selectedCity.cityCode);
-    console.log(
-      `Selected city: ${selectedCity.provinceName}, ${selectedCity.cityCode}`
-    );
-  };
+
   //Consultes al BackEnd
 
   //Dades pelicula completes
@@ -242,33 +235,6 @@ export const FilmPage = () => {
       setfilmDataLocalitat(datalocalitat);
       console.log("data localitat");
       console.log(datalocalitat);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    }
-  }
-
-  //Dades tots els cinemes de cada localitat
-
-  async function fetchDataCinemes(idcine) {
-    try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            film_id: filmId,
-            idprov: idcine,
-            date: today2,
-          }).toString(),
-        }
-      );
-      const datacinema = await response.json();
-      setCinemaData(datacinema);
-      console.log("data cinemes");
-      console.log(datacinema);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -489,17 +455,13 @@ export const FilmPage = () => {
                       </h3>
                       {Object.entries(datalocalitat[province]).map(
                         ([cityCode, cityName]) => (
-                          <li
-                            key={cityCode}
-                            onClick={() =>
-                              handleCityClick({
-                                provinceName: cityName,
-                                cityCode: Number(cityCode),
-                              })
-                            }
-                          >
-                            {cityName}
-                          </li>
+                          <CinemaList
+                            propsReceive={{
+                              filmId: filmId,
+                              cityCode: cityCode,
+                              cityName: cityName,
+                            }}
+                          />
                         )
                       )}
                     </div>
@@ -507,6 +469,7 @@ export const FilmPage = () => {
                 }
               })}
           </div>
+
           <br />
         </div>
       </div>

@@ -4,6 +4,7 @@ import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
+import moment from "moment";
 
 //PROPS INFO FILM
 
@@ -109,14 +110,15 @@ export const FilmPage = () => {
   const [datacinema, setCinemaData] = useState<ProvinceData>();
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
-
+  const today = moment().format("YYYYMMDD");
+  const today2 = moment().format("YYYY-MM-DD");
   const toggleProvinceState = (province: string) => {
     setProvinceState({
       ...provinceState,
       [province]: !provinceState[province],
     });
   };
-
+  let filmId;
   const handleCityClick = (selectedCity: {
     provinceName: string;
     cityCode: number;
@@ -257,9 +259,9 @@ export const FilmPage = () => {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            film_id: urlId,
+            film_id: filmId,
             idprov: idcine,
-            date: "20230509",
+            date: today2,
           }).toString(),
         }
       );
@@ -469,36 +471,41 @@ export const FilmPage = () => {
           <br />
           <div className={film_styles.button_container}>
             {datalocalitat &&
-              Object.keys(datalocalitat)
-                .filter((province) => province !== "film_id")
-                .map((province) => (
-                  <div
-                    key={province}
-                    className={film_styles.province_container}
-                  >
-                    <h3
-                      className={film_styles.button}
-                      onClick={() => toggleProvinceState(province)}
+              Object.keys(datalocalitat).map((province) => {
+                if (province === "film_id") {
+                  filmId = datalocalitat[province];
+                  return null; // Si es "film_id", no renderizamos nada
+                } else {
+                  return (
+                    <div
+                      key={province}
+                      className={film_styles.province_container}
                     >
-                      {province}
-                    </h3>
-                    {Object.entries(datalocalitat[province]).map(
-                      ([cityCode, cityName]) => (
-                        <li
-                          key={cityCode}
-                          onClick={() =>
-                            handleCityClick({
-                              provinceName: cityName,
-                              cityCode: Number(cityCode),
-                            })
-                          }
-                        >
-                          {cityName}
-                        </li>
-                      )
-                    )}
-                  </div>
-                ))}
+                      <h3
+                        className={film_styles.button}
+                        onClick={() => toggleProvinceState(province)}
+                      >
+                        {province}
+                      </h3>
+                      {Object.entries(datalocalitat[province]).map(
+                        ([cityCode, cityName]) => (
+                          <li
+                            key={cityCode}
+                            onClick={() =>
+                              handleCityClick({
+                                provinceName: cityName,
+                                cityCode: Number(cityCode),
+                              })
+                            }
+                          >
+                            {cityName}
+                          </li>
+                        )
+                      )}
+                    </div>
+                  );
+                }
+              })}
           </div>
           <br />
         </div>

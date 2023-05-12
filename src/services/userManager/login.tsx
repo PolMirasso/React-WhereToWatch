@@ -1,5 +1,10 @@
 import Cookies from "js-cookie";
 
+const setCookie = (name, value, expirationDate) => {
+  const expires = new Date(expirationDate).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+};
+
 const login = async (credentials) => {
   try {
     const response = await fetch(
@@ -22,10 +27,11 @@ const login = async (credentials) => {
         username: data.username,
         nsfw_content: data.nsfw_content,
         image_profile: data.image_profile,
+        description: data.description,
       };
 
-      Cookies.set("authToken", data.token);
-      Cookies.set("userData", JSON.stringify(userData));
+      setCookie("authToken", data.token, data.expiry);
+      setCookie("userData", JSON.stringify(userData), data.expiry);
 
       return { status: "ok", userData };
     } else {

@@ -1,11 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
-import { Container, Button, Grid } from "@mui/material";
-import Paper from "@mui/material/Paper/Paper";
-import Box from "@mui/material/Box/Box";
-import Typography from "@mui/material/Typography/Typography";
-import TextField from "@mui/material/TextField";
-import { ThemeConfig } from "../../config/theme.config";
-import film_styles from "../../module/loginregister.module.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import loginService from "../../services/userManager/login";
@@ -32,7 +25,6 @@ export const LoginPage: React.FC<{}> = () => {
       } else {
         // alert("Error" + result.data.non_field_errors);
         setError(result.data.non_field_errors);
-        console.log(result.data.non_field_errors);
       }
     } catch (e) {
       console.log("login error:" + e);

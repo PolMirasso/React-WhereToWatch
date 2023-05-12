@@ -55,7 +55,6 @@ export const RegisterPage: React.FC<{}> = () => {
         history("/");
       } else {
         setError(result.data.non_field_errors);
-        console.log(result.data.non_field_errors);
       }
     } catch (e) {
       console.log("register error:" + e);

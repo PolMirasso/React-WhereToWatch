@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import addList from "../../services/listManager/addContentList";
-import ListManager from "../../services/listManager/getUserList";
+//PROPS INFO FILM
 
 interface FilmInfoProps {
   adult: boolean;
@@ -58,11 +54,15 @@ interface FilmInfoProps {
   vote_count: number;
 }
 
+//PROPS TRAILER FILM
+
 interface FilmVideoProps {
   id: string;
   name: string;
   video: string;
 }
+
+//PROPS PROVIDERS FILM
 
 interface FilmProvidersProps {
   link: string;
@@ -82,23 +82,15 @@ interface FilmProvidersProps {
     provider_name: string;
   }>;
 }
+
+//PROPS CINEMES PROVINCIA
+
 interface ProvinceData {
   [provinceName: string]: { [cityCode: number]: string };
 }
 
 export const FilmPage = () => {
   let location = useLocation();
-  const navigate = useNavigate();
-
-  const [userList, setUserList] = useState([]);
-
-  async function getList() {
-    const token = await Cookies.get("authToken");
-
-    let data_Recived = await ListManager.getList({ token });
-    setUserList(data_Recived["data"]);
-  }
-
   const [page, setPage] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
@@ -108,26 +100,32 @@ export const FilmPage = () => {
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
+  const [selectedCityId, setSelectedCityId] = useState(null);
   const [filmData, setfilmData] = useState<FilmInfoProps>();
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataProviders, setfilmDataProviders] =
     useState<FilmProvidersProps>();
+  const [datalocalitat, setfilmDataLocalitat] = useState<ProvinceData>();
   const [datacinema, setCinemaData] = useState<ProvinceData>();
-
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
+
   const toggleProvinceState = (province: string) => {
     setProvinceState({
       ...provinceState,
       [province]: !provinceState[province],
     });
+  };
+
+  const handleCityClick = (selectedCity: {
+    provinceName: string;
+    cityCode: number;
+  }) => {
+    setSelectedCityId(selectedCity.cityCode);
+    fetchDataCinemes(selectedCity.cityCode);
+    console.log(
+      `Selected city: ${selectedCity.provinceName}, ${selectedCity.cityCode}`
+    );
   };
   //Consultes al BackEnd
 
@@ -187,62 +185,6 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
-
-  //Dades localitat on fan la pelicula i on hi han cines
-
-  async function fetchDataLocalitat() {
-    try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            movie_id: urlId,
-            language:
-              navigator.language.split("-").length < 1
-                ? navigator.language
-                : navigator.language.split("-")[1].toLowerCase(),
-          }).toString(),
-        }
-      );
-      const datalocalitat = await response.json();
-      setfilmDataProviders(datalocalitat);
-      console.log("data localitat");
-      console.log(datalocalitat);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    }
-  }
-
-  //Dades tots els cinemes de cada localitat
-
-  async function fetchDataCinemes() {
-    try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            film_name: filmData.title,
-            film_date: "20230509",
-          }).toString(),
-        }
-      );
-      const datacinema = await response.json();
-      setCinemaData(datacinema);
-      console.log("data cinemes");
-      console.log(datacinema);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    }
-  }
-
   //Dades tots proveidors de la pelicula
 
   async function fetchDataProviders() {
@@ -278,11 +220,62 @@ export const FilmPage = () => {
     }
   }
 
+  //SCRAPPING PROVINCIA I CINES
+
+  async function fetchDataLocalitat() {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            film_name: filmData?.title,
+          }).toString(),
+        }
+      );
+      const datalocalitat = await response.json();
+      setfilmDataLocalitat(datalocalitat);
+      console.log("data localitat");
+      console.log(datalocalitat);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+
+  //Dades tots els cinemes de cada localitat
+
+  async function fetchDataCinemes(idcine) {
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            film_id: urlId,
+            idprov: idcine,
+            date: "20230509",
+          }).toString(),
+        }
+      );
+      const datacinema = await response.json();
+      setCinemaData(datacinema);
+      console.log("data cinemes");
+      console.log(datacinema);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+    }
+  }
+
   //Auto Scroll Al inici
 
   useEffect(() => {
     scroller.current.scrollIntoView({ behavior: "smooth" });
-    getList();
   }, []);
 
   //Use Effect de les funcions
@@ -290,14 +283,12 @@ export const FilmPage = () => {
   useEffect(() => {
     fetchData();
     fetchDataVideo();
-    fetchDataVideo();
     fetchDataProviders();
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
   useEffect(() => {
     fetchDataLocalitat();
-    fetchDataCinemes();
   }, [filmData]);
 
   return (
@@ -328,63 +319,6 @@ export const FilmPage = () => {
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
-          <AiOutlinePlusCircle
-            className={`${film_styles.bx}`}
-            onClickCapture={(event) => {
-              event.preventDefault();
-
-              if (Cookies.get("authToken") === undefined) {
-                navigate("/login");
-              } else {
-                handleOpen();
-              }
-            }}
-          ></AiOutlinePlusCircle>
-
-          {open ? (
-            <>
-              {" "}
-              <div className={`lista`}>
-                <ul className="ullist">
-                  <li className="lilist ">
-                    <button
-                      className="boton"
-                      onClickCapture={(event) => {
-                        event.preventDefault();
-
-                        handleOpen();
-                      }}
-                    >
-                      Tancar
-                    </button>
-                  </li>
-                  {userList.map((listValue) => (
-                    <li className="lilist" key={listValue.list_id}>
-                      <a
-                        onClick={async (event) => {
-                          event.preventDefault();
-
-                          try {
-                            handleOpen();
-                            await addList.addContentList({
-                              obj_id: urlId,
-                              obj_type: 0,
-                              list_id: listValue.list_id,
-                            });
-                          } catch (error) {}
-                        }}
-                      >
-                        {listValue.list_name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-
           <h1>Valoració:</h1>
           <div className="rating">
             <i className="bx bxs-star">{filmData?.vote_average}</i>
@@ -462,7 +396,6 @@ export const FilmPage = () => {
             </div>
           )}
           <br />
-
           <br />
           <h1>Tarifa:</h1>
           <br />
@@ -523,21 +456,20 @@ export const FilmPage = () => {
               )}
             </div>
           </div>
+
           <FilmList
             key={"popular"}
             propsReceive={{
               title: "Pelicules Similars",
               url: "getSimilarMovie/",
               moveId: urlId,
-              type: 0,
-              userList: userList,
             }}
           />
           <br />
           <br />
           <div className={film_styles.button_container}>
-            {datacinema &&
-              Object.keys(datacinema)
+            {datalocalitat &&
+              Object.keys(datalocalitat)
                 .filter((province) => province !== "film_id")
                 .map((province) => (
                   <div
@@ -550,14 +482,20 @@ export const FilmPage = () => {
                     >
                       {province}
                     </h3>
-                    {provinceState[province] && (
-                      <div className={film_styles.sub_buttons}>
-                        <ul className={film_styles.sub_button}>
-                          {Object.keys(datacinema[province]).map((city) => (
-                            <li key={city}>{datacinema[province][city]}</li>
-                          ))}
-                        </ul>
-                      </div>
+                    {Object.entries(datalocalitat[province]).map(
+                      ([cityCode, cityName]) => (
+                        <li
+                          key={cityCode}
+                          onClick={() =>
+                            handleCityClick({
+                              provinceName: cityName,
+                              cityCode: Number(cityCode),
+                            })
+                          }
+                        >
+                          {cityName}
+                        </li>
+                      )
                     )}
                   </div>
                 ))}

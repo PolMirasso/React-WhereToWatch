@@ -52,12 +52,10 @@ export const RegisterPage: React.FC<{}> = () => {
       setEmail("");
 
       if (result.status == "ok") {
-        // history("/");
-        console.log("correct");
+        history("/");
       } else {
-        result.data;
-        setError(result.data);
-        console.log(result.data);
+        setError(result.data.non_field_errors);
+        console.log(result.data.non_field_errors);
       }
     } catch (e) {
       console.log("register error:" + e);

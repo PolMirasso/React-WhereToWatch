@@ -8,6 +8,7 @@ const register = async (credentials) => {
     formData.append("email", credentials.email);
     formData.append("password", credentials.password);
     formData.append("image_profile", credentials.image_profile);
+    formData.append("description", null);
 
     console.log(credentials);
 

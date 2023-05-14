@@ -26,10 +26,10 @@ const register = async (credentials) => {
     const data = await response.json();
     if (response && response.status === 200) {
       const userData = {
-        username: data.username,
-        user_nsfw: data.user_nsfw,
-        image_profile: data.image_profile,
-        description: data.description,
+        username: data.user.username,
+        user_nsfw: data.user.user_nsfw,
+        image_profile: data.user.image_profile,
+        description: data.user.description,
       };
 
       setCookie("authToken", data.token, data.expiry);

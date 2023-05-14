@@ -37,6 +37,7 @@ export const RegisterPage: React.FC<{}> = () => {
     try {
       if (password != repeatPassword)
         return setError("Les contrasenyes no coincideixen");
+      setError("");
 
       const result = await registerService.register({
         username,
@@ -44,14 +45,15 @@ export const RegisterPage: React.FC<{}> = () => {
         image_profile,
         email,
       });
-      setUsername("");
-      setPassword("");
-      setRepeatPassword("");
-      setFileName("");
-      setImage_profile("");
-      setEmail("");
 
       if (result.status == "ok") {
+        setUsername("");
+        setPassword("");
+        setRepeatPassword("");
+        setFileName("");
+        setImage_profile("");
+        setEmail("");
+
         history("/");
       } else {
         setError(result.data.non_field_errors);

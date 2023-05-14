@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from "react";
-import navbar_styles from "../../module/navbar.module.css";
-import film_styles from "../../module/filmList.module.css";
-import profile_styles from "../../module/profile.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -13,27 +8,30 @@ export const ProfilePage = () => {
   }
 
   const history = useNavigate();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({
+    username: "User",
+    image_profile:
+      "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png",
+    description: "",
+    user_nsfw: false,
+  });
 
   async function getUserData() {
-    const userData = Cookies.get("userData");
+    const userDataNonParsed = Cookies.get("userData");
 
-    if (userData) {
-      const parsedObject = JSON.parse(userData);
+    if (userDataNonParsed) {
+      const parsedObject = JSON.parse(userDataNonParsed);
       return setUserData(parsedObject);
     }
     return;
   }
 
-  async function logout() {
-    Cookies.remove("authToken");
-    Cookies.remove("userData");
-    history("/");
-    window.location.reload();
-  }
-
   useEffect(() => {
-    getUserData();
+    if (Cookies.get("authToken") === undefined) {
+      history("/login");
+    } else {
+      getUserData();
+    }
   }, []);
 
   return (
@@ -47,7 +45,7 @@ export const ProfilePage = () => {
               <div className="flex flex-wrap justify-center">
                 <div className="w-full px-4 flex justify-center">
                   <img
-                    className="shadow-xl rounded-full h-auto  w-60 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                    className="shadow-xl rounded-full h-60 w-60 align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                     src={
                       userData
                         ? userData.image_profile
@@ -64,7 +62,7 @@ export const ProfilePage = () => {
                 <div className="w-full px-4 text-center mt-20"></div>
               </div>
               <div className="text-center mt-12">
-                <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+                <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
                   {userData ? userData.username : "User"}
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">

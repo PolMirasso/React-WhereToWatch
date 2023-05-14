@@ -27,7 +27,7 @@ const register = async (credentials) => {
     if (response && response.status === 200) {
       const userData = {
         username: data.username,
-        nsfw_content: data.nsfw_content,
+        user_nsfw: data.user_nsfw,
         image_profile: data.image_profile,
         description: data.description,
       };

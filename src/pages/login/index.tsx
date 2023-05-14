@@ -15,15 +15,12 @@ export const LoginPage: React.FC<{}> = () => {
 
     try {
       const result = await loginService.login({ username, password });
-      // const result = await loginService.login({ username, password });
-
-      setUsername("");
-      setPassword("");
 
       if (result.status == "ok") {
+        setUsername("");
+        setPassword("");
         history("/");
       } else {
-        // alert("Error" + result.data.non_field_errors);
         setError(result.data.non_field_errors);
       }
     } catch (e) {

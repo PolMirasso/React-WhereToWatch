@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import searchbar_styles from "../module/searchbar.module.css";
+import Cookies from "js-cookie";
 
 interface SearchBarProps {
   setResults: (data: any) => void;
@@ -13,6 +14,23 @@ interface SearchResultsProps {
 
 export const SearchBar = ({ setResults }: SearchBarProps) => {
   const [input, setInput] = useState("");
+  const [userData, setUserData] = useState({
+    username: "User",
+    image_profile:
+      "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png",
+    description: "",
+    user_nsfw: false,
+  });
+
+  async function getUserData() {
+    const userDataNonParsed = Cookies.get("userData");
+
+    if (userDataNonParsed) {
+      const parsedObject = JSON.parse(userDataNonParsed);
+      return setUserData(parsedObject);
+    }
+    return;
+  }
 
   async function fetchData(value: string) {
     try {
@@ -25,7 +43,7 @@ export const SearchBar = ({ setResults }: SearchBarProps) => {
           },
           body: new URLSearchParams({
             movie_name: value,
-
+            nsfw_content: userData ? String(userData.user_nsfw) : "false",
             language:
               navigator.language.split("-").length < 1
                 ? navigator.language

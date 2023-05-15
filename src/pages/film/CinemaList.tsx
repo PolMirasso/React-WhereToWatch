@@ -11,7 +11,6 @@ function CinemaList(props) {
   const [openCinema, setOpenCinema] = useState(false);
   const [datacinema, setCinemaData] = useState<CinemaHoresProps>();
   const today = moment().format("YYYY-MM-DD");
-
   const handleOpenCinema = () => {
     setOpenCinema(!openCinema);
   };
@@ -21,6 +20,7 @@ function CinemaList(props) {
     cityCode: number;
   }) => {
     fetchDataCinemes(selectedCity.cityCode);
+
     console.log(
       `Selected city: ${selectedCity.provinceName}, ${selectedCity.cityCode}`
     );
@@ -65,13 +65,7 @@ function CinemaList(props) {
       }}
     >
       {props.propsReceive.cityName}
-      {openCinema ? (
-        <>
-          <h1>sdf</h1>
-        </>
-      ) : (
-        <></>
-      )}
+      {openCinema && datacinema?.toString()}
     </li>
   );
 }

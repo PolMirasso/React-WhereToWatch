@@ -5,7 +5,7 @@ import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 import moment from "moment";
-import CinemaList from "./cinemaList";
+import CinemaInfo from "./CinemaInfo";
 
 //PROPS INFO FILM
 
@@ -85,24 +85,13 @@ interface FilmProvidersProps {
   }>;
 }
 
-//PROPS CINEMES PROVINCIA
-
-interface ProvinceData {
-  [provinceName: string]: { [cityCode: number]: string };
-}
-
 export const FilmPage = () => {
   let location = useLocation();
-  let filmId;
 
   const today = moment().format("YYYYMMDD");
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
   const [showModal, setShowModal] = useState(false);
-  const [provinceState, setProvinceState] = useState<{
-    [province: string]: boolean;
-  }>({});
 
   //DATAS:
 
@@ -110,17 +99,9 @@ export const FilmPage = () => {
   const [filmDataVideo, setfilmDataVideo] = useState<FilmVideoProps>();
   const [filmDataProviders, setfilmDataProviders] =
     useState<FilmProvidersProps>();
-  const [datalocalitat, setfilmDataLocalitat] = useState<ProvinceData>();
 
   const urlId = location.pathname.split("/")[2];
   const scroller = useRef(null);
-
-  const toggleProvinceState = (province: string) => {
-    setProvinceState({
-      ...provinceState,
-      [province]: !provinceState[province],
-    });
-  };
 
   //Consultes al BackEnd
 
@@ -217,29 +198,6 @@ export const FilmPage = () => {
 
   //SCRAPPING PROVINCIA I CINES
 
-  async function fetchDataLocalitat() {
-    try {
-      const response = await fetch(
-        "https://wheretowatch-vps.herokuapp.com/getFilmDataCinema/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            film_name: filmData?.title,
-          }).toString(),
-        }
-      );
-      const datalocalitat = await response.json();
-      setfilmDataLocalitat(datalocalitat);
-      console.log("data localitat");
-      console.log(datalocalitat);
-    } catch (error) {
-      console.error("Error fetching films:", error);
-    }
-  }
-
   //Auto Scroll Al inici
 
   useEffect(() => {
@@ -255,9 +213,6 @@ export const FilmPage = () => {
 
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
-  useEffect(() => {
-    fetchDataLocalitat();
-  }, [filmData]);
 
   return (
     <>
@@ -431,44 +386,18 @@ export const FilmPage = () => {
               title: "Pelicules Similars",
               url: "getSimilarMovie/",
               moveId: urlId,
+              type: 0,
             }}
           />
           <br />
           <br />
-          <div className={film_styles.button_container}>
-            {datalocalitat &&
-              Object.keys(datalocalitat).map((province) => {
-                if (province === "film_id") {
-                  filmId = datalocalitat[province];
-                  return null; // Si es "film_id", no renderizamos nada
-                } else {
-                  return (
-                    <div
-                      key={province}
-                      className={film_styles.province_container}
-                    >
-                      <h3
-                        className={film_styles.button}
-                        onClick={() => toggleProvinceState(province)}
-                      >
-                        {province}
-                      </h3>
-                      {Object.entries(datalocalitat[province]).map(
-                        ([cityCode, cityName]) => (
-                          <CinemaList
-                            propsReceive={{
-                              filmId: filmId,
-                              cityCode: cityCode,
-                              cityName: cityName,
-                            }}
-                          />
-                        )
-                      )}
-                    </div>
-                  );
-                }
-              })}
-          </div>
+
+          <CinemaInfo
+            propsReceive={{
+              title: filmData?.title,
+              filmData: filmData,
+            }}
+          />
 
           <br />
         </div>

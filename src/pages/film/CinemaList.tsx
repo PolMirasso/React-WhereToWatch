@@ -9,18 +9,17 @@ interface ProvinceData {
   [provinceName: string]: { [cityCode: number]: string };
 }
 
-//PROPS CINCE HORA
-interface CinemaHoresProps {
-  cine: string;
-  hora: string[];
-}
-
 function CinemaList(props) {
   let film_id_scraping;
+  const [showSquare, setShowSquare] = useState(false);
   const [dataListCinema, setfilmdataListCinema] = useState<ProvinceData>();
-  const [datacinema, setCinemaData] = useState<CinemaHoresProps>();
-  const today = moment().format("YYYY-MM-DD");
+  const [datacinema, setCinemaData] =
+    useState<{ cine: string; hora: string[] }[]>();
+  const handleClick = () => {
+    setShowSquare(false);
+  };
 
+  const today = moment().format("YYYY-MM-DD");
   //Dades tots els cinemes de cada localitat
 
   async function fetchDataLocalitat() {
@@ -37,11 +36,10 @@ function CinemaList(props) {
           }).toString(),
         }
       );
-      const dataListCinema = await response.json();
-      setfilmdataListCinema(dataListCinema);
+      const data = await response.json();
+      setfilmdataListCinema(data);
       console.log("data localitat");
-      console.log(dataListCinema);
-      film_id_scraping = dataListCinema.film_id;
+      console.log(data);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -51,6 +49,8 @@ function CinemaList(props) {
 
   async function fetchDataCinemes(idcine) {
     try {
+      film_id_scraping = dataListCinema.film_id.toString();
+      console.log(film_id_scraping);
       const response = await fetch(
         "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
         {
@@ -59,7 +59,7 @@ function CinemaList(props) {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            film_id: film_id_scraping,
+            film_id: film_id_scraping.toString(),
             idprov: idcine,
             date: today,
           }).toString(),
@@ -69,6 +69,7 @@ function CinemaList(props) {
       setCinemaData(cinemadata);
       console.log("data cinemes");
       console.log(cinemadata);
+      setShowSquare(true);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -103,8 +104,29 @@ function CinemaList(props) {
               );
             })}
         </div>
+        {showSquare && datacinema && (
+          <div className={`${film_styles.season_content_container}`}>
+            <h1>Información de cinemes:</h1>
+            {datacinema.map((cinema, index) => (
+              <div key={index}>
+                <h1>{cinema.cine}</h1>
+                {cinema.hora && cinema.hora.length > 0 ? (
+                  <ul>
+                    {cinema.hora.map((horaItem, index) => (
+                      <li key={index}>·{horaItem}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No hay datos de horarios disponibles para este cine.</p>
+                )}
+              </div>
+            ))}
+            <button onClick={handleClick}>Tancar horari</button>
+          </div>
+        )}
       </>
     </>
   );
 }
+
 export default CinemaList;

@@ -37,11 +37,11 @@ const register = async (credentials) => {
 
       return { status: "ok", userData };
     } else if (response.status === 400) {
-      return { status: "error", data };
+      return data;
     }
   } catch (error) {
     console.error("Error fetching genres:", error);
-    return { status: "error", error };
+    return error;
   }
 };
 

@@ -78,6 +78,7 @@ body {
   display: block;
 }
 
+
 .userImg {
   width: 40px;
   height: 40px;
@@ -168,6 +169,135 @@ html::-webkit-scrollbar-thumb {
   }
   .nav-link .bx {
     font-size: 1.5rem;
+  }
+}
+
+
+.subMenuWarp{
+  position: absolute;
+  top: 100%;
+  right: 10%;
+  width: 320px;
+}
+
+.subMenu{
+  background: var(--container-color);
+  padding: 20px;
+  margin: 10px;
+}
+
+.userInfo{
+  display: flex;
+  align-items: center;
+}
+
+.userInfo h3{
+  font-weight: 500;
+}
+
+.userInfo img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.subMenu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+}
+
+
+@media (max-width: 1270px) {
+  .navbar {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    transform: translateY(0);
+    flex-direction: row;
+    justify-content: space-between;
+    row-gap: 1px;
+    padding: 10px;
+    border-top: 1px solid hsl(200, 100%, 99% / 5%);
+    background: linear-gradient(
+      8deg,
+      hsl(240, 17%, 14% / 100%) 5%,
+      hsl(240, 17%, 14% / 90%) 100%
+    );
+  }
+  .navLink .bx {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 888px) {
+  .nav {
+    padding: 14px 0;
+  }
+  .home {
+    min-height: 440px;
+    margin-top: 4rem !important;
+  }
+  .home-text {
+    min-height: 25px;
+  }
+  .home-title {
+    font-size: 1.6rem;
+  }
+  .watch-btn span {
+    font-size: 0.9rem;
+  }
+  .movie-title {
+    font-size: 1rem;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 11px 0;
+  }
+  .logo {
+    font-size: 1.2rem;
+  }
+  .section {
+    padding: 2rem 0;
+  }
+
+  .homeImg {
+    object-position: left;
+  }
+  .tag span,
+  .about-movie p {
+    font-size: 0.875rem;
+  }
+}
+@media (max-width: 408px) {
+  *{
+    scroll-padding-top: 5rem;
+  }
+  .nav{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 5px;
+  }
+  .search-box{
+    max-width: 100%;
+    width: 100%;
+    border-radius: 4px;
+    order: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .home{
+    min-height: 440px;
+    margin-top: 7rem, !important;
+    
   }
 }
 

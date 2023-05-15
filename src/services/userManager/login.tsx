@@ -35,10 +35,10 @@ const login = async (credentials) => {
 
       return { status: "ok", userData };
     } else {
-      return { status: "error", data };
+      return data;
     }
   } catch (error) {
-    console.error("Error fetching genres:", error);
+    return error;
   }
 };
 

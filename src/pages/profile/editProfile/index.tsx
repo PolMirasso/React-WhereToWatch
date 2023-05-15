@@ -76,10 +76,18 @@ export const EditProfilePage = () => {
     if (newNSFWMode !== userData.user_nsfw) {
       profileManager.changeNSFW(newNSFWMode);
     }
+    setTimeout(() => {
+      history("/profile");
+    }, 1000);
   }
 
   return (
     <>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
       <br />
       <br />
       <section className="pt-16 bg-blueGray-50">
@@ -213,7 +221,7 @@ export const EditProfilePage = () => {
                   </div>
 
                   <button
-                    className="middle none center rounded-lg bg-yellow-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-yellow-500/20 transition-all hover:shadow-lg hover:shadow-yellow-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="middle w-screen none center rounded-lg bg-yellow-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-yellow-500/20 transition-all hover:shadow-lg hover:shadow-yellow-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-light="true"
                     onClick={(event) => {
                       saveChanges(event);

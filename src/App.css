@@ -228,7 +228,7 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
-@media (max-width: 768) {
+@media (max-width: 768px) {
   .nav {
     padding: 11px 0;
   }
@@ -239,7 +239,7 @@ html::-webkit-scrollbar-thumb {
     padding: 2rem 0;
   }
 
-  .home-img {
+  .homeImg {
     object-position: left;
   }
   .tag span,
@@ -383,6 +383,8 @@ a.reg:link  {
   opacity: 0;
 }
 
+
+
 .action .menu.active {
   top: 80px;
   visibility: visible;
@@ -400,7 +402,8 @@ a.reg:link  {
 }
 
 .action .menu h3 {
-  width: 100%;
+  width: 20px;
+  height: 20px;
   text-align: center;
   font-size: 18px;
   padding: 20px 0;

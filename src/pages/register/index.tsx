@@ -56,7 +56,19 @@ export const RegisterPage: React.FC<{}> = () => {
 
         history("/");
       } else {
-        setError(result.data.non_field_errors);
+        let errorMessage = null;
+
+        for (const key in result) {
+          if (result.hasOwnProperty(key)) {
+            const value = result[key];
+            if (Array.isArray(value) && value.length > 0) {
+              errorMessage = value[0];
+              break;
+            }
+          }
+        }
+
+        setError(errorMessage);
       }
     } catch (e) {
       console.log("register error:" + e);
@@ -76,9 +88,11 @@ export const RegisterPage: React.FC<{}> = () => {
           <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
           <div className="w-full px-24 z-10">
             <h1 className="text-5xl font-bold text-left tracking-wide">
-              Where
-              <span style={{ color: "var(--main-color)" }}>To</span>
-              Watch
+              <a href="/">
+                Where
+                <span style={{ color: "var(--main-color)" }}>To</span>
+                Watch
+              </a>
             </h1>
             <p className="text-3xl my-4">
               Obtén informació sobre pel·lícules o sèries.
@@ -100,9 +114,11 @@ export const RegisterPage: React.FC<{}> = () => {
           </div>
           <div className="w-full py-6 z-20">
             <h1 className="my-6" style={{ fontSize: "5em" }}>
-              <span>Where</span>
-              <span style={{ color: "var(--main-color)" }}>To</span>
-              <span>Watch</span>
+              <a href="/">
+                Where
+                <span style={{ color: "var(--main-color)" }}>To</span>
+                Watch
+              </a>
               <br />
             </h1>
             <p style={{ fontSize: "3em" }} className="text-gray-100">
@@ -192,14 +208,17 @@ export const RegisterPage: React.FC<{}> = () => {
                 </label>
               </div>
 
-              {/* <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                <a href="#">Forgot your password?</a>
-              </div> */}
               <span className="text-sm text-red-600">{error}</span>
               <div className="px-4 pb-2 pt-4">
                 <button className="uppercase block w-full p-4 text-lg rounded-full bg-yellow-500 hover:bg-yellow-600 focus:outline-none">
                   Registrar
                 </button>
+                <p className="text-3xl my-4">
+                  Ja tens compte,{" "}
+                  <a className="color text-yellow-500" href="/login">
+                    inicia sessió
+                  </a>
+                </p>
               </div>
             </form>
           </div>

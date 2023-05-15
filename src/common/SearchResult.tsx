@@ -9,7 +9,21 @@ export const SearchResult = ({ result }) => {
           href={`/serie/${result.id}`}
           className={searchresult_styles.searchResult}
         >
-          {result.original_name}
+          <div className={searchresult_styles.container}>
+            <div>
+              <img
+                className={searchresult_styles.imgList}
+                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${result.poster_path}`}
+                alt=""
+              ></img>
+            </div>
+
+            <div className={searchresult_styles.titleContainer}>
+              <div className={searchresult_styles.title}>
+                {result.original_name}
+              </div>
+            </div>
+          </div>
         </a>
       </>
     );

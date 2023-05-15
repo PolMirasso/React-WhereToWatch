@@ -357,7 +357,7 @@ function FilmList(props) {
                   className={film_styles.sliderContent}
                 >
                   <img
-                    src="https://cdn.discordapp.com/attachments/901198693489852506/1091294619679068190/Untitled-1.png"
+                    src="https://wheretowatch-vps.herokuapp.com/static/add.png"
                     alt="btn_more"
                     className={film_styles.movieImage}
                   />

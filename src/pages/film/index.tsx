@@ -5,7 +5,7 @@ import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 import moment from "moment";
-import CinemaInfo from "./CinemaInfo";
+import CinemaList from "./CinemaList";
 
 //PROPS INFO FILM
 
@@ -231,6 +231,7 @@ export const FilmPage = () => {
               alt=""
               className={film_styles.play_img_portada_no}
             />
+
             <div className={film_styles.play_text}>
               <h1>
                 {filmData?.title} ({filmData?.release_date.split("-")[0]})
@@ -239,146 +240,30 @@ export const FilmPage = () => {
             </div>
           </div>
         </div>
+
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
           <h1>Valoració:</h1>
-          <div className="rating">
-            <i className="bx bxs-star">{filmData?.vote_average}</i>
-          </div>
-          <br />
+          <i>{filmData?.vote_average}</i>
+
           <h1>Genere:</h1>
-          <br />
-          <div className="tags">
-            {filmData?.genres.map((genre) => (
-              <span key={genre.id}>
-                {" "}
-                <a href={`/#${genre.name}`}>{genre.name} </a>
-              </span>
-            ))}
-          </div>
-          <br />
+          {filmData?.genres.map((genre) => (
+            <span key={genre.id}>
+              {" "}
+              <a href={`/#${genre.name}`}>{genre.name} </a>
+            </span>
+          ))}
+
           <h1>Sinopsis:</h1>
-          <br />
-          <div className="tags">
-            <label>{filmData?.overview}</label>
-          </div>
-          <br />
+          <label>{filmData?.overview}</label>
+
           <h1>Estudis:</h1>
-          <div className="tags">
-            {filmData?.production_companies.map((production_companies) => (
-              <span key={production_companies.id}>
-                <br />· {production_companies.name}
-              </span>
-            ))}
-          </div>
-          <br />
-          <br />
-          <div className="plaltaformes"></div>
-          <button onClick={handleOpenModal} id="btn-abrir-trailer">
-            <h1>TRAILER</h1>
-          </button>
-          {showModal && (
-            <div
-              id="modal"
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 9999,
-              }}
-            >
-              <div>
-                <button
-                  onClick={handleCloseModal}
-                  id="btn_cerrar_trailer"
-                  className={`${film_styles.btn_cerrar_trailer}`}
-                ></button>
-                <p>
-                  {" "}
-                  <div className={`${film_styles.video_source}`}>
-                    <ReactPlayer
-                      url={`${filmDataVideo[0]?.video}`}
-                      width="100%"
-                      height="100%"
-                      controls
-                      playing
-                      muted
-                      loop
-                      className="react-player"
-                    />
-                  </div>
-                </p>
-              </div>
-            </div>
-          )}
-          <br />
-          <br />
-          <h1>Tarifa:</h1>
-          <br />
-          <div className={`${film_styles.providers}`}>
-            <div className={`${film_styles.providers_container}`}>
-              {filmDataProviders?.flatrate?.length ? (
-                filmDataProviders.flatrate.map((provider) => (
-                  <div key={provider.provider_id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                      alt={provider.provider_name}
-                    />
-                    <p>{provider.provider_name}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No no está disponible en ninguna plataforma.</p>
-              )}
-            </div>
-          </div>
-          <br />
-          <h1>Llogar:</h1>
-          <br />
-          <div className={`${film_styles.providers}`}>
-            <div className={`${film_styles.providers_container}`}>
-              {filmDataProviders?.rent?.length ? (
-                filmDataProviders.rent.map((provider) => (
-                  <div key={provider.provider_id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                      alt={provider.provider_name}
-                    />
-                    <p>{provider.provider_name}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No está disponible en ninguna plataforma.</p>
-              )}
-            </div>
-          </div>
-          <br />
-          <h1>Comprar:</h1>
-          <br />
-          <div className={`${film_styles.providers}`}>
-            <div className={`${film_styles.providers_container}`}>
-              {filmDataProviders?.buy?.length ? (
-                filmDataProviders.buy.map((provider) => (
-                  <div key={provider.provider_id}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                      alt={provider.provider_name}
-                    />
-                    <p>{provider.provider_name}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No está disponible en ninguna plataforma.</p>
-              )}
-            </div>
-          </div>
+          {filmData?.production_companies.map((production_companies) => (
+            <span key={production_companies.id}>
+              <br />· {production_companies.name}
+            </span>
+          ))}
 
           <FilmList
             key={"popular"}
@@ -389,17 +274,12 @@ export const FilmPage = () => {
               type: 0,
             }}
           />
-          <br />
-          <br />
 
-          <CinemaInfo
+          <CinemaList
             propsReceive={{
               title: filmData?.title,
-              filmData: filmData,
             }}
           />
-
-          <br />
         </div>
       </div>
     </>

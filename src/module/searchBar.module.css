@@ -1,13 +1,13 @@
 .searchBox {
-  max-width: 440px;
+  max-width: 540px;
   width: 100%;
   display: flex;
   align-items: center;
   column-gap: 0.7rem;
-  padding: 8px 35px;
+  padding: 5px 50px;
   background: var(--container-color);
   border-radius: 4rem;
-  margin-right: 1rem;
+  margin-right: 1.2rem;
 }
 
 .bx {
@@ -15,7 +15,7 @@
 }
 
 .searchBox .bx {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 }
 .searchBox .bx:hover {
   color: var(--main-color);

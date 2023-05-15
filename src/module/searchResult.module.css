@@ -1,11 +1,36 @@
 .searchResult {
-  padding: 10px 20px;
+  display: flex; /* add this to make the container a flexbox */
+  padding: 10px;
   text-decoration: none;
   font-size: 1.1rem;
   color: var(--text-color);
   border-radius: 0.8rem;
   width: 100%;
 }
+.container {
+  display: flex;
+
+  width: 100%;
+}
 .searchResult:hover {
   background-color: var(--main-color);
+}
+
+.imgList {
+  width: 60px;
+  height: 90px;
+  margin-right: 10px; /* change margin-left to margin-right to create space between the image and text */
+}
+.flexContainer {
+  display: flex;
+}
+.titleContainer {
+  width: 100%;
+  max-width: calc(
+    100% - 110px
+  ); /* Set the maximum width of the title container */
+}
+.title {
+  flex-grow: 1;
+  text-overflow: ellipsis;
 }

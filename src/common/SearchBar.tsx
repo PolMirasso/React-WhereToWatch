@@ -7,6 +7,7 @@ interface SearchBarProps {
 }
 interface SearchResultsProps {
   original_title: string;
+  poster_path: string;
   id: number;
 }
 
@@ -24,6 +25,7 @@ export const SearchBar = ({ setResults }: SearchBarProps) => {
           },
           body: new URLSearchParams({
             movie_name: value,
+
             language:
               navigator.language.split("-").length < 1
                 ? navigator.language

@@ -37,6 +37,13 @@ export const RegisterPage: React.FC<{}> = () => {
     try {
       if (password != repeatPassword)
         return setError("Les contrasenyes no coincideixen");
+
+      if (username === "") return setError("El nom d'usuari es obligatori");
+      if (password === "") return setError("La contrasenya és obligatòria");
+      if (repeatPassword === "")
+        return setError("La repetició de contrasenya és obligatòria");
+      if (image_profile === "")
+        return setError("La imatge de perfil es obligatoria");
       setError("");
 
       const result = await registerService.register({
@@ -46,7 +53,7 @@ export const RegisterPage: React.FC<{}> = () => {
         email,
       });
 
-      if (result.status == "ok") {
+      if (result.status == 200) {
         setUsername("");
         setPassword("");
         setRepeatPassword("");
@@ -56,6 +63,7 @@ export const RegisterPage: React.FC<{}> = () => {
 
         history("/");
       } else {
+        console.log("error");
         let errorMessage = null;
 
         for (const key in result) {
@@ -64,6 +72,8 @@ export const RegisterPage: React.FC<{}> = () => {
             if (Array.isArray(value) && value.length > 0) {
               errorMessage = value[0];
               break;
+            } else {
+              errorMessage = value;
             }
           }
         }
@@ -201,7 +211,6 @@ export const RegisterPage: React.FC<{}> = () => {
                     name="image_profile"
                     className="hidden"
                     autoComplete="none"
-                    required
                     onChange={handleFileChange}
                     defaultValue={image_profile}
                   />

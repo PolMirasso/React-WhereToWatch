@@ -8,12 +8,13 @@ import Cookies from "js-cookie";
 import ListManager from "../../services/listManager/getUserList";
 
 function FilmRecommended() {
-  interface FilmGenres {
+  interface GenresFormat {
     id: number;
     name: string;
   }
 
-  const [filmGenres, setFilmGenres] = useState<FilmGenres[]>([]);
+  const [filmGenres, setFilmGenres] = useState<GenresFormat[]>([]);
+  const [serieGenres, setSerieGenres] = useState<GenresFormat[]>([]);
 
   const [userList, setUserList] = useState([]);
 
@@ -47,9 +48,29 @@ function FilmRecommended() {
       );
       const data = await response.json();
 
-      console.log("Dades obtingudes");
-
       setFilmGenres(data["genres"]);
+    } catch (error) {
+      console.error("Error fetching genres:", error);
+    }
+    try {
+      const response = await fetch(
+        "https://wheretowatch-vps.herokuapp.com/getSeriesGenres/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            language:
+              navigator.language.split("-").length < 1
+                ? navigator.language
+                : navigator.language.split("-")[1],
+          }).toString(),
+        }
+      );
+      const data = await response.json();
+
+      setSerieGenres(data["genres"]);
     } catch (error) {
       console.error("Error fetching genres:", error);
     }
@@ -68,7 +89,7 @@ function FilmRecommended() {
         <FilmListBig
           key={"upcoming"}
           propsReceive={{
-            title: "Pelicules recients",
+            title: "Pel·lícules recients",
             url: "getUpcomingFilms/",
             genreid: 0,
           }}
@@ -81,7 +102,7 @@ function FilmRecommended() {
         <FilmList
           key={"upcoming"}
           propsReceive={{
-            title: "Pelicules recients",
+            title: "Pel·lícules recients",
             url: "getUpcomingFilms/",
             genreid: 0,
             userList: userList,
@@ -93,7 +114,7 @@ function FilmRecommended() {
         <FilmList
           key={"popular"}
           propsReceive={{
-            title: "Pelicules populars",
+            title: "Pel·lícules populars",
             url: "getPopularFilms/",
             genreid: 0,
             userList: userList,
@@ -105,7 +126,7 @@ function FilmRecommended() {
         <FilmList
           key={"valorades"}
           propsReceive={{
-            title: "Pelicules mes valorades",
+            title: "Pel·lícules mes valorades",
             url: "getTopRatedFilms/",
             genreid: 0,
             userList: userList,
@@ -113,13 +134,34 @@ function FilmRecommended() {
             methodList: 0,
           }}
         />
+        {serieGenres.length > 0 && (
+          <>
+            {serieGenres.map((genres) =>
+              genres.name !== "News" ? (
+                <FilmList
+                  key={genres.name}
+                  propsReceive={{
+                    title: "Series " + genres.name,
+                    url: "getSeriesByGenre/",
+                    genreid: genres.id,
+                    userList: userList,
+                    type: 1,
+                    methodList: 0,
+                  }}
+                />
+              ) : (
+                <></>
+              )
+            )}
+          </>
+        )}
         {filmGenres.length > 0 && (
           <>
             {filmGenres.map((genres) => (
               <FilmList
                 key={genres.name}
                 propsReceive={{
-                  title: "Pelicules " + genres.name,
+                  title: "Pel·lícules " + genres.name,
                   url: "getMoviesByGenre/",
                   genreid: genres.id,
                   userList: userList,

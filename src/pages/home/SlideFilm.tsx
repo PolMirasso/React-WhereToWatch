@@ -72,27 +72,46 @@ function SlideFilm(props) {
                     Tancar
                   </button>
                 </li>
-                {props.userList.map((listValue) => (
-                  <li className="lilist" key={listValue.list_id}>
-                    <a
-                      onClick={async (event) => {
+                {props.userList.length == 0 ? (
+                  <>
+                    <button
+                      className="boton"
+                      onClickCapture={(event) => {
                         event.preventDefault();
-
-                        try {
-                          handleOpen();
-                          setBtn_play(true);
-                          await addList.addContentList({
-                            obj_id: props.propsReceive.film_id,
-                            obj_type: props.propsReceive.type,
-                            list_id: listValue.list_id,
-                          });
-                        } catch (error) {}
+                        navigate(`/lists`);
                       }}
                     >
-                      {listValue.list_name}
-                    </a>
-                  </li>
-                ))}
+                      Llistes
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {props.userList.map((listValue) => (
+                      <li
+                        className="lilist hover:bg-slate-700 cursor-pointer"
+                        key={listValue.list_id}
+                      >
+                        <a
+                          onClick={async (event) => {
+                            event.preventDefault();
+
+                            try {
+                              handleOpen();
+                              setBtn_play(true);
+                              await addList.addContentList({
+                                obj_id: props.propsReceive.film_id,
+                                obj_type: props.propsReceive.type,
+                                list_id: listValue.list_id,
+                              });
+                            } catch (error) {}
+                          }}
+                        >
+                          {listValue.list_name}
+                        </a>
+                      </li>
+                    ))}{" "}
+                  </>
+                )}
               </ul>
             </div>
           ) : (

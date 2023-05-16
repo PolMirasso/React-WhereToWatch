@@ -71,6 +71,25 @@ function FilmList(props) {
           }
         );
         data = await response.json();
+      } else if (props.propsReceive.url == "getSeriesByGenre/") {
+        response = await fetch(
+          "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              num_page: page.toString(),
+              language:
+                navigator.language.split("-").length < 1
+                  ? navigator.language
+                  : navigator.language.split("-")[1].toLowerCase(),
+              genres_id: props.propsReceive.genreid.toString(),
+            }).toString(),
+          }
+        );
+        data = await response.json();
       } else if (props.propsReceive.url == "getSimilarMovie/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/getSimilarMovie/",
@@ -90,8 +109,6 @@ function FilmList(props) {
           }
         );
         data = await response.json();
-        console.log("data similar movies");
-        console.log(data);
       } else if (props.propsReceive.url == "getFilmTitleAndImage/") {
         if (JSON.parse(props.propsReceive.list_content).length > 0) {
           response = await fetch(
@@ -157,7 +174,6 @@ function FilmList(props) {
             data = filtered_Data;
           });
         }
-        console.log("data getFilmTitleAndImage");
       } else if (props.propsReceive.url == "getSeriesSimilars/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
@@ -172,7 +188,6 @@ function FilmList(props) {
           }
         );
         data = await response.json();
-        console.log("data getSimilarSerie");
       } else {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
@@ -210,12 +225,13 @@ function FilmList(props) {
 
   return (
     <>
-      <div className={` ${navbar_styles.container} swiper `}>
+      <div
+        className={` ${navbar_styles.container} swiper `}
+        id={props.propsReceive.title.split(" ")[1]}
+      >
         <div className={`${film_styles.wrapper} `}>
           <h2>
             <strong>
-              {/*  */}
-
               {editList ? (
                 <>
                   {" "}

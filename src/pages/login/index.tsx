@@ -13,6 +13,11 @@ export const LoginPage: React.FC<{}> = () => {
   const handleLogin = async (event: any) => {
     event.preventDefault();
 
+    if (username === "") return setError("El nom d'usuari es obligatori");
+    if (password === "") return setError("La contrasenya és obligatòria");
+
+    setError("");
+
     try {
       const result = await loginService.login({ username, password });
 
@@ -21,6 +26,7 @@ export const LoginPage: React.FC<{}> = () => {
         setPassword("");
         history("/");
       } else {
+        console.log("error");
         let errorMessage = null;
 
         for (const key in result) {
@@ -29,6 +35,8 @@ export const LoginPage: React.FC<{}> = () => {
             if (Array.isArray(value) && value.length > 0) {
               errorMessage = value[0];
               break;
+            } else {
+              errorMessage = value;
             }
           }
         }

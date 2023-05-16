@@ -229,23 +229,91 @@ export const FilmPage = () => {
             <img
               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${filmData?.poster_path}`}
               alt=""
-              className={film_styles.play_img_portada_no}
             />
+          </div>
+          <div className={film_styles.play_text}>
+            <h1>
+              {filmData?.title} ({filmData?.release_date.split("-")[0]})
+            </h1>
+            <h1>{filmData?.tagline}</h1>
 
-            <div className={film_styles.play_text}>
-              <h1>
-                {filmData?.title} ({filmData?.release_date.split("-")[0]})
-              </h1>
-              <h1>{filmData?.tagline}</h1>
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+              integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+              crossOrigin="anonymous"
+              referrerPolicy="no-referrer"
+            />
+            <div className={film_styles.trailer}>
+              <div className={film_styles.botontrailer}>
+                <div className={film_styles.trailer_text}>
+                  <i className="fas fa-play">
+                    {" "}
+                    <button onClick={handleOpenModal} id="btn-abrir-trailer">
+                      <br />{" "}
+                      <h1 className={film_styles.trailer_text}>TRAILER</h1>
+                    </button>
+                  </i>
+                </div>
+              </div>
+              {showModal && (
+                <div
+                  id="modal"
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 9999,
+                  }}
+                >
+                  <div>
+                    <button
+                      onClick={handleCloseModal}
+                      id="btn_cerrar_trailer"
+                      className={`${film_styles.btn_cerrar_trailer}`}
+                    ></button>
+                    <p>
+                      {" "}
+                      <div className={`${film_styles.video_source}`}>
+                        <ReactPlayer
+                          url={`${filmDataVideo[0]?.video}`}
+                          width="100%"
+                          height="100%"
+                          controls
+                          playing
+                          muted
+                          loop
+                          className="react-player"
+                        />
+                      </div>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div
-          className={`${film_styles.play_container} ${navbar_styles.container}`}
+          className={`${film_styles.play_container_2} ${navbar_styles.container}`}
         >
           <h1>Valoració:</h1>
-          <i>{filmData?.vote_average}</i>
+          <div className={`${film_styles.progress}`}>
+            <div
+              className={`${film_styles.progress_bar}`}
+              style={{ width: `${filmData?.vote_average * 10}%` }}
+            >
+              <span className={`${film_styles.progress_bar_text}`}>
+                {filmData?.vote_average}
+              </span>
+            </div>
+          </div>
 
           <h1>Genere:</h1>
           {filmData?.genres.map((genre) => (

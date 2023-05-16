@@ -18,7 +18,9 @@ function CinemaList(props) {
   const handleClick = () => {
     setShowSquare(false);
   };
-
+  const openMapInNewTab = (cinema) => {
+    window.open(`https://www.google.com/maps/search/${cinema}/`, "_blank");
+  };
   const today = moment().format("YYYY-MM-DD");
   //Dades tots els cinemes de cada localitat
 
@@ -110,17 +112,26 @@ function CinemaList(props) {
             {datacinema.map((cinema, index) => (
               <div key={index}>
                 <h1>{cinema.cine}</h1>
-                {cinema.hora && cinema.hora.length > 0 ? (
-                  <ul>
-                    {cinema.hora.map((horaItem, index) => (
-                      <li key={index}>·{horaItem}</li>
-                    ))}
-                  </ul>
+                <div>
+                  <h1>Mapa</h1>
+                  <button onClick={() => openMapInNewTab(cinema.cine)}>
+                    Abrir mapa en una nueva pestaña
+                  </button>
+                </div>
+                {Array.isArray(cinema.hora) && cinema.hora.length > 0 ? (
+                  <>
+                    <ul>
+                      {cinema.hora.map((horaItem, index) => (
+                        <li key={index}>{horaItem}</li>
+                      ))}
+                    </ul>
+                  </>
                 ) : (
                   <p>No hay datos de horarios disponibles para este cine.</p>
                 )}
               </div>
-            ))}
+            ))}{" "}
+            <div className={`${film_styles.map_container}`}></div>
             <button onClick={handleClick}>Tancar horari</button>
           </div>
         )}

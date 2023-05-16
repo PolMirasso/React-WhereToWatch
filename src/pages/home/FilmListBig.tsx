@@ -129,7 +129,7 @@ function FilmList(props: FilmListProps) {
             {films.map((film) => (
               <SwiperSlide key={film.film_id}>
                 <div
-                  className={`${film_styles1.play_container} ${navbar_styles.container}`}
+                  className={`${film_styles.play_container} ${navbar_styles.container}`}
                 >
                   <a
                     href={`/film/${film.film_id}`}
@@ -140,7 +140,7 @@ function FilmList(props: FilmListProps) {
                       alt="Logo"
                       className={`${film_styles.homeImg} `}
                     />
-                    <div className={`${film_styles1.play_text}`}>
+                    <div className={`${film_styles.play_text}`}>
                       <h1 className={`${film_styles.homeTitle}`}>
                         {film.title}
                       </h1>

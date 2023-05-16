@@ -65,7 +65,7 @@ export const NavBar = () => {
             <div className="w-20 shadow flex justify-center items-center">
               <div
                 onClick={handleToggle}
-                className={`relative border-b-4 border-transparent py-3 ${
+                className={`border-b-4 border-transparent py-3 ${
                   open
                     ? "border-yellow-500 transform transition duration-300"
                     : ""
@@ -234,103 +234,7 @@ export const NavBar = () => {
               </div>
             </div>
           </div>
-
-          {/* <div className={`action ${navbar_styles.action} user`}>
-            <div className={navbar_styles.userImg} onClick={handleToggle}>
-              <img
-              
-                className={navbar_styles.userImg}
-              />
-            </div> */}
-
-          {/* <div className="menu"></div> */}
-
-          {/* <div className="menu">
-              <h3>{userData ? userData.username : "User"}</h3>
-              <ul>
-                {userData && (
-                  <>
-                    <li>
-                      <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                      <a href="/profile">Perfil</a>
-                    </li>
-                    <li>
-                      <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                      <a href="/lists">Llistes</a>
-                    </li>
-                  </>
-                )}
-
-                {!userData && (
-                  <>
-                    <li>
-                      <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                      <a href="/login">Login</a>
-                    </li>
-                    <li>
-                      <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                      <a href="/register">Register</a>
-                    </li>
-                  </>
-                )}
-                {userData && (
-                  <li>
-                    <img src="https://cdn.discordapp.com/attachments/904811056520658994/1098577251102113832/settings.png" />
-                    <a onClick={logout}>Logout</a>
-                  </li>
-                )}
-              </ul>
-            </div> */}
-          {/* </div> */}
-
-          {/* <div className={navbar_styles.navbar}>
-            <a
-              href="#"
-              className={`${navbar_styles.navLink} ${navbar_styles.navActive}`}
-            >
-              <i className={navbar_styles.bx}>
-                <AiOutlineUnorderedList />
-              </i>
-              <span className={navbar_styles.navLinkTitle}>Perfil</span>
-            </a>
-            <a href="/lists" className={navbar_styles.navLink}>
-              <i className={navbar_styles.bx}>
-                <AiOutlineUnorderedList />
-              </i>
-              <span className={navbar_styles.navLinkTitle}>Llistes</span>
-            </a>
-            <a href="#" className={navbar_styles.navLink}>
-              <i className={navbar_styles.bx}>
-                <i className="fas fa-light fa-list-check"></i>
-              </i>
-              <span className={navbar_styles.navLinkTitle}>Altres</span>
-            </a>
-          </div> */}
         </div>
-
-        {/* <div className={navbar_styles.navbar}>
-          <a
-            href="#"
-            className={`${navbar_styles.navLink} ${navbar_styles.navActive}`}
-          >
-            <i className={navbar_styles.bx}>
-              <AiOutlineUnorderedList />
-            </i>
-            <span className={navbar_styles.navLinkTitle}>Perfil</span>
-          </a>
-          <a href="/lists" className={navbar_styles.navLink}>
-            <i className={navbar_styles.bx}>
-              <AiOutlineUnorderedList />
-            </i>
-            <span className={navbar_styles.navLinkTitle}>Llistes</span>
-          </a>
-          <a href="#" className={navbar_styles.navLink}>
-            <i className={navbar_styles.bx}>
-              <i className="fas fa-light fa-list-check"></i>
-            </i>
-            <span className={navbar_styles.navLinkTitle}>Altres</span>
-          </a>
-        </div> */}
       </div>
       <GoTop></GoTop>
     </>

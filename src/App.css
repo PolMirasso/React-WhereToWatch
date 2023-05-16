@@ -499,6 +499,11 @@ a.reg:link  {
   color: #6c767a;
   line-height: 1.9;
 }
+@media (max-width: 1450px) {
+  .upbtn{
+    visibility: hidden;
+  }
+}
 @media (min-width: 500px) {
   .content {
     width: 43%;

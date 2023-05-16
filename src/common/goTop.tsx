@@ -24,9 +24,9 @@ const GoTop = (props: any) => {
   const InnerGoTop = (props: any) => {
     return (
       <>
-        <div className={props.showGoTop} onClick={props.scrollUp}>
-          <button className="goTop">
-            <FiChevronUp className="goTop__text fas fa-chevron-up" />
+        <div className={`${props.showGoTop} upbtn`} onClick={props.scrollUp}>
+          <button className="goTop upbtn">
+            <FiChevronUp className="goTop__text fas fa-chevron-up upbtn" />
           </button>
         </div>
       </>

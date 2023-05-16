@@ -53,14 +53,15 @@ export const RegisterPage: React.FC<{}> = () => {
         email,
       });
 
-      if (result.status == 200) {
+      console.log(result.ok);
+
+      if (result.status === 200) {
         setUsername("");
         setPassword("");
         setRepeatPassword("");
         setFileName("");
         setImage_profile("");
         setEmail("");
-
         history("/");
       } else {
         console.log("error");

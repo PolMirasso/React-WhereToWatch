@@ -134,27 +134,29 @@ function FilmRecommended() {
             methodList: 0,
           }}
         />
-        {serieGenres.length > 0 && (
-          <>
-            {serieGenres.map((genres) =>
-              genres.name !== "News" ? (
-                <FilmList
-                  key={genres.name}
-                  propsReceive={{
-                    title: "Series " + genres.name,
-                    url: "getSeriesByGenre/",
-                    genreid: genres.id,
-                    userList: userList,
-                    type: 1,
-                    methodList: 0,
-                  }}
-                />
-              ) : (
-                <></>
-              )
-            )}
-          </>
-        )}
+        <>
+          {serieGenres.length > 0 && (
+            <>
+              {serieGenres.map((genres) =>
+                genres.name !== "Talk" && genres.name !== "News" ? (
+                  <FilmList
+                    key={genres.name}
+                    propsReceive={{
+                      title: "Series " + genres.name,
+                      url: "getSeriesByGenre/",
+                      genreid: genres.id,
+                      userList: userList,
+                      type: 1,
+                      methodList: 0,
+                    }}
+                  />
+                ) : (
+                  <React.Fragment key={genres.name} />
+                )
+              )}
+            </>
+          )}
+        </>
         {filmGenres.length > 0 && (
           <>
             {filmGenres.map((genres) => (

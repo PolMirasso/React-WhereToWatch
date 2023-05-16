@@ -35,9 +35,9 @@ const register = async (credentials) => {
       setCookie("authToken", data.token, data.expiry);
       setCookie("userData", JSON.stringify(userData), data.expiry);
 
-      return { status: "ok", userData };
+      return response;
     } else if (response.status === 400) {
-      return data;
+      return response;
     }
   } catch (error) {
     console.error("Error fetching genres:", error);

@@ -33,9 +33,9 @@ const login = async (credentials) => {
       setCookie("authToken", data.token, data.expiry);
       setCookie("userData", JSON.stringify(userData), data.expiry);
 
-      return { status: "ok", userData };
+      return response;
     } else {
-      return data;
+      return response;
     }
   } catch (error) {
     return error;

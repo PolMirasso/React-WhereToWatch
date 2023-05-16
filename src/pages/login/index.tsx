@@ -21,7 +21,7 @@ export const LoginPage: React.FC<{}> = () => {
     try {
       const result = await loginService.login({ username, password });
 
-      if (result.status == "ok") {
+      if (result.status === 200) {
         setUsername("");
         setPassword("");
         history("/");

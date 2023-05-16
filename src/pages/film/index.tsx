@@ -89,6 +89,7 @@ export const FilmPage = () => {
   let location = useLocation();
 
   const today = moment().format("YYYYMMDD");
+  const today2 = moment().format("DD / MM / YYYY");
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
   const [showModal, setShowModal] = useState(false);
@@ -303,36 +304,97 @@ export const FilmPage = () => {
         <div
           className={`${film_styles.play_container_2} ${navbar_styles.container}`}
         >
-          <h1>Valoració:</h1>
           <div className={`${film_styles.progress}`}>
             <div
               className={`${film_styles.progress_bar}`}
               style={{ width: `${filmData?.vote_average * 10}%` }}
             >
               <span className={`${film_styles.progress_bar_text}`}>
-                {filmData?.vote_average}
+                NOTA: {filmData?.vote_average}
               </span>
             </div>
           </div>
 
-          <h1>Genere:</h1>
+          <h1 className={`${film_styles.text_titles}`}>Genere:</h1>
           {filmData?.genres.map((genre) => (
             <span key={genre.id}>
               {" "}
               <a href={`/#${genre.name}`}>{genre.name} </a>
             </span>
           ))}
-
-          <h1>Sinopsis:</h1>
+          <br />
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Sinopsis:</h1>
           <label>{filmData?.overview}</label>
-
-          <h1>Estudis:</h1>
+          <br />
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Estudis:</h1>
           {filmData?.production_companies.map((production_companies) => (
             <span key={production_companies.id}>
               <br />· {production_companies.name}
             </span>
           ))}
-
+          <br />
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Tarifa:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.flatrate?.length ? (
+                filmDataProviders.flatrate.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No no está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Llogar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.rent?.length ? (
+                filmDataProviders.rent.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Comprar:</h1>
+          <br />
+          <div className={`${film_styles.providers}`}>
+            <div className={`${film_styles.providers_container}`}>
+              {filmDataProviders?.buy?.length ? (
+                filmDataProviders.buy.map((provider) => (
+                  <div key={provider.provider_id}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                      alt={provider.provider_name}
+                    />
+                    <p>{provider.provider_name}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No está disponible en ninguna plataforma.</p>
+              )}
+            </div>
+          </div>
           <FilmList
             key={"popular"}
             propsReceive={{
@@ -342,7 +404,13 @@ export const FilmPage = () => {
               type: 0,
             }}
           />
+          <br />
 
+          <h1 className={`${film_styles.provincia_text_global} text-center`}>
+            Cartelera Cinemes dia {today2}
+          </h1>
+
+          <br />
           <CinemaList
             propsReceive={{
               title: filmData?.title,

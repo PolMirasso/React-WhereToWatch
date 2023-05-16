@@ -43,6 +43,12 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+.text_titles {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffb43a;
+}
+
 .rating {
   display: flex;
   align-items: center;
@@ -60,7 +66,6 @@
 .container_no img {
   padding-top: 10%;
   padding-left: 1%;
-
   width: 250px;
   height: auto;
   margin-right: 10px;
@@ -90,6 +95,11 @@
   background: transparent;
   cursor: pointer;
 }
+.btn_cerrar_horaris {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+}
 
 .providers {
   display: flex;
@@ -105,6 +115,7 @@
 
 .provider_list img {
   max-width: 100%;
+  border-radius: 10px;
 }
 
 .provider_list p {
@@ -124,7 +135,6 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
-
 .providers_container {
   display: flex;
   flex-wrap: wrap;
@@ -148,12 +158,14 @@
   width: 120px;
   height: auto;
   margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .providers_container p {
   font-size: 14px;
   text-align: center;
 }
+
 .button {
   background-color: black;
   color: white;
@@ -184,6 +196,7 @@
   text-align: center;
   margin-bottom: 20px;
 }
+
 .season {
   display: flex;
   flex-wrap: wrap;
@@ -250,15 +263,18 @@
     width: 60%;
   }
 }
+
 .h1 {
   text-align: center;
   font-size: 30px;
 }
+
 .map_container {
   width: 300px;
   height: 200px;
   margin-bottom: 10px;
 }
+
 .progress {
   height: 35px;
   width: 100%;
@@ -273,7 +289,7 @@
   background: var(--main-color);
   display: flex;
   align-items: center;
-  transition: width 0.25s;
+  transition: width 0 0.25s;
   border-radius: 5px;
 }
 
@@ -282,6 +298,42 @@
   font-weight: bold;
   color: #000000;
 }
+
 .trailer_text {
   color: var(--main-color);
+}
+
+/* Estilos adicionales para diferenciar cada elemento mapeado */
+.providers_container > div {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.providers_container h3 {
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.provincia_text {
+  text-align: center;
+  color: var(--main-color);
+}
+.cinename {
+  background-color: var(--container-color); /* Color de fondo */
+  border-radius: 10px; /* Radio de los bordes redondeados */
+  padding: 2px; /* Espacio interno para el texto */
+  color: #ffffff; /* Color del texto principal */
+}
+.cinename2 {
+  background-color: var(--container-color);
+  border-radius: 10px;
+  color: #ffffff;
+  width: 1000px;
+  height: 40px;
+}
+.provincia_text_global {
+  font-size: 1.5rem;
 }

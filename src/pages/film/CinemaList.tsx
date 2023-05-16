@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import moment from "moment";
-
-//PROPS CINEMES PROVINCIA
+import navbar_styles from "../../module/navbar.module.css";
+// PROPS CINEMES PROVINCIA
 
 interface ProvinceData {
   [provinceName: string]: { [cityCode: number]: string };
@@ -22,7 +22,15 @@ function CinemaList(props) {
     window.open(`https://www.google.com/maps/search/${cinema}/`, "_blank");
   };
   const today = moment().format("YYYY-MM-DD");
-  //Dades tots els cinemes de cada localitat
+  // Dades tots els cinemes de cada localitat
+  const [cityDataVisible, setCityDataVisible] = useState({});
+
+  const toggleCityData = (provinceName) => {
+    setCityDataVisible((prevCityDataVisible) => ({
+      ...prevCityDataVisible,
+      [provinceName]: !prevCityDataVisible[provinceName],
+    }));
+  };
 
   async function fetchDataLocalitat() {
     try {
@@ -47,7 +55,7 @@ function CinemaList(props) {
     }
   }
 
-  //Dades totes les hores dels cinemes
+  // Dades totes les hores dels cinemes
 
   async function fetchDataCinemes(idcine) {
     try {
@@ -83,61 +91,81 @@ function CinemaList(props) {
 
   return (
     <>
-      <>
-        <div>
-          {dataListCinema &&
-            Object.entries(dataListCinema).map(([provinceName, cityData]) => {
-              if (provinceName === "film_id") {
-                return null;
-              }
-              return (
-                <div key={provinceName}>
-                  <h1>{provinceName}</h1>
-                  <br />
+      <div className="text-center">
+        {dataListCinema &&
+          Object.entries(dataListCinema).map(([provinceName, cityData]) => {
+            if (provinceName === "film_id") {
+              return null;
+            }
+            return (
+              <div key={provinceName}>
+                <br />
+                <button onClick={() => toggleCityData(provinceName)}>
+                  <h3>
+                    {cityDataVisible[provinceName] ? (
+                      <h1 className={`${film_styles.cinename2}`}>
+                        {provinceName}
+                      </h1>
+                    ) : (
+                      <h1 className={`${film_styles.cinename2}`}>
+                        {provinceName}
+                      </h1>
+                    )}
+                  </h3>
+                </button>
 
-                  {Object.entries(cityData).map(([cityCode, cityName]) => (
-                    <div key={cityCode}>
-                      <button onClick={() => fetchDataCinemes(cityCode)}>
-                        <h3>{cityName}</h3>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
-        </div>
-        {showSquare && datacinema && (
-          <div className={`${film_styles.season_content_container}`}>
-            <h1>Información de cinemes:</h1>
-            {datacinema.map((cinema, index) => (
-              <div key={index}>
-                <h1>{cinema.cine}</h1>
-                <div>
-                  <h1>Mapa</h1>
-                  <button onClick={() => openMapInNewTab(cinema.cine)}>
-                    Abrir mapa en una nueva pestaña
-                  </button>
-                </div>
-                {Array.isArray(cinema.hora) && cinema.hora.length > 0 ? (
-                  <>
-                    <ul>
-                      {cinema.hora.map((horaItem, index) => (
-                        <li key={index}>{horaItem}</li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
-                  <p>No hay datos de horarios disponibles para este cine.</p>
+                {cityDataVisible[provinceName] && (
+                  <div>
+                    {Object.entries(cityData).map(([cityCode, cityName]) => (
+                      <div key={cityCode}>
+                        <button onClick={() => fetchDataCinemes(cityCode)}>
+                          <h3>{cityName}</h3>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-            ))}{" "}
-            <div className={`${film_styles.map_container}`}></div>
-            <button onClick={handleClick}>Tancar horari</button>
-          </div>
-        )}
-      </>
+            );
+          })}
+      </div>
+      {showSquare && datacinema && (
+        <div className={`${film_styles.season_content_container} text-center`}>
+          {datacinema.map((cinema, index) => (
+            <div key={index}>
+              <button
+                className={`${film_styles.btn_cerrar_horaris}`}
+                onClick={handleClick}
+              >
+                Tancar
+              </button>
+              <h4 className={`${film_styles.cinename}`}>
+                <button onClick={() => openMapInNewTab(cinema.cine)}>
+                  <i className="fas fa-map-marker-alt"></i> {cinema.cine}
+                </button>
+              </h4>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+              ></link>
+              <br />
+              {Array.isArray(cinema.hora) && cinema.hora.length > 0 ? (
+                <>
+                  <ul>
+                    {cinema.hora.map((horaItem, index) => (
+                      <li key={index}>{horaItem}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <p>No hay datos de horarios disponibles para este cine.</p>
+              )}
+              <br />{" "}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
-
 export default CinemaList;

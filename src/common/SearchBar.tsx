@@ -69,6 +69,7 @@ export const SearchBar = ({ setResults }: SearchBarProps) => {
       <input
         type="search"
         value={input}
+        className="focus:ring-0 focus:ring-offset-0"
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Escriu per cercar..."
         name=""

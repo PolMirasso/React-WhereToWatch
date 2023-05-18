@@ -49,8 +49,6 @@ function CinemaList(props) {
       );
       const data = await response.json();
       setfilmdataListCinema(data);
-      console.log("data localitat");
-      console.log(data);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -61,7 +59,7 @@ function CinemaList(props) {
   async function fetchDataCinemes(idcine) {
     try {
       film_id_scraping = dataListCinema.film_id.toString();
-      console.log(film_id_scraping);
+
       const response = await fetch(
         "https://wheretowatch-vps.herokuapp.com/getCinemaData/",
         {
@@ -78,8 +76,7 @@ function CinemaList(props) {
       );
       const cinemadata = await response.json();
       setCinemaData(cinemadata);
-      console.log("data cinemes");
-      console.log(cinemadata);
+
       setShowSquare(true);
     } catch (error) {
       console.error("Error fetching films:", error);

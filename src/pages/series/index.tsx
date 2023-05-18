@@ -6,7 +6,8 @@ import FilmList from "../home/FilmList";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Cookies from "js-cookie";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import addList from "../../services/listManager/addContentList";
 import ListManager from "../../services/listManager/getUserList";
 
@@ -167,7 +168,6 @@ export const SeriePage = () => {
       );
       const data = await response.json();
       setSerieData(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -189,14 +189,14 @@ export const SeriePage = () => {
         }
       );
       const dataproviders = await response.json();
-      console.log("data providers");
+
       let foundObject = null;
       for (let key in dataproviders.results) {
         if (key === "ES" || key === "TW") {
           foundObject = dataproviders.results[key];
         }
       }
-      console.log(foundObject);
+
       setSerieProviders(foundObject);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -362,6 +362,11 @@ export const SeriePage = () => {
             <></>
           )}
           <br />
+          <FontAwesomeIcon icon={faArrowDown} rotation={180} />
+          &nbsp; Guarda la serie a les teves llistes
+          <br />
+          <br />
+          <br />
           <div className={`${film_styles.progress}`}>
             <div
               className={`${film_styles.progress_bar}`}
@@ -430,3 +435,4 @@ export const SeriePage = () => {
     </>
   );
 };
+//Joan TasiesF

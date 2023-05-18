@@ -12,6 +12,8 @@ import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import addList from "../../services/listManager/addContentList";
 import ListManager from "../../services/listManager/getUserList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 //PROPS INFO FILM
 
 interface FilmInfoProps {
@@ -139,7 +141,6 @@ export const FilmPage = () => {
       );
       const data = await response.json();
       setfilmData(data);
-      console.log("");
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -167,8 +168,6 @@ export const FilmPage = () => {
       );
       const datavideo = await response.json();
       setfilmDataVideo(datavideo);
-      console.log("data video");
-      console.log(datavideo);
     } catch (error) {
       console.error("Error fetching films:", error);
     }
@@ -195,14 +194,14 @@ export const FilmPage = () => {
         }
       );
       const dataproviders = await response.json();
-      console.log("data providers");
+
       let foundObject = null;
       for (let key in dataproviders.results) {
         if (key === "ES") {
           foundObject = dataproviders.results[key];
         }
       }
-      console.log(foundObject);
+
       setfilmDataProviders(foundObject);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -375,7 +374,11 @@ export const FilmPage = () => {
             </>
           ) : (
             <></>
-          )}
+          )}{" "}
+          <br />
+          <FontAwesomeIcon icon={faArrowDown} rotation={180} />
+          &nbsp; Guarda la pelicula a les teves llistes
+          <br />
           <br />
           <div className={`${film_styles.progress}`}>
             <div

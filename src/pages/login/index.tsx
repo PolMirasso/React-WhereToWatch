@@ -55,7 +55,7 @@ export const LoginPage: React.FC<{}> = () => {
           className="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
           style={{
             backgroundImage:
-              "url(https://c4.wallpaperflare.com/wallpaper/621/859/641/peliculas-terror-wallpaper-preview.jpg)",
+              "url(https://wheretowatch-vps.herokuapp.com/static/LoginBackground.jpg)",
           }}
         >
           <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -80,7 +80,7 @@ export const LoginPage: React.FC<{}> = () => {
             className="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover items-center"
             style={{
               backgroundImage:
-                "url(https://c4.wallpaperflare.com/wallpaper/621/859/641/peliculas-terror-wallpaper-preview.jpg)",
+                "url(https://wheretowatch-vps.herokuapp.com/static/LoginBackground.jpg)",
             }}
           >
             <div className="absolute bg-black opacity-60 inset-0 z-0"></div>

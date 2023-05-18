@@ -109,7 +109,7 @@ function SlideFilm(props) {
                           {listValue.list_name}
                         </a>
                       </li>
-                    ))}{" "}
+                    ))}
                   </>
                 )}
               </ul>

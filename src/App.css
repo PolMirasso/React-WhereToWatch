@@ -260,31 +260,6 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
-@media (max-width: 408px) {
-  *{
-    scroll-padding-top: 5rem;
-  }
-  .nav{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    row-gap: 5px;
-  }
-  .search-box{
-    max-width: 100%;
-    width: 100%;
-    border-radius: 4px;
-    order: 3;
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-  .home{
-    min-height: 440px;
-    margin-top: 7rem, !important;
-    
-  }
-}
-
 
 .main-links {
   display: flex;
@@ -349,17 +324,6 @@ a.reg:link  {
   background-color: var(--main-color);
 }
 
-
-
-
-
-
-
-
-
-
-
-/* ======================= */
 
 .action .profile img {
   position: absolute;

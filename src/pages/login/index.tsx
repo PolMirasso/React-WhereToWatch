@@ -126,9 +126,6 @@ export const LoginPage: React.FC<{}> = () => {
                 />
               </div>
 
-              {/* <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                <a href="#">Forgot your password?</a>
-              </div> */}
               <span className="text-sm text-red-600">{error}</span>
               <div className="px-4 pb-2 pt-4">
                 <button className="uppercase block w-full p-4 text-lg rounded-full bg-yellow-500 hover:bg-yellow-600 focus:outline-none">
@@ -146,64 +143,5 @@ export const LoginPage: React.FC<{}> = () => {
         </div>
       </div>
     </>
-
-    // <ThemeConfig>
-    //   <Container maxWidth="sm">
-    //     <Grid
-    //       container
-    //       direction="column"
-    //       alignItems="center"
-    //       justifyContent="center"
-    //       sx={{ minHeight: "100vh" }}
-    //     >
-    //       <Grid item>
-    //         <Paper sx={{ padding: "5.2em", borderRadius: "1em" }}>
-    //           <div className={film_styles.logo}>
-    //             <a href="/" className={film_styles.logo}>
-    //               W<span>T</span>W
-    //             </a>
-    //           </div>
-    //           <Typography variant="h6">
-    //             Inicia sessió per a continuar:
-    //           </Typography>
-    //           <Box component="form" onSubmit={handleLogin}>
-    //             <TextField
-    //               name="username"
-    //               margin="normal"
-    //               fullWidth
-    //               label="Username"
-    //               type="text"
-    //               sx={{ mt: 2, mb: 1.5 }}
-    //               required
-    //               value={username}
-    //               onChange={(event) => setUsername(event.target.value)}
-    //             />
-    //             <TextField
-    //               name="password"
-    //               margin="normal"
-    //               fullWidth
-    //               label="Password"
-    //               type="password"
-    //               sx={{ mt: 1.5, mb: 1.5 }}
-    //               required
-    //               value={password}
-    //               onChange={(event) => setPassword(event.target.value)}
-    //             />
-    //             <p className="error">{error}</p>
-
-    //             <Button
-    //               fullWidth
-    //               type="submit"
-    //               variant="contained"
-    //               sx={{ mt: 1.5, mb: 3 }}
-    //             >
-    //               <a className={film_styles.inicia}>Iniciar Sessió</a>
-    //             </Button>
-    //           </Box>
-    //         </Paper>
-    //       </Grid>
-    //     </Grid>
-    //   </Container>
-    // </ThemeConfig>
   );
 };

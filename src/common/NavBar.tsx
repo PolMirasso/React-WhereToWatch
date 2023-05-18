@@ -54,6 +54,7 @@ export const NavBar = () => {
           <a href="/" className={navbar_styles.logo}>
             Where<span>To</span>Watch
           </a>
+
           <div className={navbar_styles.searchBox}>
             <SearchBar setResults={setResults} />
             {results.length > 0 ? (
@@ -61,7 +62,7 @@ export const NavBar = () => {
             ) : null}
           </div>
 
-          <div className="flex">
+          <div className="ava_visflex flex">
             <div className="w-20 shadow flex justify-center items-center">
               <div
                 onClick={handleToggle}
@@ -85,7 +86,15 @@ export const NavBar = () => {
                   </div>
                 </div>
                 {open && (
-                  <div className="absolute w-60 px-5 py-3 dark:bg-zinc-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
+                  // <div className="absolute w-60 px-5 py-3 dark:bg-zinc-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
+
+                  // ava_vis
+                  <div
+                    className="absolute right-0 z-10 px-5 py-3 w-60 origin-top-right rounded-lg bg-zinc-800 shadow border dark:border-transparent mt-5 ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="menu-button"
+                  >
                     <ul className="space-y-3 dark:text-white">
                       {!userData && (
                         <>

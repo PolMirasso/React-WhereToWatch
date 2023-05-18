@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import film_styles from "../../module/filmList.module.css";
 import navbar_styles from "../..//module/navbar.module.css";
 
-import { Link } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -10,19 +9,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Scrollbar, A11y, Autoplay } from "swiper";
 
-import { AiOutlinePlusCircle } from "react-icons/ai";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { generatePath } from "react-router-dom";
 import Cookies from "js-cookie";
 import SlideFilm from "./SlideFilm";
 import deleteList from "../../services/listManager/deleteList";
 import editListName from "../../services/listManager/editListName";
 
 function FilmList(props) {
-  const navigate = useNavigate();
   interface Film {
     film_id: number;
     title: string;
@@ -31,7 +23,6 @@ function FilmList(props) {
     type: number;
   }
 
-  const urlId = location.pathname.split("/")[2];
   const [films, setFilms] = useState<Film[]>([]);
   const [page, setPage] = useState(1);
   const [btn_play, setBtn_play] = useState(true);
@@ -52,7 +43,7 @@ function FilmList(props) {
       let response;
       let data;
 
-      if (props.propsReceive.url == "getMoviesByGenre/") {
+      if (props.propsReceive.url === "getMoviesByGenre/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
           {
@@ -71,7 +62,7 @@ function FilmList(props) {
           }
         );
         data = await response.json();
-      } else if (props.propsReceive.url == "getSeriesByGenre/") {
+      } else if (props.propsReceive.url === "getSeriesByGenre/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
           {
@@ -90,7 +81,7 @@ function FilmList(props) {
           }
         );
         data = await response.json();
-      } else if (props.propsReceive.url == "getSimilarMovie/") {
+      } else if (props.propsReceive.url === "getSimilarMovie/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/getSimilarMovie/",
           {
@@ -109,7 +100,7 @@ function FilmList(props) {
           }
         );
         data = await response.json();
-      } else if (props.propsReceive.url == "getFilmTitleAndImage/") {
+      } else if (props.propsReceive.url === "getFilmTitleAndImage/") {
         if (JSON.parse(props.propsReceive.list_content).length > 0) {
           response = await fetch(
             "https://wheretowatch-vps.herokuapp.com/getFilmTitleAndImage/",
@@ -174,7 +165,7 @@ function FilmList(props) {
             data = filtered_Data;
           });
         }
-      } else if (props.propsReceive.url == "getSeriesSimilars/") {
+      } else if (props.propsReceive.url === "getSeriesSimilars/") {
         response = await fetch(
           "https://wheretowatch-vps.herokuapp.com/" + props.propsReceive.url,
           {
@@ -349,6 +340,7 @@ function FilmList(props) {
             {films.map((film) => (
               <SwiperSlide key={film.film_id}>
                 <SlideFilm
+                  key={film.film_id}
                   userList={props.propsReceive.userList}
                   propsReceive={{
                     film_id: film.film_id,
@@ -367,7 +359,7 @@ function FilmList(props) {
             ))}
 
             {props.propsReceive.render_next_page === undefined && (
-              <SwiperSlide>
+              <SwiperSlide key={"morebtn"}>
                 <a
                   onClick={incrementPage}
                   className={film_styles.sliderContent}

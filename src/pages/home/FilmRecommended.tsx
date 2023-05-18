@@ -87,7 +87,7 @@ function FilmRecommended() {
         className={`${navbar_styles.section} ${film_styles.home} ${navbar_styles.container}`}
       >
         <FilmListBig
-          key={"upcoming"}
+          key={"upcomingbig"}
           propsReceive={{
             title: "Pel·lícules recients",
             url: "getUpcomingFilms/",
@@ -110,7 +110,6 @@ function FilmRecommended() {
             methodList: 0,
           }}
         />
-
         <FilmList
           key={"popular"}
           propsReceive={{
@@ -122,7 +121,6 @@ function FilmRecommended() {
             methodList: 0,
           }}
         />
-
         <FilmList
           key={"valorades"}
           propsReceive={{
@@ -140,7 +138,7 @@ function FilmRecommended() {
               {serieGenres.map((genres) =>
                 genres.name !== "Talk" && genres.name !== "News" ? (
                   <FilmList
-                    key={genres.name}
+                    key={"series-" + genres.id}
                     propsReceive={{
                       title: "Series " + genres.name,
                       url: "getSeriesByGenre/",
@@ -151,17 +149,18 @@ function FilmRecommended() {
                     }}
                   />
                 ) : (
-                  <React.Fragment key={genres.name} />
+                  <div key={"series-" + genres.id}></div>
                 )
               )}
             </>
           )}
         </>
+        {/* error key */}
         {filmGenres.length > 0 && (
           <>
             {filmGenres.map((genres) => (
               <FilmList
-                key={genres.name}
+                key={"films-" + genres.id}
                 propsReceive={{
                   title: "Pel·lícules " + genres.name,
                   url: "getMoviesByGenre/",

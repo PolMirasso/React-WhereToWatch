@@ -22,6 +22,7 @@ function CinemaList(props) {
     window.open(`https://www.google.com/maps/search/${cinema}/`, "_blank");
   };
   const today = moment().format("YYYY-MM-DD");
+  const today2 = moment().format("DD / MM / YYYY");
   // Dades tots els cinemes de cada localitat
   const [cityDataVisible, setCityDataVisible] = useState({});
 
@@ -91,6 +92,20 @@ function CinemaList(props) {
 
   return (
     <>
+      <h1 className={`${film_styles.provincia_text_global} text-center`}>
+        {dataListCinema ? (
+          <>
+            {Object.keys(dataListCinema).length > 2 ? (
+              <>Cartelera Cinemes dia {today2}</>
+            ) : (
+              <></>
+            )}
+          </>
+        ) : (
+          <></>
+        )}
+      </h1>
+
       <div className="text-center">
         {dataListCinema &&
           Object.entries(dataListCinema).map(([provinceName, cityData]) => {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
 import navbar_styles from "../../module/navbar.module.css";
@@ -6,7 +7,11 @@ import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 import moment from "moment";
 import CinemaList from "./CinemaList";
-
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
+import addList from "../../services/listManager/addContentList";
+import ListManager from "../../services/listManager/getUserList";
 //PROPS INFO FILM
 
 interface FilmInfoProps {
@@ -86,10 +91,13 @@ interface FilmProvidersProps {
 }
 
 export const FilmPage = () => {
+  //INFO
   let location = useLocation();
-
-  const today = moment().format("YYYYMMDD");
+  const navigate = useNavigate();
   const today2 = moment().format("DD / MM / YYYY");
+  const scroller = useRef(null);
+  const urlId = location.pathname.split("/")[2];
+  //MODALS
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
   const [showModal, setShowModal] = useState(false);
@@ -101,13 +109,16 @@ export const FilmPage = () => {
   const [filmDataProviders, setfilmDataProviders] =
     useState<FilmProvidersProps>();
 
-  const urlId = location.pathname.split("/")[2];
-  const scroller = useRef(null);
+  //LLISTES:
+  const [userList, setUserList] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(!open);
+  };
 
   //Consultes al BackEnd
 
   //Dades pelicula completes
-
   async function fetchData() {
     try {
       const response = await fetch(
@@ -162,6 +173,7 @@ export const FilmPage = () => {
       console.error("Error fetching films:", error);
     }
   }
+
   //Dades tots proveidors de la pelicula
 
   async function fetchDataProviders() {
@@ -197,7 +209,12 @@ export const FilmPage = () => {
     }
   }
 
-  //SCRAPPING PROVINCIA I CINES
+  //Llistes
+  async function getList() {
+    const token = await Cookies.get("authToken");
+    let data_Recived = await ListManager.getList({ token });
+    setUserList(data_Recived["data"]);
+  }
 
   //Auto Scroll Al inici
 
@@ -211,7 +228,7 @@ export const FilmPage = () => {
     fetchData();
     fetchDataVideo();
     fetchDataProviders();
-
+    getList();
     scroller.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
@@ -304,6 +321,62 @@ export const FilmPage = () => {
         <div
           className={`${film_styles.play_container_2} ${navbar_styles.container}`}
         >
+          <AiOutlinePlusCircle
+            className={`${film_styles.bx}`}
+            onClickCapture={(event) => {
+              event.preventDefault();
+
+              if (Cookies.get("authToken") === undefined) {
+                navigate("/login");
+              } else {
+                handleOpen();
+              }
+            }}
+          ></AiOutlinePlusCircle>
+          {open ? (
+            <>
+              {" "}
+              <div className={`lista`}>
+                <ul className="ullist">
+                  <li className="lilist ">
+                    <button
+                      className="boton"
+                      onClickCapture={(event) => {
+                        event.preventDefault();
+
+                        handleOpen();
+                      }}
+                    >
+                      Tancar
+                    </button>
+                  </li>
+                  {userList.map((listValue) => (
+                    <li className="lilist" key={listValue.list_id}>
+                      <a
+                        onClick={async (event) => {
+                          event.preventDefault();
+
+                          try {
+                            handleOpen();
+                            await addList.addContentList({
+                              obj_id: urlId,
+                              obj_type: 1,
+                              list_id: listValue.list_id,
+                            });
+                          } catch (error) {}
+                        }}
+                      >
+                        {listValue.list_name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+          <br />
           <div className={`${film_styles.progress}`}>
             <div
               className={`${film_styles.progress_bar}`}
@@ -314,7 +387,6 @@ export const FilmPage = () => {
               </span>
             </div>
           </div>
-
           <h1 className={`${film_styles.text_titles}`}>Genere:</h1>
           {filmData?.genres.map((genre) => (
             <span key={genre.id}>
@@ -404,12 +476,6 @@ export const FilmPage = () => {
               type: 0,
             }}
           />
-          <br />
-
-          <h1 className={`${film_styles.provincia_text_global} text-center`}>
-            Cartelera Cinemes dia {today2}
-          </h1>
-
           <br />
           <CinemaList
             propsReceive={{

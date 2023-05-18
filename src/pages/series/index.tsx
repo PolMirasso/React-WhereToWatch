@@ -223,9 +223,21 @@ export const SeriePage = () => {
         <div
           className={`${film_styles.play_container} ${navbar_styles.container}`}
         >
-          <br />
-          <br /> <h1 className={`${film_styles.h1}`}>{serieData?.name}</h1>
-          <h1 className={`${film_styles.h1}`}>{serieData?.tagline}</h1>
+          <img
+            src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${serieData?.backdrop_path}`}
+            alt=""
+            className={film_styles.play_img}
+          />
+          <div className={film_styles.play_text_series}>
+            <h1>
+              {serieData?.name} ({serieData?.first_air_date.split("-")[0]})
+            </h1>
+            <h1>{serieData?.tagline}</h1>
+          </div>
+        </div>
+        <div
+          className={`${film_styles.play_container} ${navbar_styles.container}`}
+        >
           <div className={`${film_styles.season}`}>
             <div className={`${film_styles.season_container}`}>
               {serieData?.seasons.map((season) => (
@@ -238,34 +250,54 @@ export const SeriePage = () => {
                     />
                   </div>
                   {selectedSeasonId === season.id && (
-                    <div
-                      className={`${film_styles.overlay}`}
-                      onClick={() => handleSeasonClick(null)}
-                    >
+                    <div onClick={() => handleSeasonClick(null)}>
                       <div
                         className={`${film_styles.season_content_container}`}
                       >
-                        <div
-                          className={`${film_styles.season_details_container}`}
-                        >
-                          <div
-                            className={`${film_styles.play_container} ${navbar_styles.container}`}
-                          >
-                            <div className={film_styles.container_no}>
-                              <img
-                                src={`https://image.tmdb.org/t/p/w300/${season.poster_path}`}
-                                alt=""
-                                className={film_styles.play_img_portada_no}
-                              />
-                              <div className={film_styles.play_text}>
-                                <h1>{serieData?.name}</h1>
+                        <div className="flex font-sans">
+                          <div className="flex-none w-48 relative">
+                            <img
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${season.poster_path}`}
+                              alt=""
+                            />
+                          </div>
+                          <form className="flex-auto p-6">
+                            <div className="flex flex-wrap">
+                              <h1 className="flex-auto text-lg font-semibold text-slate-900">
+                                <h1 className={`${film_styles.text_titles}`}>
+                                  <h3>{season.name}</h3>
+                                </h1>
+                              </h1>
+                              <div className="w-full flex-none text-sm font-medium text-slate-700 mt-2">
+                                <h1 className={`${film_styles.text_titles}`}>
+                                  Sinopsis:
+                                </h1>
+                                <br />
+                                <label className={`${film_styles.text_info}`}>
+                                  {season.overview}
+                                </label>
+                                <br />
+                                <br />
+                                <div>
+                                  <h1 className={`${film_styles.text_titles}`}>
+                                    Numero d'episodis:
+                                  </h1>
+                                  <label className={`${film_styles.text_info}`}>
+                                    {season.episode_count}
+                                  </label>
+                                </div>
+                                <br />
+                                <div>
+                                  <h1 className={`${film_styles.text_titles}`}>
+                                    Data de llançament:
+                                  </h1>
+                                  <label className={`${film_styles.text_info}`}>
+                                    {season.air_date}
+                                  </label>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <h3>{season.name}</h3>
-                          <p>{season.overview}</p>
-                          <p>Number of Episodes: {season.episode_count}</p>
-                          <p>Air Date: {season.air_date}</p>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -329,12 +361,18 @@ export const SeriePage = () => {
           ) : (
             <></>
           )}
-          <h1>Valoració de la Serie:</h1>
-          <div className="rating">
-            <i className="bx bxs-star">{serieData?.vote_average}</i>
-          </div>
           <br />
-          <h1>Genere:</h1>
+          <div className={`${film_styles.progress}`}>
+            <div
+              className={`${film_styles.progress_bar}`}
+              style={{ width: `${serieData?.vote_average * 10}%` }}
+            >
+              <span className={`${film_styles.progress_bar_text}`}>
+                NOTA: {serieData?.vote_average}
+              </span>
+            </div>
+          </div>
+          <h1 className={`${film_styles.text_titles}`}>Generes:</h1>
           <br />
           <div className="tags">
             {serieData?.genres.map((genre) => (
@@ -344,12 +382,8 @@ export const SeriePage = () => {
               </span>
             ))}
           </div>
-          <h1>Genere:</h1>
-          <i className="bx bxs-star">{serieData?.number_of_episodes}</i>
-          <i className="bx bxs-star">{serieData?.number_of_seasons}</i>
-          <i className="bx bxs-star">{serieData?.status}</i>
           <br />
-          <h1>Estudis:</h1>
+          <h1 className={`${film_styles.text_titles}`}>Estudis:</h1>
           <div className="tags">
             {serieData?.production_companies.map((production_companies) => (
               <span key={production_companies.id}>
@@ -357,7 +391,8 @@ export const SeriePage = () => {
               </span>
             ))}
           </div>
-          <h1>Tarifa:</h1>
+          <br />
+          <h1 className={`${film_styles.text_titles}`}>Tarifa:</h1>
           <div className={`${film_styles.providers}`}>
             <div className={`${film_styles.providers_container}`}>
               {serieProviders?.flatrate?.length ? (

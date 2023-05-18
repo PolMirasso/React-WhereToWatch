@@ -39,6 +39,24 @@
     hsl(240 17% 14% / 14%) 44%
   );
 }
+.play_text_series {
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  background: linear-gradient(
+    8deg,
+    hsl(240 17% 14% / 74%) 14%,
+    hsl(240 17% 14% / 14%) 44%
+  );
+}
 .play_text h1 {
   font-size: 1.5rem;
   font-weight: 600;
@@ -204,7 +222,6 @@
 }
 
 .season_container {
-  padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -216,17 +233,6 @@
   margin-bottom: 30px;
 }
 
-.season_poster_container {
-  position: relative;
-}
-
-.season_poster_container img {
-  display: block;
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-}
-
 .season_content_container {
   position: fixed;
   top: 50%;
@@ -236,7 +242,7 @@
   max-height: 80%;
   overflow-y: auto;
   padding: 20px;
-  background-color: #000;
+  background-color: rgb(20, 19, 19);
   border-radius: 10px;
   color: #fff;
   z-index: 9999;
@@ -322,10 +328,10 @@
   color: var(--main-color);
 }
 .cinename {
-  background-color: var(--container-color); /* Color de fondo */
-  border-radius: 10px; /* Radio de los bordes redondeados */
-  padding: 2px; /* Espacio interno para el texto */
-  color: #ffffff; /* Color del texto principal */
+  background-color: var(--container-color);
+  border-radius: 10px;
+  padding: 2px;
+  color: #ffffff;
 }
 .cinename2 {
   background-color: var(--container-color);
@@ -334,6 +340,54 @@
   width: 1000px;
   height: 40px;
 }
+
+@media (max-width: 900px) {
+  .cinename2 {
+    width: 300px;
+    max-width: none;
+  }
+}
+@media (max-width: 768px) {
+  .cinename2 {
+    width: 300px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cinename2 {
+    width: 150px;
+    height: 30px;
+  }
+}
 .provincia_text_global {
   font-size: 1.5rem;
+}
+.posterseason {
+  padding-top: 1%;
+  padding-left: 1%;
+  max-width: 300;
+  height: auto;
+  margin-right: 10px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-container {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.text-container h1,
+.text-container p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text_info {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
 }

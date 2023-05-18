@@ -99,7 +99,7 @@ function FilmRecommended() {
       <div
         className={`${film_styles.section} ${film_styles.popular} ${film_styles.container}`}
       >
-        <FilmList
+        {/* <FilmList
           key={"upcoming"}
           propsReceive={{
             title: "Pel·lícules recients",
@@ -109,7 +109,7 @@ function FilmRecommended() {
             type: 0,
             methodList: 0,
           }}
-        />
+        /> */}
         <FilmList
           key={"popular"}
           propsReceive={{

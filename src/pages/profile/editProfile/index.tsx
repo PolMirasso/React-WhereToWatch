@@ -5,7 +5,13 @@ import Cookies from "js-cookie";
 import profileManager from "../../../services/profileManager/profileManager";
 
 export const EditProfilePage = () => {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    username: "User",
+    image_profile:
+      "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png",
+    description: "",
+    user_nsfw: false,
+  });
 
   const [newImageRender, setNewImageRender] = useState(null);
   const [newImage, setNewImage] = useState(null);

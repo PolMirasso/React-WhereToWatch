@@ -13,7 +13,13 @@ import GoTop from "./goTop";
 
 export const NavBar = () => {
   const [results, setResults] = useState([]);
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({
+    username: "User",
+    image_profile:
+      "https://wheretowatch-vps.herokuapp.com/static/defaultImageProfile.png",
+    description: "",
+    user_nsfw: false,
+  });
   const history = useNavigate();
 
   // function toggleMenu() {

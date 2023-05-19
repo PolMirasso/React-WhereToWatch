@@ -57,7 +57,7 @@ function SlideFilm(props) {
           }}
         >
           {open ? (
-            <div className={`lista`}>
+            <div className={`lista bg-gray-800 scrollbar-hide`}>
               <ul className="ullist">
                 <li className="lilist ">
                   <button

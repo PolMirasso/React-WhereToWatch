@@ -306,18 +306,22 @@ export const SeriePage = () => {
               ))}
             </div>
           </div>
-          <AiOutlinePlusCircle
-            className={`${film_styles.bx}`}
-            onClickCapture={(event) => {
-              event.preventDefault();
+          <div className="flex items-center">
+            <AiOutlinePlusCircle
+              className={`${film_styles.bx} text-2xl`} // Ajusta el tamaño del ícono aquí
+              onClickCapture={(event) => {
+                event.preventDefault();
 
-              if (Cookies.get("authToken") === undefined) {
-                navigate("/login");
-              } else {
-                handleOpen();
-              }
-            }}
-          ></AiOutlinePlusCircle>
+                if (Cookies.get("authToken") === undefined) {
+                  navigate("/login");
+                } else {
+                  handleOpen();
+                }
+              }}
+            />
+            <span className="ml-2">Agregar a llistes</span>
+          </div>
+
           {open ? (
             <>
               {" "}
@@ -361,11 +365,6 @@ export const SeriePage = () => {
           ) : (
             <></>
           )}
-          <br />
-          <FontAwesomeIcon icon={faArrowDown} rotation={180} />
-          &nbsp; Guarda la serie a les teves llistes
-          <br />
-          <br />
           <br />
           <div className={`${film_styles.progress}`}>
             <div

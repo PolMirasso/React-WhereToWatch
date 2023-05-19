@@ -2,18 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import film_styles from "../../module/filmpage.module.css";
+import filmPoster_styles from "../../module/filmList.module.css";
 import navbar_styles from "../../module/navbar.module.css";
 import ReactPlayer from "react-player";
 import FilmList from "../home/FilmList";
 import moment from "moment";
 import CinemaList from "./CinemaList";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import addList from "../../services/listManager/addContentList";
+import removeList from "../../services/listManager/removeContentList";
 import ListManager from "../../services/listManager/getUserList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import SlideFilm from "../home/SlideFilm";
 //PROPS INFO FILM
 
 interface FilmInfoProps {
@@ -112,6 +116,8 @@ export const FilmPage = () => {
     useState<FilmProvidersProps>();
 
   //LLISTES:
+
+  const [btn_play, setBtn_play] = useState(true);
   const [userList, setUserList] = useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -239,13 +245,20 @@ export const FilmPage = () => {
         >
           <img
             src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${filmData?.backdrop_path}`}
-            alt=""
             className={film_styles.play_img}
           />
           <div className={film_styles.container_no}>
-            <img
-              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${filmData?.poster_path}`}
-              alt=""
+            <SlideFilm
+              key={urlId}
+              userList={userList}
+              propsReceive={{
+                film_id: urlId,
+                title: filmData?.title,
+                poster_path: `https://image.tmdb.org/t/p/w600_and_h900_bestv2${filmData?.poster_path}`,
+                vote_average: 0,
+                type: 0,
+                methodList: 0,
+              }}
             />
           </div>
           <div className={film_styles.play_text}>
@@ -265,9 +278,7 @@ export const FilmPage = () => {
               <div className={film_styles.botontrailer}>
                 <div className={film_styles.trailer_text}>
                   <i className="fas fa-play">
-                    {" "}
                     <button onClick={handleOpenModal} id="btn-abrir-trailer">
-                      <br />{" "}
                       <h1 className={film_styles.trailer_text}>TRAILER</h1>
                     </button>
                   </i>
@@ -320,66 +331,6 @@ export const FilmPage = () => {
         <div
           className={`${film_styles.play_container_2} ${navbar_styles.container}`}
         >
-          <AiOutlinePlusCircle
-            className={`${film_styles.bx}`}
-            onClickCapture={(event) => {
-              event.preventDefault();
-
-              if (Cookies.get("authToken") === undefined) {
-                navigate("/login");
-              } else {
-                handleOpen();
-              }
-            }}
-          ></AiOutlinePlusCircle>
-          {open ? (
-            <>
-              {" "}
-              <div className={`lista`}>
-                <ul className="ullist">
-                  <li className="lilist ">
-                    <button
-                      className="boton"
-                      onClickCapture={(event) => {
-                        event.preventDefault();
-
-                        handleOpen();
-                      }}
-                    >
-                      Tancar
-                    </button>
-                  </li>
-                  {userList.map((listValue) => (
-                    <li className="lilist" key={listValue.list_id}>
-                      <a
-                        onClick={async (event) => {
-                          event.preventDefault();
-
-                          try {
-                            handleOpen();
-                            await addList.addContentList({
-                              obj_id: urlId,
-                              obj_type: 1,
-                              list_id: listValue.list_id,
-                            });
-                          } catch (error) {}
-                        }}
-                      >
-                        {listValue.list_name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
-          ) : (
-            <></>
-          )}{" "}
-          <br />
-          <FontAwesomeIcon icon={faArrowDown} rotation={180} />
-          &nbsp; Guarda la pelicula a les teves llistes
-          <br />
-          <br />
           <div className={`${film_styles.progress}`}>
             <div
               className={`${film_styles.progress_bar}`}
@@ -390,6 +341,7 @@ export const FilmPage = () => {
               </span>
             </div>
           </div>
+
           <h1 className={`${film_styles.text_titles}`}>Genere:</h1>
           {filmData?.genres.map((genre) => (
             <span key={genre.id}>

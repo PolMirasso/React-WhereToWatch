@@ -8,7 +8,6 @@ import checkToken from "./services/userManager/verifyToken";
 
 function App() {
   async function tokenCheck() {
-    console.log("calling");
     const token = await Cookies.get("authToken");
     if (token) {
       await checkToken.checkToken({ token });

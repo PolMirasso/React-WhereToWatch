@@ -14,7 +14,7 @@ const checkToken = async (credentials: any) => {
       }
     );
 
-    const data = await response.json();
+    await response.json();
 
     if (response.status === 401) {
       Cookies.remove("authToken");

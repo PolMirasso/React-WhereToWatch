@@ -336,7 +336,9 @@ export const FilmPage = () => {
               className={`${film_styles.progress_bar}`}
               style={{ width: `${filmData?.vote_average * 10}%` }}
             >
-              <span className={`${film_styles.progress_bar_text}`}>
+              <span
+                className={`${film_styles.progress_bar_text} whitespace-nowrap`}
+              >
                 NOTA: {filmData?.vote_average}
               </span>
             </div>

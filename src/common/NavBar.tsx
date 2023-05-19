@@ -9,10 +9,12 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 import GoTop from "./goTop";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 // import userService from "../services/userManager/userService";
 
 export const NavBar = () => {
   const [results, setResults] = useState([]);
+  const [userLogged, setUserLogged] = useState(false);
   const [userData, setUserData] = useState({
     username: "User",
     image_profile:
@@ -32,6 +34,7 @@ export const NavBar = () => {
 
     if (userData) {
       const parsedObject = JSON.parse(userData);
+      setUserLogged(true);
       return setUserData(parsedObject);
     }
     return;
@@ -92,9 +95,6 @@ export const NavBar = () => {
                   </div>
                 </div>
                 {open && (
-                  // <div className="absolute w-60 px-5 py-3 dark:bg-zinc-800 bg-white rounded-lg shadow border dark:border-transparent mt-5">
-
-                  // ava_vis
                   <div
                     className="absolute right-0 z-10 px-5 py-3 w-60 origin-top-right rounded-lg bg-zinc-800 shadow border dark:border-transparent mt-5 ring-opacity-5 focus:outline-none"
                     role="menu"
@@ -102,7 +102,7 @@ export const NavBar = () => {
                     aria-labelledby="menu-button"
                   >
                     <ul className="space-y-3 dark:text-white">
-                      {!userData && (
+                      {!userLogged && (
                         <>
                           <li className="font-medium">
                             <a
@@ -154,7 +154,7 @@ export const NavBar = () => {
                           </li>
                         </>
                       )}
-                      {userData && (
+                      {userLogged && (
                         <>
                           <li className="font-medium">
                             <a
@@ -163,24 +163,14 @@ export const NavBar = () => {
                             >
                               <div className="mr-3">
                                 <svg
-                                  className="w-6 h-6"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-person"
+                                  viewBox="0 0 16 16"
                                 >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                                  ></path>
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                  ></path>
+                                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
                                 </svg>
                               </div>
                               Perfil
@@ -193,29 +183,23 @@ export const NavBar = () => {
                             >
                               <div className="mr-3">
                                 <svg
-                                  className="w-6 h-6"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-list"
+                                  viewBox="0 0 16 16"
                                 >
                                   <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
+                                    fill-rule="evenodd"
                                     d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                                  ></path>
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                  ></path>
+                                  />
                                 </svg>
                               </div>
                               Llistes
                             </a>
                           </li>
+
                           <hr className="dark:border-gray-700" />
                           <li className="font-medium">
                             <a
@@ -224,18 +208,21 @@ export const NavBar = () => {
                             >
                               <div className="mr-3 text-red-600">
                                 <svg
-                                  className="w-6 h-6"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
                                   xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="currentColor"
+                                  className="bi bi-box-arrow-right"
+                                  viewBox="0 0 16 16"
                                 >
                                   <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                                  ></path>
+                                    fill-rule="evenodd"
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                                  />
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                                  />
                                 </svg>
                               </div>
                               Logout

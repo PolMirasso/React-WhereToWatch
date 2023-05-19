@@ -11,11 +11,23 @@ export const SearchResult = ({ result }) => {
         >
           <div className={searchresult_styles.container}>
             <div>
-              <img
-                className={searchresult_styles.imgList}
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${result.poster_path}`}
-                alt=""
-              ></img>
+              {result.poster_path ? (
+                <>
+                  <img
+                    className={searchresult_styles.imgList}
+                    src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${result.poster_path}`}
+                    alt=""
+                  ></img>
+                </>
+              ) : (
+                <>
+                  <img
+                    className={searchresult_styles.imgList}
+                    src={`https://wheretowatch-vps.herokuapp.com/static/noImage.png`}
+                    alt=""
+                  ></img>
+                </>
+              )}
             </div>
 
             <div className={searchresult_styles.titleContainer}>

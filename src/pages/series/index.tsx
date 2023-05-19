@@ -129,8 +129,6 @@ export const SeriePage = () => {
     setUserList(data_Recived["data"]);
   }
 
-  const [page, setPage] = useState(1);
-
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => setShowModal(true);
@@ -167,6 +165,7 @@ export const SeriePage = () => {
         }
       );
       const data = await response.json();
+      console.log(data);
       setSerieData(data);
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -244,7 +243,9 @@ export const SeriePage = () => {
                 <div key={season.id}>
                   <div className={`${film_styles.season_poster_container}`}>
                     <img
-                      src={`https://image.tmdb.org/t/p/w300/${season.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${
+                        season.poster_path || serieData?.backdrop_path
+                      }`}
                       alt={`Season ${season.season_number} poster`}
                       onClick={() => handleSeasonClick(season.id)}
                     />
@@ -257,16 +258,18 @@ export const SeriePage = () => {
                         <div className="flex font-sans">
                           <div className="flex-none w-48 relative">
                             <img
-                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${season.poster_path}`}
+                              src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${
+                                season.poster_path || serieData?.backdrop_path
+                              }`}
                               alt=""
                             />
                           </div>
                           <form className="flex-auto p-6">
                             <div className="flex flex-wrap">
                               <h1 className="flex-auto text-lg font-semibold text-slate-900">
-                                <h1 className={`${film_styles.text_titles}`}>
-                                  <h3>{season.name}</h3>
-                                </h1>
+                                <h3 className={`${film_styles.text_titles}`}>
+                                  {season.name}
+                                </h3>
                               </h1>
                               <div className="w-full flex-none text-sm font-medium text-slate-700 mt-2">
                                 <h1 className={`${film_styles.text_titles}`}>

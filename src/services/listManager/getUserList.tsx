@@ -15,8 +15,6 @@ const getList = async (credentials) => {
     if (response.ok) {
       return { status: "ok", data };
     } else {
-      console.log("error get list");
-      console.log(data);
       return { status: "error", data };
     }
   } catch (error) {

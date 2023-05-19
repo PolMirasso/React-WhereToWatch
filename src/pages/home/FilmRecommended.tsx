@@ -132,33 +132,36 @@ function FilmRecommended() {
             methodList: 0,
           }}
         />
-        <>
-          {serieGenres.length > 0 && (
-            <>
-              {serieGenres.map((genres) =>
-                genres.name !== "Talk" && genres.name !== "News" ? (
+        {serieGenres.length > 0 && filmGenres.length > 0 && (
+          <>
+            {serieGenres.map((genres, index) => (
+              <React.Fragment key={"series-" + genres.id}>
+                <FilmList
+                  propsReceive={{
+                    title: "Series " + genres.name,
+                    url: "getSeriesByGenre/",
+                    genreid: genres.id,
+                    userList: userList,
+                    type: 1,
+                    methodList: 0,
+                  }}
+                />
+                {filmGenres[index] && (
                   <FilmList
-                    key={"series-" + genres.id}
                     propsReceive={{
-                      title: "Series " + genres.name,
-                      url: "getSeriesByGenre/",
-                      genreid: genres.id,
+                      title: "Pel·lícules " + filmGenres[index].name,
+                      url: "getMoviesByGenre/",
+                      genreid: filmGenres[index].id,
                       userList: userList,
-                      type: 1,
+                      type: 0,
                       methodList: 0,
                     }}
                   />
-                ) : (
-                  <div key={"series-" + genres.id}></div>
-                )
-              )}
-            </>
-          )}
-        </>
-        {/* error key */}
-        {filmGenres.length > 0 && (
-          <>
-            {filmGenres.map((genres) => (
+                )}
+              </React.Fragment>
+            ))}
+
+            {filmGenres.slice(serieGenres.length).map((genres) => (
               <FilmList
                 key={"films-" + genres.id}
                 propsReceive={{

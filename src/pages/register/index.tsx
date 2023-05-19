@@ -23,7 +23,6 @@ export const RegisterPage: React.FC<{}> = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(event.target.files);
     setImage_profile(event.target.files[0]);
     setFileName(file.name);
   };
@@ -52,8 +51,6 @@ export const RegisterPage: React.FC<{}> = () => {
         image_profile,
         email,
       });
-
-      console.log(result.ok);
 
       if (result.status === 200) {
         setUsername("");
@@ -124,7 +121,7 @@ export const RegisterPage: React.FC<{}> = () => {
             <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
           </div>
           <div className="w-full py-6 z-20">
-            <h1 className="my-6" style={{ fontSize: "5em" }}>
+            <h1 className="my-6" style={{ fontSize: "4em" }}>
               <a href="/">
                 Where
                 <span style={{ color: "var(--main-color)" }}>To</span>

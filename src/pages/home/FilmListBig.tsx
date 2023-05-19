@@ -61,8 +61,6 @@ function FilmList(props: FilmListProps) {
 
       const data = await response.json();
 
-      console.log("peticio titol:" + props.propsReceive.title);
-
       setFilms(data); // Add the films from the current page to the existing films state
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -87,10 +85,6 @@ function FilmList(props: FilmListProps) {
         }
       );
       const data = await response.json();
-
-      console.log("Dades generes obtingudes");
-
-      console.log(data);
 
       setFilmGenres(data["genres"]);
     } catch (error) {

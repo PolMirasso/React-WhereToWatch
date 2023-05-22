@@ -23,8 +23,22 @@ export const RegisterPage: React.FC<{}> = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setImage_profile(event.target.files[0]);
-    setFileName(file.name);
+    const allowedExtensions = ["png", "jpg", "jpeg"];
+
+    if (file) {
+      const extension = file.name.split(".").pop().toLowerCase();
+
+      if (!allowedExtensions.includes(extension)) {
+        setError("Format de fitxer no vàlid. Pengeu una imatge PNG o JPG.");
+        setImage_profile(null);
+        setFileName("");
+        return;
+      }
+
+      setImage_profile(file);
+      setFileName(file.name);
+      setError("");
+    }
   };
 
   const handleRegister = async (event: any) => {

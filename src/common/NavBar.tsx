@@ -24,10 +24,21 @@ export const NavBar = () => {
   });
   const history = useNavigate();
 
-  // function toggleMenu() {
-  //   const toggleMenu = document.querySelector(".menu");
-  //   toggleMenu?.classList.toggle("active");
-  // }
+  const handleLogin = () => {
+    history("/login");
+  };
+
+  const handleRegister = () => {
+    history("/register");
+  };
+
+  const handleProfile = () => {
+    history("/profile");
+  };
+
+  const handleLists = () => {
+    history("/lists");
+  };
 
   async function getUserData() {
     const userData = Cookies.get("userData");
@@ -106,7 +117,7 @@ export const NavBar = () => {
                         <>
                           <li className="font-medium">
                             <a
-                              href="/login"
+                              onClick={handleLogin}
                               className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-yellow-600"
                             >
                               <div className="mr-3">
@@ -130,7 +141,7 @@ export const NavBar = () => {
                           </li>
                           <li className="font-medium">
                             <a
-                              href="/register"
+                              onClick={handleRegister}
                               className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-yellow-600"
                             >
                               <div className="mr-3">
@@ -158,7 +169,7 @@ export const NavBar = () => {
                         <>
                           <li className="font-medium">
                             <a
-                              href="/profile"
+                              onClick={handleProfile}
                               className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-yellow-600"
                             >
                               <div className="mr-3">
@@ -178,7 +189,7 @@ export const NavBar = () => {
                           </li>
                           <li className="font-medium">
                             <a
-                              href="/lists"
+                              onClick={handleLists}
                               className="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-yellow-600"
                             >
                               <div className="mr-3">

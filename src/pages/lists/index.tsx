@@ -50,6 +50,8 @@ export const ListPage: React.FC = () => {
       <br />
       <br />
       <br />
+      <br />
+      <br />
       <div className={`${film_styles.section}  ${navbar_styles.container}`}>
         <form onSubmit={handleLogin}>
           <div className="mb-6">

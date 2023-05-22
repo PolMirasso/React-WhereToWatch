@@ -36,8 +36,21 @@ export const EditProfilePage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    const allowedExtensions = ["png", "jpg", "jpeg"];
+
     if (file) {
+      const extension = file.name.split(".").pop().toLowerCase();
+
+      if (!allowedExtensions.includes(extension)) {
+        setError("Format de fitxer no vàlid. Pengeu una imatge PNG o JPG.");
+        setNewImage(null);
+        setNewImageRender("");
+        return;
+      }
+
       setNewImage(file);
+      setError("");
+
       const reader = new FileReader();
       reader.onload = () => {
         setNewImageRender(reader.result);

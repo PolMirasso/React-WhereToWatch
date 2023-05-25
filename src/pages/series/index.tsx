@@ -220,12 +220,11 @@ export const SeriePage = () => {
     <>
       <div ref={scroller}>
         <div
-          className={`${film_styles.play_container} ${navbar_styles.container}`}
+          className={`${film_styles.play_container_top} ${navbar_styles.container}`}
         >
           <img
             src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${serieData?.backdrop_path}`}
             alt=""
-            className={film_styles.play_img}
           />
           <div className={film_styles.play_text_series}>
             <h1>
@@ -235,7 +234,7 @@ export const SeriePage = () => {
           </div>
         </div>
         <div
-          className={`${film_styles.play_container} ${navbar_styles.container}`}
+          className={`${film_styles.play_container_bot} ${navbar_styles.container}`}
         >
           <div className={`${film_styles.season}`}>
             <div className={`${film_styles.season_container}`}>
@@ -252,6 +251,10 @@ export const SeriePage = () => {
                   </div>
                   {selectedSeasonId === season.id && (
                     <div onClick={() => handleSeasonClick(null)}>
+                      <button
+                        id="btn_cerrar_trailer"
+                        className={`${film_styles.btn_cerrar_season}`}
+                      ></button>
                       <div
                         className={`${film_styles.season_content_container}`}
                       >

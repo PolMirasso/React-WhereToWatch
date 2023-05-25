@@ -5,9 +5,13 @@
   --container-color: #2d2e37;
   --text-color: #fcfeff;
 }
-.play_container {
+.play_container_top {
   position: relative;
   margin-top: 5rem !important;
+}
+.play_container_bot {
+  position: relative;
+  margin-top: 2rem !important;
 }
 .play_container_2 {
   position: relative;
@@ -38,6 +42,7 @@
   );
 }
 .play_text_series {
+  margin-top: 10%;
   position: absolute;
   bottom: 0;
   left: 0%;
@@ -109,10 +114,25 @@
   cursor: pointer;
 }
 .btn_cerrar_horaris {
-  position: sticky;
-  padding-bottom: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: transparent;
+  cursor: pointer;
 }
-
+.btn_cerrar_season {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: transparent;
+  cursor: pointer;
+}
 .providers {
   display: flex;
   flex-wrap: wrap;
@@ -228,6 +248,7 @@
 }
 
 .season_content_container {
+  margin-top: 20%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -239,7 +260,7 @@
   background-color: rgb(20, 19, 19);
   border-radius: 10px;
   color: #fff;
-  z-index: 9999;
+  z-index: 99;
 }
 
 .season_details_container {
@@ -277,6 +298,29 @@
   }
   .play_container_2 {
     padding-top: 30px;
+  }
+  .play_container_top {
+    position: relative;
+    margin-top: 10rem !important;
+  }
+  .play_text_series {
+    margin-top: 10%;
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    font-size: 1rem;
+    font-weight: bold;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    background: linear-gradient(
+      8deg,
+      hsl(240 17% 14% / 74%) 14%,
+      hsl(240 17% 14% / 14%) 44%
+    );
   }
 }
 @media (max-width: 410px) {

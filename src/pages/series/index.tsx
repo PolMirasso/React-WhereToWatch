@@ -251,10 +251,6 @@ export const SeriePage = () => {
                   </div>
                   {selectedSeasonId === season.id && (
                     <div onClick={() => handleSeasonClick(null)}>
-                      <button
-                        id="btn_cerrar_trailer"
-                        className={`${film_styles.btn_cerrar_season}`}
-                      ></button>
                       <div
                         className={`${film_styles.season_content_container}`}
                       >
@@ -268,7 +264,7 @@ export const SeriePage = () => {
                               alt=""
                             />
                           </div>
-                          <form className="flex-auto p-6">
+                          <form className="flex-auto pl-10">
                             <div className="flex flex-wrap">
                               <h1 className="flex-auto text-lg font-semibold text-slate-900">
                                 <h3 className={`${film_styles.text_titles}`}>

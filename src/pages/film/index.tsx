@@ -315,7 +315,6 @@ export const FilmPage = () => {
                           height="100%"
                           controls
                           playing
-                          muted
                           loop
                           className="react-player"
                         />

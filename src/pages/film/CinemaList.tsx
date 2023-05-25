@@ -143,14 +143,14 @@ function CinemaList(props) {
       </div>
       {showSquare && datacinema && (
         <div className={`${film_styles.season_content_container} text-center`}>
+          <button
+            className={`${film_styles.btn_cerrar_horaris}`}
+            onClick={handleClick}
+          >
+            Tancar
+          </button>
           {datacinema.map((cinema, index) => (
             <div key={index}>
-              <button
-                className={`${film_styles.btn_cerrar_horaris}`}
-                onClick={handleClick}
-              >
-                Tancar
-              </button>
               <h4 className={`${film_styles.cinename}`}>
                 <button onClick={() => openMapInNewTab(cinema.cine)}>
                   <i className="fas fa-map-marker-alt"></i> {cinema.cine}

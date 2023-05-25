@@ -255,9 +255,10 @@ export const SeriePage = () => {
                       <div
                         className={`${film_styles.season_content_container}`}
                       >
-                        <div className="flex font-sans">
-                          <div className="flex-none w-48 relative">
+                        <div className="flex flex-col items-cente md:flex-row md:max-w-xl">
+                          <div className="flex-none w-48 relative min-sm:flex">
                             <img
+                              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                               src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${
                                 season.poster_path || serieData?.backdrop_path
                               }`}

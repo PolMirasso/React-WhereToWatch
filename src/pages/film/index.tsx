@@ -241,7 +241,7 @@ export const FilmPage = () => {
     <>
       <div ref={scroller}>
         <div
-          className={`${film_styles.play_container} ${navbar_styles.container}`}
+          className={`${film_styles.play_container_top} ${navbar_styles.container}`}
         >
           <img
             src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${filmData?.backdrop_path}`}

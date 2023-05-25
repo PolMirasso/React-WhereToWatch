@@ -265,39 +265,37 @@ export const SeriePage = () => {
                             />
                           </div>
                           <form className="flex-auto pl-10">
-                            <div className="flex flex-wrap">
-                              <h1 className="flex-auto text-lg font-semibold text-slate-900">
-                                <h3 className={`${film_styles.text_titles}`}>
-                                  {season.name}
-                                </h3>
+                            <h1 className="flex-auto text-lg font-semibold text-slate-900">
+                              <h3 className={`${film_styles.text_titles}`}>
+                                {season.name}
+                              </h3>
+                            </h1>
+                            <div className="w-full flex-none text-sm font-medium text-slate-900 mt-2">
+                              <h1 className={`${film_styles.text_titles}`}>
+                                Sinopsis:
                               </h1>
-                              <div className="w-full flex-none text-sm font-medium text-slate-700 mt-2">
+                              <br />
+                              <label className={`${film_styles.text_info}`}>
+                                {season.overview}
+                              </label>
+                              <br />
+                              <br />
+                              <div>
                                 <h1 className={`${film_styles.text_titles}`}>
-                                  Sinopsis:
+                                  Numero d'episodis:
                                 </h1>
-                                <br />
                                 <label className={`${film_styles.text_info}`}>
-                                  {season.overview}
+                                  {season.episode_count}
                                 </label>
-                                <br />
-                                <br />
-                                <div>
-                                  <h1 className={`${film_styles.text_titles}`}>
-                                    Numero d'episodis:
-                                  </h1>
-                                  <label className={`${film_styles.text_info}`}>
-                                    {season.episode_count}
-                                  </label>
-                                </div>
-                                <br />
-                                <div>
-                                  <h1 className={`${film_styles.text_titles}`}>
-                                    Data de llançament:
-                                  </h1>
-                                  <label className={`${film_styles.text_info}`}>
-                                    {season.air_date}
-                                  </label>
-                                </div>
+                              </div>
+                              <br />
+                              <div>
+                                <h1 className={`${film_styles.text_titles}`}>
+                                  Data de llançament:
+                                </h1>
+                                <label className={`${film_styles.text_info}`}>
+                                  {season.air_date}
+                                </label>
                               </div>
                             </div>
                           </form>

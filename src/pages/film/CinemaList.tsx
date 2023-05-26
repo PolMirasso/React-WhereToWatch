@@ -141,13 +141,16 @@ function CinemaList(props) {
             );
           })}
       </div>
+      <button
+        onClick={handleClick}
+        id="btn_cerrar_trailer"
+        className={`${film_styles.btn_cerrar_horaris} ${
+          showSquare ? "" : "hidden"
+        }`}
+        style={{ zIndex: showSquare ? "1" : "-1" }}
+      ></button>
       {showSquare && datacinema && (
         <div className={`${film_styles.season_content_container} text-center`}>
-          <button
-            onClick={handleClick}
-            id="btn_cerrar_trailer"
-            className={`${film_styles.btn_cerrar_horaris}`}
-          ></button>
           {datacinema.map((cinema, index) => (
             <div key={index}>
               <h4 className={`${film_styles.cinename}`}>
